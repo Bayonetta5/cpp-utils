@@ -1,4 +1,4 @@
-std-adds
+cpp-utils
 ========
 
-add some usefull functions to std namespace
+add some usefull missing functions of stl.
