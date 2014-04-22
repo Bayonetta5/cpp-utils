@@ -1,6 +1,8 @@
-#include <harpe-sort-learning/std.hpp>
+#include <String.hpp>
 
-namespace std
+namespace utils
+{
+namespace string
 {
     std::vector<std::string> split(const std::string& string, const std::string& del)
     {
@@ -30,4 +32,5 @@ namespace std
             i += replace.length() - find.length() + 1;
         }
     }
+}
 }

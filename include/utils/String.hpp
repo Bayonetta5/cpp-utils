@@ -1,12 +1,14 @@
-#ifndef STD_STD_HPP
-#define STD_STD_HPP
+#ifndef UTILS_STRING_HPP
+#define UTILS_STRING_HPP
 
 #include <string>
 #include <vector>
 
-namespace std
+namespace utils
 {
-    /**
+namespace string
+{
+        /**
      * \brief split a string in multiple sub string
      * \param string base to split
      * \param del the delemiteur
@@ -23,8 +25,8 @@ namespace std
      * \brief like the python join
      */
     template<typename T>
-    std::string join(const std::string& del,const std::vector<T>& datas);
-
+    std::string join(const std::string& del,const std::vector<T>& datas,bool reverse=false);
 }
-#include <harpe-sort-learning/std.tpl>
+}
+#include <utils/String.tpl>
 #endif
