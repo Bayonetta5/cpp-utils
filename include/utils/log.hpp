@@ -64,6 +64,8 @@ namespace log
     template <typename ... Args>
     void log(LOG_LVL lvl,Args&& ... args);
 
+    std::ostream& time(std::ostream& output);
+
     /**
      * \brief change the text format
      */
@@ -187,6 +189,7 @@ namespace log
         std::ostream& reset(std::ostream& output);
 
     }
+
 }
 }
 #include <utils/log.tpl>

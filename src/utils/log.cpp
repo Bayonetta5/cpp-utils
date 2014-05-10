@@ -1,5 +1,6 @@
 #include <utils/log.hpp>
 
+#include <ctime>
 #include <iostream>
 
 #define HARPE_ALGO_WARNNIG(txt) std::cout<<MGF_COMMENTAIRE<<"/!\\ warnning file "<<__FILE__<<" line"<<__LINE__<<" : "<<txt<<MGF_BLANC<<std::endl;
@@ -12,37 +13,37 @@ namespace log
 {
     void info(const std::string& msg)
     {
-        std::cout<<colors::light_gray<<msg<<colors::reset<<std::endl;
+        std::cout<<colors::light_gray<<time<<msg<<colors::reset<<std::endl;
     }
 
     void info(const std::string& type,const std::string& msg)
     {
-        std::cout<<colors::light_gray<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
+        std::cout<<colors::light_gray<<time<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
     }
 
     void warnning(const std::string& msg)
     {
-        std::cout<<colors::light_blue<<msg<<colors::reset<<std::endl;
+        std::cout<<colors::light_blue<<time<<msg<<colors::reset<<std::endl;
     }
 
     void warnning(const std::string& type,const std::string& msg)
     {
-        std::cout<<colors::light_blue<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
+        std::cout<<colors::light_blue<<time<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
     }
 
     void error(const std::string& msg)
     {
-        std::cerr<<colors::magenta<<msg<<colors::reset<<std::endl;
+        std::cerr<<colors::magenta<<time<<msg<<colors::reset<<std::endl;
     }
 
     void error(const std::string& type,const std::string& msg)
     {
-        std::cerr<<colors::magenta<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
+        std::cerr<<colors::magenta<<time<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
     }
 
     void critical(const std::string& msg,int code)
     {
-        std::cerr<<format::bold<<bg::red<<colors::white;
+        std::cerr<<format::bold<<bg::red<<colors::white<<time;
         if(code !=0)
             std::cerr<<"[code:"<<code<<"]";
         std::cerr<<msg<<format::reset<<std::endl;
@@ -52,13 +53,25 @@ namespace log
     }
     void critical(const std::string& type,const std::string& msg,int code)
     {
-        std::cerr<<format::bold<<bg::red<<colors::white<<"["<<type;
+        std::cerr<<format::bold<<bg::red<<colors::white<<time<<"["<<type;
         if(code !=0)
             std::cerr<<"|code:"<<code;
         std::cerr<<"]"<<msg<<format::reset<<std::endl;
 
         if(code !=0)
             exit(code);
+    }
+
+    std::ostream& time(std::ostream& output)
+    {
+        time_t temps;
+        struct tm* datetime;
+        char  format[32];
+        ::time(&temps);
+        datetime = localtime(&temps);
+        strftime(format, 32, "[%d-%m-%Y %H:%M:%S]", datetime);
+        output<<format;
+        return output;
     }
 
     namespace format
@@ -463,5 +476,6 @@ namespace log
             return output;
         }
     }
+
 }
 }

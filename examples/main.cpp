@@ -84,7 +84,7 @@ void test_logs()
         log(LOG_LVL::CRITICAL,"information test");
         log(LOG_LVL::CRITICAL,"test_logs","information test");
     }
-    
+
 }
 
 #include <utils/maths.hpp>
