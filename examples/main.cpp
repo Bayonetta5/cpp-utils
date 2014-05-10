@@ -60,6 +60,9 @@ void test_logs()
 
     {
         using namespace utils::log;
+        todo("information test");
+        todo("test_logs","information test");
+
         info("information test");
         info("test_logs","information test");
 
@@ -71,6 +74,9 @@ void test_logs()
 
         critical("information test");
         critical("test_logs","information test");
+
+        log(LOG_LVL::TODO,"information test");
+        log(LOG_LVL::TODO,"test_logs","information test");
 
         log(LOG_LVL::INFO,"information test");
         log(LOG_LVL::INFO,"test_logs","information test");

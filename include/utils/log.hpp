@@ -15,6 +15,16 @@ namespace log
     /**
      * \brief print a message
      */
+    void todo(const std::string& msg);
+
+    /**
+     * \brief print a message
+     */
+    void todo(const std::string& type,const std::string& msg);
+
+    /**
+     * \brief print a message
+     */
     void info(const std::string& msg);
 
     /**
@@ -55,7 +65,8 @@ namespace log
     void critical(const std::string& type,const std::string& msg,int code=0);
 
     enum LOG_LVL{
-        INFO = 1,
+        TODO = 1,
+        INFO,
         WARNNING,
         ERROR,
         CRITICAL

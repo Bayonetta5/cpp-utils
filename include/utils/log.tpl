@@ -7,6 +7,8 @@ namespace log
     {
         switch(lvl)
         {
+            case TODO:
+                todo(args ...);break;
             case INFO:
                 info(args...);break;
             case WARNNING:

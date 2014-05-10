@@ -11,6 +11,16 @@ namespace utils
 {
 namespace log
 {
+    void todo(const std::string& msg)
+    {
+        std::cout<<colors::yellow<<time<<msg<<colors::reset<<std::endl;
+    }
+
+    void todo(const std::string& type,const std::string& msg)
+    {
+        std::cout<<colors::yellow<<time<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
+    }
+
     void info(const std::string& msg)
     {
         std::cout<<colors::light_gray<<time<<msg<<colors::reset<<std::endl;
