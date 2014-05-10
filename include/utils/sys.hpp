@@ -45,6 +45,19 @@ namespace sys
          * \return true on success
          */
         bool rm(const std::string& path,bool recusive=false);
+
+
+        /**
+         * \brief remove the directory is empty
+         * \brief recusive if true, delete all sub directory that are empty
+         * \return true on success
+         */
+        bool rm_if_empty(const std::string& path,bool recusive=false);
+
+        /**
+         * \return the current dir path
+         */
+        std::string pwd();
     }
 
     namespace file

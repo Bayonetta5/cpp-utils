@@ -89,7 +89,7 @@ namespace sys
 
         bool rm(const std::string& path,bool recusive)
         {
-            bool res = false;
+            bool res;
             if(not recusive)
             {
                 #if __unix__
@@ -106,6 +106,7 @@ namespace sys
                         case FTW_F:
                             rv = ::unlink(fpath);break;
                         case FTW_D:
+                        case FTW_DP:
                             rv = ::rmdir(fpath);break;
                         default:
                             rv = ::remove(fpath);break;
@@ -118,6 +119,44 @@ namespace sys
 
                 res = ::nftw(path.c_str(),f, 64, FTW_DEPTH | FTW_PHYS) == 0;
             }
+            return res;
+        }
+
+        bool rm_if_empty(const std::string& path,bool recusive)
+        {
+            bool res;
+            if(not recusive)
+            {
+                res = ::rmdir(path.c_str()) == 0;
+            }
+            else
+            {
+                auto f = [](const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf) -> int
+                {
+                    int rv;
+                    switch(typeflag)
+                    {
+                        case FTW_D:
+                        case FTW_DP:
+                            rv = ::rmdir(fpath);break;
+                        default:
+                            return 1;
+                    }
+
+                    if (rv)
+                        ::perror(fpath);
+                    return rv;
+                };
+                res = ::nftw(path.c_str(),f, 64, FTW_DEPTH | FTW_PHYS) == 0;
+            }
+            return res;
+        }
+
+        std::string pwd()
+        {
+            char* path = ::get_current_dir_name();
+            std::string res(path);
+            ::free(path);
             return res;
         }
     }

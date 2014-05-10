@@ -147,7 +147,8 @@ void test_sys()
 {
     {
         using namespace utils::sys::dir;
-        //rm("/tmp/test",true);
+        //rm("/tmp/tmp",true);
+        //rm_if_empty("/tmp/tmp",true);
     }
 
     {
