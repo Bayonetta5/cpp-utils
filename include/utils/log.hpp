@@ -9,8 +9,61 @@ namespace utils
  * \brief regroup function for log in a console
  * This functions are output-only I/O manipulator, it may be called with an expression such as out<<bold<<"text"<<reset;
  */
-namespace logs
+namespace log
 {
+
+    /**
+     * \brief print a message
+     */
+    void info(const std::string& msg);
+
+    /**
+     * \brief print a message
+     */
+    void info(const std::string& type,const std::string& msg);
+
+    /**
+     * \brief print a message
+     */
+    void warnning(const std::string& msg);
+
+    /**
+     * \brief print a message
+     */
+    void warnning(const std::string& type,const std::string& msg);
+
+    /**
+     * \brief print a message
+     */
+    void error(const std::string& msg);
+
+    /**
+     * \brief print a message
+     */
+    void error(const std::string& type,const std::string& msg);
+
+    /**
+     * \brief print a message
+     * if the code value is not 0, exit with that code
+     */
+    void critical(const std::string& msg,int code=0);
+
+    /**
+     * \brief print a message
+     * if the code value is not 0, exit with that code
+     */
+    void critical(const std::string& type,const std::string& msg,int code=0);
+
+    enum LOG_LVL{
+        INFO = 1,
+        WARNNING,
+        ERROR,
+        CRITICAL
+    };
+
+    template <typename ... Args>
+    void log(LOG_LVL lvl,Args&& ... args);
+
     /**
      * \brief change the text format
      */
@@ -136,4 +189,5 @@ namespace logs
     }
 }
 }
+#include <utils/log.tpl>
 #endif

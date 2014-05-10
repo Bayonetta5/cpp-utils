@@ -1,13 +1,66 @@
 #include <utils/log.hpp>
 
+#include <iostream>
+
 #define HARPE_ALGO_WARNNIG(txt) std::cout<<MGF_COMMENTAIRE<<"/!\\ warnning file "<<__FILE__<<" line"<<__LINE__<<" : "<<txt<<MGF_BLANC<<std::endl;
 
 #define HARPE_ALGO_ERROR(txt) std::cout<<MGF_ROUGE<<"/!\\ warnning file "<<__FILE__<<" line"<<__LINE__<<" : "<<txt<<MGF_BLANC<<std::endl;
 
 namespace utils
 {
-namespace logs
+namespace log
 {
+    void info(const std::string& msg)
+    {
+        std::cout<<colors::light_gray<<msg<<colors::reset<<std::endl;
+    }
+
+    void info(const std::string& type,const std::string& msg)
+    {
+        std::cout<<colors::light_gray<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
+    }
+
+    void warnning(const std::string& msg)
+    {
+        std::cout<<colors::light_blue<<msg<<colors::reset<<std::endl;
+    }
+
+    void warnning(const std::string& type,const std::string& msg)
+    {
+        std::cout<<colors::light_blue<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
+    }
+
+    void error(const std::string& msg)
+    {
+        std::cerr<<colors::magenta<<msg<<colors::reset<<std::endl;
+    }
+
+    void error(const std::string& type,const std::string& msg)
+    {
+        std::cerr<<colors::magenta<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
+    }
+
+    void critical(const std::string& msg,int code)
+    {
+        std::cerr<<format::bold<<bg::red<<colors::white;
+        if(code !=0)
+            std::cerr<<"[code:"<<code<<"]";
+        std::cerr<<msg<<format::reset<<std::endl;
+
+        if(code !=0)
+            exit(code);
+    }
+    void critical(const std::string& type,const std::string& msg,int code)
+    {
+        std::cerr<<format::bold<<bg::red<<colors::white<<"["<<type;
+        if(code !=0)
+            std::cerr<<"|code:"<<code;
+        std::cerr<<"]"<<msg<<format::reset<<std::endl;
+
+        if(code !=0)
+            exit(code);
+    }
+
     namespace format
     {
         std::ostream& bold(std::ostream& output)

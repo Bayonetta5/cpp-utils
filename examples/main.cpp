@@ -5,7 +5,7 @@ void test_logs()
 {
 
     {
-        using namespace utils::logs::format;
+        using namespace utils::log::format;
         std::cout<<bold<<"bold"<<reset_bold<<"reset_bold"<<std::endl;
         std::cout<<dim<<"dim"<<reset_dim<<"reset_dim"<<std::endl;
         std::cout<<underline<<"underline"<<reset_underline<<"reset_underline"<<std::endl;
@@ -17,7 +17,7 @@ void test_logs()
 
     
     {
-        using namespace utils::logs::colors;
+        using namespace utils::log::colors;
         std::cout<<black<<"black"<<std::endl;
         std::cout<<red<<"red"<<std::endl;
         std::cout<<green<<"green"<<std::endl;
@@ -38,7 +38,7 @@ void test_logs()
     }
 
     {
-        using namespace utils::logs::bg;
+        using namespace utils::log::bg;
         std::cout<<black<<"black"<<std::endl;
         std::cout<<red<<"red"<<std::endl;
         std::cout<<green<<"green"<<std::endl;
@@ -56,6 +56,33 @@ void test_logs()
         std::cout<<light_cyan<<light_cyan<<std::endl;
         std::cout<<white<<"white"<<std::endl;
         std::cout<<reset<<"reset"<<std::endl;
+    }
+
+    {
+        using namespace utils::log;
+        info("information test");
+        info("test_logs","information test");
+
+        warnning("information test");
+        warnning("test_logs","information test");
+
+        error("information test");
+        error("test_logs","information test");
+
+        critical("information test");
+        critical("test_logs","information test");
+
+        log(LOG_LVL::INFO,"information test");
+        log(LOG_LVL::INFO,"test_logs","information test");
+
+        log(LOG_LVL::WARNNING,"information test");
+        log(LOG_LVL::WARNNING,"test_logs","information test");
+
+        log(LOG_LVL::ERROR,"information test");
+        log(LOG_LVL::ERROR,"test_logs","information test");
+
+        log(LOG_LVL::CRITICAL,"information test");
+        log(LOG_LVL::CRITICAL,"test_logs","information test");
     }
     
 }

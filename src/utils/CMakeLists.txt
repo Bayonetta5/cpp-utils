@@ -9,6 +9,7 @@ set(ROOT_SRC
 
 set(ROOT_HEADER
     ${INCROOT}/log.hpp
+    ${INCROOT}/log.tpl
     ${INCROOT}/maths.hpp
     ${INCROOT}/maths.tpl
     ${INCROOT}/string.hpp
