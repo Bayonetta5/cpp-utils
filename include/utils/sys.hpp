@@ -39,6 +39,21 @@ namespace sys
         std::list<std::string> list_dirs(const std::string& path);
 
 
+        /**
+         * \brief remove a directory.
+         * \param  recusive if true, delete all files on directory inside
+         * \return true on success
+         */
+        bool rm(const std::string& path,bool recusive=false);
+    }
+
+    namespace file
+    {
+        /**
+         * \brief remove a file
+         * \return true on success
+         */
+        bool rm(const std::string& path);
     }
 }
 }

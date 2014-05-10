@@ -1,15 +1,15 @@
 #include <utils/sys.hpp>
 #include <utils/string.hpp>
 
-//#if __unix || __unix__
+#if __unix || __unix__
+#include <unistd.h>
+#include <ftw.h>
+#endif
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <errno.h>
-
-//#endif
-
 
 namespace utils
 {
@@ -84,6 +84,51 @@ namespace sys
             }
 
             return res;
+        }
+
+
+        bool rm(const std::string& path,bool recusive)
+        {
+            bool res = false;
+            if(not recusive)
+            {
+                #if __unix__
+                res = ::rmdir(path.c_str()) == 0;
+                #endif
+            }
+            else
+            {
+                auto f = [](const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf) -> int
+                {
+                    int rv;
+                    switch(typeflag)
+                    {
+                        case FTW_F:
+                            rv = ::unlink(fpath);break;
+                        case FTW_D:
+                            rv = ::rmdir(fpath);break;
+                        default:
+                            rv = ::remove(fpath);break;
+                    }
+
+                    if (rv)
+                        ::perror(fpath);
+                    return rv;
+                };
+
+                res = ::nftw(path.c_str(),f, 64, FTW_DEPTH | FTW_PHYS) == 0;
+            }
+            return res;
+        }
+    }
+
+    namespace file
+    {
+        bool rm(const std::string& path)
+        {
+            #if __unix__
+            return ::unlink(path.c_str()) == 0;
+            #endif
         }
     }
 }

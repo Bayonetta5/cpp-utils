@@ -107,11 +107,19 @@ void test_string()
 
     std::cout<<"join(\"/\",split(base,\"bl\"))"<<std::endl;
     std::cout<<join("|",split(base,"bl"))<<std::endl;
-
 }
 
+#include <utils/sys.hpp>
 void test_sys()
 {
+    {
+        using namespace utils::sys::dir;
+        //rm("/tmp/test",true);
+    }
+
+    {
+        using namespace utils::sys::file;
+    }
 }
 
 
