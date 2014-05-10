@@ -2,16 +2,18 @@ set(INCROOT ${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME})
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME})
 
 set(ROOT_SRC
-    ${SRCROOT}/Os.cpp
-    ${SRCROOT}/String.cpp
+    ${SRCROOT}/log.cpp
+    ${SRCROOT}/string.cpp
+    ${SRCROOT}/sys.cpp
 )
 
 set(ROOT_HEADER
-    ${INCROOT}/Maths.hpp
-    ${INCROOT}/Maths.tpl
-    ${INCROOT}/Os.hpp
-    ${INCROOT}/String.hpp
-    ${INCROOT}/String.tpl
+    ${INCROOT}/log.hpp
+    ${INCROOT}/maths.hpp
+    ${INCROOT}/maths.tpl
+    ${INCROOT}/string.hpp
+    ${INCROOT}/string.tpl
+    ${INCROOT}/sys.hpp
 )
 
 

@@ -31,5 +31,11 @@ namespace maths
     {
         return max(max(a,b),args ...);
     }
+
+    template <typename T>
+    inline T abs(const T& a)
+    {
+        return (a<T(0))?-a:a;
+    }
 }
 }

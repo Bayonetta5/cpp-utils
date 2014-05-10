@@ -1,4 +1,4 @@
-#include <String.hpp>
+#include <utils/string.hpp>
 
 namespace utils
 {
@@ -24,12 +24,12 @@ namespace string
         return tokens;
     }
 
-    void replace(string& source, string const& find, string const& replace)
+    void replace(std::string& source,const std::string& find,const std::string& rep)
     {
         for(std::string::size_type i = 0; (i = source.find(find, i)) != std::string::npos;)
         {
-            source.replace(i, find.length(), replace);
-            i += replace.length() - find.length() + 1;
+            source.replace(i, find.length(), rep);
+            i += rep.length() - find.length() + 1;
         }
     }
 }

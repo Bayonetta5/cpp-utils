@@ -6,9 +6,12 @@
 
 namespace utils
 {
+/**
+ * \brief a namspace for string manipulations
+ */
 namespace string
 {
-        /**
+    /**
      * \brief split a string in multiple sub string
      * \param string base to split
      * \param del the delemiteur
@@ -18,15 +21,21 @@ namespace string
 
     /**
      * \brief find and replace
+     * \param source the source string to change
+     * \param find the separator
+     * \param replace find is replace by it
      */
-    void replace(string& source, string const& find, string const& replace);
+    void replace(std::string& source,const std::string& find,const std::string& rep);
 
     /**
      * \brief like the python join
+     * \param  del the delimitor to use
+     * \param datas the datas to use for join. It must have a std::stringstream& operator<<(const T&,std::stringstream&)
+     * \param reverse reverse the order of join (end to begin)
      */
     template<typename T>
     std::string join(const std::string& del,const std::vector<T>& datas,bool reverse=false);
 }
 }
-#include <utils/String.tpl>
+#include <utils/string.tpl>
 #endif
