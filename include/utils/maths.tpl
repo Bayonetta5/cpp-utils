@@ -15,9 +15,9 @@ namespace maths
     }
 
     template <typename T, typename ... Args>
-    inline const T& min(const T& a,const T& b, const Args& ... args)
+    inline const T& min(const T& a,const T& b,const T& c, const Args& ... args)
     {
-        return min(min(a,b),args ...);
+        return min(min(a,b),c,args ...);
     }
 
     template <typename T>
