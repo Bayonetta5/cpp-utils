@@ -61,10 +61,10 @@ void test_logs()
     {
         using namespace utils::log;
         todo("information test");
-        todo("test_logs","information test");
+        todo("test_logs","information","test");
 
         info("information test");
-        info("test_logs","information test");
+        info("test_logs","information","test");
 
         warnning("information test");
         warnning("test_logs","information test");

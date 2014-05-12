@@ -15,54 +15,39 @@ namespace log
     /**
      * \brief print a message
      */
-    void todo(const std::string& msg);
+    template <typename T,typename ... Args>
+    void todo(const T& type,const Args& ... args);
 
     /**
      * \brief print a message
      */
-    void todo(const std::string& type,const std::string& msg);
+    template <typename T,typename ... Args>
+    void info(const T& type,const Args& ... args);
 
     /**
      * \brief print a message
      */
-    void info(const std::string& msg);
+    template <typename T,typename ... Args>
+    void warnning(const T& type,const Args& ... args);
 
     /**
      * \brief print a message
      */
-    void info(const std::string& type,const std::string& msg);
+    template <typename T,typename ... Args>
+    void error(const T& type,const Args& ... args);
 
     /**
      * \brief print a message
      */
-    void warnning(const std::string& msg);
-
-    /**
-     * \brief print a message
-     */
-    void warnning(const std::string& type,const std::string& msg);
-
-    /**
-     * \brief print a message
-     */
-    void error(const std::string& msg);
-
-    /**
-     * \brief print a message
-     */
-    void error(const std::string& type,const std::string& msg);
+    template <typename T,typename ... Args>
+    void critical(const T& type,const Args& ... args);
 
     /**
      * \brief print a message
      * if the code value is not 0, exit with that code
      */
-    void critical(const std::string& msg,int code=0);
-
-    /**
-     * \brief print a message
-     * if the code value is not 0, exit with that code
-     */
-    void critical(const std::string& type,const std::string& msg,int code=0);
+    template <typename T,typename ... Args>
+    void critical(int code,const T& type,const Args& ... args);
 
     enum LOG_LVL{
         TODO = 1,

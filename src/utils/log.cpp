@@ -11,67 +11,6 @@ namespace utils
 {
 namespace log
 {
-    void todo(const std::string& msg)
-    {
-        std::cout<<colors::yellow<<time<<msg<<colors::reset<<std::endl;
-    }
-
-    void todo(const std::string& type,const std::string& msg)
-    {
-        std::cout<<colors::yellow<<time<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
-    }
-
-    void info(const std::string& msg)
-    {
-        std::cout<<colors::light_gray<<time<<msg<<colors::reset<<std::endl;
-    }
-
-    void info(const std::string& type,const std::string& msg)
-    {
-        std::cout<<colors::light_gray<<time<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
-    }
-
-    void warnning(const std::string& msg)
-    {
-        std::cout<<colors::light_blue<<time<<msg<<colors::reset<<std::endl;
-    }
-
-    void warnning(const std::string& type,const std::string& msg)
-    {
-        std::cout<<colors::light_blue<<time<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
-    }
-
-    void error(const std::string& msg)
-    {
-        std::cerr<<colors::magenta<<time<<msg<<colors::reset<<std::endl;
-    }
-
-    void error(const std::string& type,const std::string& msg)
-    {
-        std::cerr<<colors::magenta<<time<<"["<<type<<"]"<<msg<<colors::reset<<std::endl;
-    }
-
-    void critical(const std::string& msg,int code)
-    {
-        std::cerr<<format::bold<<bg::red<<colors::white<<time;
-        if(code !=0)
-            std::cerr<<"[code:"<<code<<"]";
-        std::cerr<<msg<<format::reset<<std::endl;
-
-        if(code !=0)
-            exit(code);
-    }
-    void critical(const std::string& type,const std::string& msg,int code)
-    {
-        std::cerr<<format::bold<<bg::red<<colors::white<<time<<"["<<type;
-        if(code !=0)
-            std::cerr<<"|code:"<<code;
-        std::cerr<<"]"<<msg<<format::reset<<std::endl;
-
-        if(code !=0)
-            exit(code);
-    }
-
     std::ostream& time(std::ostream& output)
     {
         time_t temps;
