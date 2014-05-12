@@ -101,7 +101,7 @@ namespace log
     {
         if(code != 0)
         {
-            critical(type,args...,"\nExit with code:",code);
+            critical(type,args...,".Exit with code:",code);
             exit(code);
         }
         else
