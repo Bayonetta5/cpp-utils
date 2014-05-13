@@ -140,6 +140,9 @@ void test_string()
 
     std::cout<<"join(\"/\",split(base,\"bl\"))"<<std::endl;
     std::cout<<join("|",split(base,"bl"))<<std::endl;
+
+
+    std::cout<<join("|",1,2,3,"blaghjio",42.f)<<std::endl;
 }
 
 #include <utils/sys.hpp>

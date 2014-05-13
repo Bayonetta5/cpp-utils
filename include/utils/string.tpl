@@ -26,5 +26,26 @@ namespace string
 
         return ss.str();
     }
+
+    template<typename T>
+    void __join_helper(std::stringstream& out,const std::string& del,const T& a)
+    {
+        out<<a;
+    }
+
+    template<typename T,typename U,typename ... Args>
+    void __join_helper(std::stringstream& out,const std::string& del,const T& a,const U& b,const Args& ... args)
+    {
+        out<<a<<del;
+        __join_helper(out,del,b,args ...);
+    }
+
+    template<typename ... Args>
+    std::string join(const std::string& del,const Args& ... args)
+    {
+        std::stringstream ss;
+        __join_helper(ss,del,args...);
+        return ss.str();
+    }
 }
 }
