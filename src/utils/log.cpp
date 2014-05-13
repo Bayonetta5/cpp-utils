@@ -11,6 +11,10 @@ namespace utils
 {
 namespace log
 {
+    void __out_helper(std::ostream& out)
+    {
+    };
+
     std::ostream& time(std::ostream& output)
     {
         time_t temps;
