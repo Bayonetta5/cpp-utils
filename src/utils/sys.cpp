@@ -24,6 +24,8 @@ namespace sys
 
 
             std::string current;
+            if(dirpath.size() > 0 and dirpath[0] == '/')
+                current = "/";
             const unsigned int _size = sp.size();
             for(unsigned int i=0; i<_size and res != 0;++i)
             {
