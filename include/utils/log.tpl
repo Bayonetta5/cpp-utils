@@ -34,7 +34,7 @@ namespace log
     template <typename T>
     void info(const T& msg)
     {
-        std::cout<<colors::light_gray<<time
+        std::cout<<colors::light_cyan<<time
             <<msg
             <<colors::reset<<std::endl;
     }
@@ -42,14 +42,14 @@ namespace log
     template <typename T,typename ... Args>
     void info(const T& type,const Args& ... args)
     {
-        std::cout<<colors::light_gray<<time<<"["<<type<<"]";
+        std::cout<<colors::light_cyan<<time<<"["<<type<<"]";
         __out_helper(std::cout,args ...);
         std::cout<<colors::reset<<std::endl;
     }
 
-    /////////// WARNNING //////////////
+    /////////// WARNING //////////////
     template <typename T>
-    void warnning(const T& msg)
+    void warning(const T& msg)
     {
         std::cout<<colors::light_blue<<time
             <<msg
@@ -57,7 +57,7 @@ namespace log
     }
 
     template <typename T,typename ... Args>
-    void warnning(const T& type,const Args& ... args)
+    void warning(const T& type,const Args& ... args)
     {
         std::cout<<colors::light_blue<<time<<"["<<type<<"]";
         __out_helper(std::cout,args ...);
@@ -118,8 +118,8 @@ namespace log
                 todo(args ...);break;
             case INFO:
                 info(args...);break;
-            case WARNNING:
-                warnning(args ...);break;
+            case WARNING:
+                warning(args ...);break;
             case ERROR:
                 error(args ...); break;
             case CRITICAL:

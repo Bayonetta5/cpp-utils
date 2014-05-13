@@ -28,7 +28,7 @@ namespace log
      * \brief print a message
      */
     template <typename T,typename ... Args>
-    void warnning(const T& type,const Args& ... args);
+    void warning(const T& type,const Args& ... args);
 
     /**
      * \brief print a message
@@ -52,7 +52,7 @@ namespace log
     enum LOG_LVL{
         TODO = 1,
         INFO,
-        WARNNING,
+        WARNING,
         ERROR,
         CRITICAL
     };
