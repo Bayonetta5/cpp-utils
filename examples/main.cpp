@@ -66,8 +66,8 @@ void test_logs()
         info("information test");
         info("test_logs","information","test");
 
-        warnning("information test");
-        warnning("test_logs","information test");
+        warning("information test");
+        warning("test_logs","information test");
 
         error("information test");
         error("test_logs","information test");
@@ -81,8 +81,8 @@ void test_logs()
         log(LOG_LVL::INFO,"information test");
         log(LOG_LVL::INFO,"test_logs","information test");
 
-        log(LOG_LVL::WARNNING,"information test");
-        log(LOG_LVL::WARNNING,"test_logs","information test");
+        log(LOG_LVL::WARNING,"information test");
+        log(LOG_LVL::WARNING,"test_logs","information test");
 
         log(LOG_LVL::ERROR,"information test");
         log(LOG_LVL::ERROR,"test_logs","information test");
