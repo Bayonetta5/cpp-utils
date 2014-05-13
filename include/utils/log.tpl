@@ -5,7 +5,7 @@ namespace utils
 namespace log
 {
     /////////// HELPERS ////////////////////
-    void __out_helper(std::ostream& out){}
+    void __out_helper(std::ostream& out);
 
     template <typename T,typename ... Args>
     void __out_helper(std::ostream& out,const T& p,const Args& ... args)
