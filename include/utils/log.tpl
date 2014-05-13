@@ -34,7 +34,7 @@ namespace log
     template <typename T>
     void info(const T& msg)
     {
-        std::cout<<colors::light_gray<<time
+        std::cout<<colors::light_cyan<<time
             <<msg
             <<colors::reset<<std::endl;
     }
@@ -42,7 +42,7 @@ namespace log
     template <typename T,typename ... Args>
     void info(const T& type,const Args& ... args)
     {
-        std::cout<<colors::light_gray<<time<<"["<<type<<"]";
+        std::cout<<colors::light_cyan<<time<<"["<<type<<"]";
         __out_helper(std::cout,args ...);
         std::cout<<colors::reset<<std::endl;
     }
