@@ -58,6 +58,11 @@ namespace sys
          * \return the current dir path
          */
         std::string pwd();
+
+        /**
+         * \return the real path of
+         */
+        std::string abs_path(const std::string& relative_path);
     }
 
     namespace file

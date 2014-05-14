@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <errno.h>
+#include <string.h>
 
 namespace utils
 {
@@ -161,6 +162,17 @@ namespace sys
             ::free(path);
             return res;
         }
+
+        std::string abs_path(const std::string& relative_path)
+        {
+            char my_path[relative_path.size() + 1];
+            ::strcpy(my_path,relative_path.c_str());
+            char *resolved_path = ::realpath(my_path,nullptr);
+            std::string res =  resolved_path;
+            ::free(resolved_path);
+            return res;
+        }
+
     }
 
     namespace file
