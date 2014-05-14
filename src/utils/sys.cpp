@@ -63,7 +63,7 @@ namespace sys
                     res.push_back(curEntry->d_name);
                 curEntry =readdir(curDir);
             }
-
+            ::closedir(curDir);
             return res;
         }
 
@@ -84,7 +84,7 @@ namespace sys
                     res.push_back(curEntry->d_name);
                 curEntry =readdir(curDir);
             }
-
+            ::closedir(curDir);
             return res;
         }
 
