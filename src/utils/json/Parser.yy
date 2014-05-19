@@ -3,7 +3,6 @@
 /* Require bison version or later */
 %require "2.5"
 /* write a header file containing macro definitions */
-%defines
 /* verbose error messages */
 %error-verbose
 /* namespace to enclose parser in */
@@ -31,6 +30,7 @@
 
 %code{
     #include <utils/json/Driver.hpp>
+    #include <string>
 	/*Prototype for the yylex function*/
 	static int yylex(utils::json::Parser::semantic_type* yylval, utils::json::Scanner& scanner);
 
@@ -42,10 +42,10 @@
 %union
 {
     // "Pure" types
-    int v_int;
-    double v_float;
-    bool v_bool;
-    std::string v_string;
+    int             v_int;
+    double          v_float;
+    bool            v_bool;
+    std::string*    v_string;
     // Pointers to more complex classes
     //utils::json::Object* v_object;
     //utils::json::Array* v_array;
@@ -73,14 +73,14 @@
 /** Define types for union values */
 %type<v_int>    T_NUMBER_I
 %type<v_float>  T_NUMBER_F
-%type<v_bool>   T_BOOLEAN start
+%type<v_bool>   T_BOOLEAN
 %type<v_string> T_DOUBLE_QUOTED_STRING
 
 
 %%
 
 // Entry point (every JSON file represents a value)
-start: { $$=true} ;
+start: {} ;
 //
 //// Object rule
 //object: CURLY_BRACKET_L assignment_list CURLY_BRACKET_R { $$ = $2; } ;
