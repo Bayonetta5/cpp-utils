@@ -1,6 +1,10 @@
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME})
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME})
 
+if(BUILD_JSON)
+    add_subdirectory(json)
+endif()
+
 set(ROOT_SRC
     ${SRCROOT}/log.cpp
     ${SRCROOT}/string.cpp

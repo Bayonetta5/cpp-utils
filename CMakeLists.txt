@@ -29,6 +29,9 @@ set_option(BUILD_EXAMPLES TRUE BOOL "TRUE to build the examples, FALSE to ignore
 # add an option for building the API documentation
 set_option(BUILD_DOC TRUE BOOL "TRUE to generate the API documentation, FALSE to ignore it")
 
+# add an option for building the API documentation
+set_option(BUILD_JSON TRUE BOOL "TRUE to generate json parser, FALSE to ignore it")
+
 
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(DEFINES "")
