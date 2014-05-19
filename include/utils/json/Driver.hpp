@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <utils/json/Scanner.hpp>
+#include <utils/json/Value.hpp>
 
 namespace utils
 {
@@ -84,6 +85,7 @@ namespace utils
                 Parser parser; ///< The parser
 
                 bool validity;
+                Value* value;
         };
     }
 }

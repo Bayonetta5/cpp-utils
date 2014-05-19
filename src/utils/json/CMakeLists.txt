@@ -21,15 +21,21 @@ ENDIF()
 
 #ROOT files
 set(ROOT_SRC
+    ${SRCROOT}/Array.cpp
     ${SRCROOT}/Driver.cpp
+    ${SRCROOT}/Object.cpp
     ${SRCROOT}/Scanner.cpp
+    ${SRCROOT}/Value.cpp
     ${BisonOutputSrc}
     ${FlexOutputSrc}
 )
 set(ROOT_HEADER
+    ${INCROOT}/Array.hpp
     ${INCROOT}/Driver.hpp
     ${INCROOT}/FlexLexer.hpp
+    ${INCROOT}/Object.hpp
     ${INCROOT}/Scanner.hpp
+    ${INCROOT}/Value.hpp
     ${BisonOutputInc}
     ${BisonOutputExtra}
 )

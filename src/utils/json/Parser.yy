@@ -2,7 +2,6 @@
 %skeleton "lalr1.cc"
 /* Require bison version or later */
 %require "2.5"
-/* write a header file containing macro definitions */
 /* verbose error messages */
 %error-verbose
 /* namespace to enclose parser in */
@@ -30,6 +29,7 @@
 
 %code{
     #include <utils/json/Driver.hpp>
+    #include <utils/json/Value.hpp>
     #include <string>
 	/*Prototype for the yylex function*/
 	static int yylex(utils::json::Parser::semantic_type* yylval, utils::json::Scanner& scanner);
@@ -42,14 +42,14 @@
 %union
 {
     // "Pure" types
-    int             v_int;
-    double          v_float;
+    long long int   v_int;
+    long double     v_float;
     bool            v_bool;
     std::string*    v_string;
     // Pointers to more complex classes
     //utils::json::Object* v_object;
     //utils::json::Array* v_array;
-    //utils::json::Value* v_value;
+    utils::json::Value* v_value;
 } 
 
     
@@ -80,7 +80,30 @@
 %%
 
 // Entry point (every JSON file represents a value)
-start: {} ;
+start: value {driver.value = $1;};
+
+object: T_CURLY_BRACKET_L assignment_list T_CURLY_BRACKET_R /*{$$ = $2;}*/
+      ;
+
+array : T_SQUARE_BRACKET_L list T_SQUARE_BRACKET_R {}
+      ;
+
+value : T_DOUBLE_QUOTED_STRING
+      | T_NUMBER_I
+      | T_NUMBER_F
+      | object
+      | array
+      | T_BOOLEAN
+      | T_NULL
+      ;
+
+list : value
+     | list T_COMMA value
+     ;
+
+assignment_list : T_DOUBLE_QUOTED_STRING T_COLON value
+               | assignment_list T_COMMA T_STRING T_COLON value
+
 //
 //// Object rule
 //object: CURLY_BRACKET_L assignment_list CURLY_BRACKET_R { $$ = $2; } ;
