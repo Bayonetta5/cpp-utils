@@ -30,6 +30,8 @@
 %code{
     #include <utils/json/Driver.hpp>
     #include <utils/json/Value.hpp>
+    #include <utils/json/Array.hpp>
+    #include <utils/json/Object.hpp>
     #include <string>
 	/*Prototype for the yylex function*/
 	static int yylex(utils::json::Parser::semantic_type* yylval, utils::json::Scanner& scanner);
@@ -47,8 +49,8 @@
     bool            v_bool;
     std::string*    v_string;
     // Pointers to more complex classes
-    //utils::json::Object* v_object;
-    //utils::json::Array* v_array;
+    utils::json::Object* v_object;
+    utils::json::Array* v_array;
     utils::json::Value* v_value;
 } 
 
@@ -75,6 +77,9 @@
 %type<v_float>  T_NUMBER_F
 %type<v_bool>   T_BOOLEAN
 %type<v_string> T_DOUBLE_QUOTED_STRING
+%type<v_value>  value
+%type<v_array>  array
+%type<v_object> Object
 
 
 %%
