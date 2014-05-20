@@ -8,7 +8,7 @@
     int json_line_no = 1;
 
     /* define yyterminate as this instead of NULL */
-    #define yyterminate() return token::T_END;
+    //#define yyterminate() return token::T_END;
 
     /* msvc2010 requires that we exclude this header file. */
     #define YY_NO_UNISTD_H
@@ -26,63 +26,59 @@
     //return token::T_EOL;
 }
 
-"=" {
-    return T_EQUALS;
-}
-
 "[" {
-    return T_SQUARE_BRACKET_L;
+    return token::T_SQUARE_BRACKET_L;
 }
 
 "]" {
-    return T_SQUARE_BRACKET_R;
+    return token::T_SQUARE_BRACKET_R;
 }
 
 "{" {
-    return T_CURLY_BRACKET_L;
+    return token::T_CURLY_BRACKET_L;
 }
 
 "}" {
-    return T_CURLY_BRACKET_R;
+    return token::T_CURLY_BRACKET_R;
 }
 
 "," {
-    return T_COMMA;
+    return token::T_COMMA;
 }
 
 ":" {
-    return T_COLON;
+    return token::T_COLON;
 }
 
 [ \t]  {
 }
 
 [-+]?[0-9]+  {
-    yylval.v_int = ::atoi(yytext);
-    return T_NUMBER_I;
+    yylval->v_int = ::atoi(yytext);
+    return token::T_NUMBER_I;
 }
 
 [-+]?[0-9]*\.?[0-9]*([eE][-+]?[0-9]+)?  {
-    yylval.v_float = atof(yytext);
-    return T_NUMBER_F;
+    yylval->v_float = atof(yytext);
+    return token::T_NUMBER_F;
 }
 
 true {
-    yylval.v_bool = true;
-    return T_BOOLEAN;
+    yylval->v_bool = true;
+    return token::T_BOOLEAN;
 }
 false {
-    yylval.v_bool = false;
-    return T_BOOLEAN;
+    yylval->v_bool = false;
+    return token::T_BOOLEAN;
 }
 
 null {
-    return T_NULL;
+    return token::T_NULL;
 }
 
 \"[^\"]*\" { 
-    yylval.v_string = yytext;
-    return T_DOUBLE_QUOTED_STRING;
+    yylval->v_string = new std::string(yytext);
+    return token::T_DOUBLE_QUOTED_STRING;
 }
 
 . {

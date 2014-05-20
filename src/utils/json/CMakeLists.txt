@@ -1,6 +1,7 @@
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME}/json)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME}/json)
 
+
 FIND_PACKAGE(BISON REQUIRED)
 SET(BisonOutputSrc ${SRCROOT}/Parser.cpp)
 set(BisonOutputInc ${SRCROOT}/Parser.hpp)
@@ -16,6 +17,20 @@ IF(BISON_FOUND)
     )
 else()
     message( SEND_ERROR "Bison is required" )
+ENDIF()
+
+FIND_PACKAGE(FLEX REQUIRED)
+SET(FlexOutputSrc ${SRCROOT}/Lexer.cpp)
+IF(FLEX_FOUND)
+    ADD_CUSTOM_COMMAND(
+        OUTPUT ${FlexOutputSrc}
+      COMMAND ${FLEX_EXECUTABLE}
+      --outfile=${FlexOutputSrc}
+              ${SRCROOT}/Lexer.lex
+              COMMENT "Generating Lexer.cpp"
+    )
+else()
+    message( SEND_ERROR "Flex is required" )
 ENDIF()
 
 
@@ -59,6 +74,7 @@ SET_TARGET_PROPERTIES(${CMAKE_PROJECT_NAME}-json
     VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
     SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
 )
+target_link_libraries(${CMAKE_PROJECT_NAME}-json ${CMAKE_PROJECT_NAME})
 INSTALL(TARGETS ${CMAKE_PROJECT_NAME}-json
     DESTINATION lib
 )
@@ -70,6 +86,7 @@ SET_TARGET_PROPERTIES(${CMAKE_PROJECT_NAME}-json-static
     VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
     SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
 )
+target_link_libraries(${CMAKE_PROJECT_NAME}-json-static ${CMAKE_PROJECT_NAME})
 INSTALL(TARGETS ${CMAKE_PROJECT_NAME}-json-static
     DESTINATION lib
 )

@@ -1,8 +1,9 @@
 #ifndef UTILS_JSON_ARRAY_HPP
 #define UTILS_JSON_ARRAY_HPP
 
-#include <utils/json/Value>
+#include <utils/json/Value.hpp>
 #include <list>
+#include <iostream>
 
 namespace utils
 {
@@ -11,13 +12,21 @@ namespace utils
         class Array
         {
             public:
-                Array();
+                explicit Array();
+
                 Array(const Array&) = delete;
                 Array& operator=(const Array&) = delete;
 
-            private:
+                Array(Array&&) = default;
+                Array& operator=(Array&&) = default;
+                
+                friend std::ostream& operator<<(std::ostream& stream, const Array& self);
 
-                std::list<Value> list;
+                std::list<Value> values;
+
+            //private:
+            //    friend class Parser;
+
         };
     }
 }
