@@ -29,8 +29,8 @@ namespace utils
                 Value(const Value&) = delete;
                 Value& operator=(const Value&) = delete;
 
-                Value(Value&&) = default;
-                Value& operator=(Value&&) = default;
+                Value(Value&&);
+                Value& operator=(Value&&);
 
                 ~Value();
 
@@ -67,7 +67,8 @@ namespace utils
                     ARRAY,
                     OBJECT,
                     BOOL,
-                    NIL
+                    NIL,
+                    UNDEFINE
                 };
                     
                 Type getType()const;

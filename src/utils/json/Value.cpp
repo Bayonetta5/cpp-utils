@@ -50,6 +50,77 @@ namespace utils
         {
         }
 
+        Value::Value(Value&& other)
+        {
+            type = other.type;
+            other.type = UNDEFINE;
+
+            switch(type)
+            {
+                case Value::Type::STRING:
+                    v_string = other.v_string;
+                    other.v_string = nullptr;
+                    break;
+                case Value::Type::INT:
+                    v_int = other.v_int;
+                    break;
+                case Value::Type::FLOAT:
+                    v_float = other.v_float;
+                    break;
+                case Value::Type::ARRAY:
+                    v_array = other.v_array;
+                    other.v_array = nullptr;
+                    break;
+                case Value::Type::OBJECT:
+                    v_object = other.v_object;
+                    other.v_object = nullptr;
+                    break;
+                case Value::Type::BOOL:
+                    v_bool = other.v_bool;
+                    break;
+                case Value::Type::NIL:
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        Value& Value::operator=(Value&& other)
+        {
+            type = other.type;
+            other.type = UNDEFINE;
+
+            switch(type)
+            {
+                case Value::Type::STRING:
+                    v_string = other.v_string;
+                    other.v_string = nullptr;
+                    break;
+                case Value::Type::INT:
+                    v_int = other.v_int;
+                    break;
+                case Value::Type::FLOAT:
+                    v_float = other.v_float;
+                    break;
+                case Value::Type::ARRAY:
+                    v_array = other.v_array;
+                    other.v_array = nullptr;
+                    break;
+                case Value::Type::OBJECT:
+                    v_object = other.v_object;
+                    other.v_object = nullptr;
+                    break;
+                case Value::Type::BOOL:
+                    v_bool = other.v_bool;
+                    break;
+                case Value::Type::NIL:
+                    break;
+                default:
+                    break;
+            }
+            return *this;
+        }
+
         Value::~Value()
         {
             switch(type)
@@ -57,19 +128,11 @@ namespace utils
                 case Value::Type::STRING:
                     delete v_string;
                     break;
-                case Value::Type::INT:
-                    break;
-                case Value::Type::FLOAT:
-                    break;
                 case Value::Type::ARRAY:
                     delete v_array;
                     break;
                 case Value::Type::OBJECT:
                     delete v_object;
-                    break;
-                case Value::Type::BOOL:
-                    break;
-                case Value::Type::NIL:
                     break;
                 default:
                     break;
