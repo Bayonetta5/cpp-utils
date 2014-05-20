@@ -93,6 +93,7 @@ namespace utils
 
             private:
                 friend class Object;
+                friend class Array;
                 
                 union {
                     std::string*    v_string;

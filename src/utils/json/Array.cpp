@@ -10,21 +10,27 @@ namespace utils
 
         std::ostream& operator<<(std::ostream& stream, const Array& self)
         {
+            self.print_ident(stream,0);
+            return stream;
+        }
+
+        void Array::print_ident(std::ostream& stream, int i)const
+        {
             stream<<"[";
-            if(self.values.size()>0)
+            if(values.size()>0)
             {
-                auto begin = self.values.begin();
-                auto end = self.values.end();
-                stream<<*begin;
+                auto begin = values.begin();
+                auto end = values.end();
+                begin->print_ident(stream,i);
                 ++begin;
                 while(begin!=end)
                 {
-                    stream<<","<<*begin;
+                    stream<<",";
+                    begin->print_ident(stream,i);
                     ++begin;
                 }
             }
             stream<<"]";
-            return stream;
         }
     }
 }

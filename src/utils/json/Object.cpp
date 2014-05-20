@@ -18,6 +18,9 @@ namespace utils
 
         void Object::print_ident(std::ostream& stream, int i)const
         {
+            /*if(i >0)
+                stream<<"\n";
+            ident(stream,i);*/
             stream<<"{\n";
             ++i;
 
@@ -27,7 +30,7 @@ namespace utils
                 auto end = values.end();
 
                 ident(stream,i);
-                stream<<"\""<<begin->first<<"\":";
+                stream<<"\""<<begin->first<<"\" : ";
                 begin->second.print_ident(stream,i);
 
                 ++begin;
@@ -35,7 +38,7 @@ namespace utils
                 {
                     stream<<",\n";
                     ident(stream,i);
-                    stream<<"\""<<begin->first<<"\":";
+                    stream<<"\""<<begin->first<<"\" : ";
                     begin->second.print_ident(stream,i);
                     ++begin;
                 }

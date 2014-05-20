@@ -268,7 +268,7 @@ namespace utils
                     stream<<v_float;
                     break;
                 case Value::Type::ARRAY:
-                    stream<<*v_array;
+                    v_array->print_ident(stream,i);
                     break;
                 case Value::Type::OBJECT:
                     v_object->print_ident(stream,i);

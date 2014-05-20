@@ -24,8 +24,10 @@ namespace utils
 
                 std::list<Value> values;
 
-            //private:
-            //    friend class Parser;
+            private:
+                friend class Value;
+
+                void print_ident(std::ostream& out,int i)const;
 
         };
     }
