@@ -15,6 +15,7 @@ IF(BISON_FOUND)
               ${SRCROOT}/Parser.yy
       COMMENT "Generating Parser.cpp"
     )
+    INSTALL( FILES ${BisonOutputExtra} ${BisonOutputInc} DESTINATION include/${CMAKE_PROJECT_NAME}/json )
 else()
     message( SEND_ERROR "Bison is required" )
 ENDIF()
@@ -90,3 +91,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}-json-static ${CMAKE_PROJECT_NAME})
 INSTALL(TARGETS ${CMAKE_PROJECT_NAME}-json-static
     DESTINATION lib
 )
+
+
+
