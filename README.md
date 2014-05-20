@@ -135,7 +135,7 @@ Representation of a object.
 * const Value& operator[](const std::string&)const 
 * std::unordered_map\<std::string, Value\>::const_iterator begin() const;
 * std::unordered_map\<std::string, Value\>::const_iterator end() const;
-* std::unordered_map\ <std::string, Value\>::iterator begin();
+* std::unordered_map\<std::string, Value\>::iterator begin();
 * std::unordered_map\<std::string, Value\>::iterator end();
 * size_t size() const;
 * operator<<(std::ostream& stream, const Object& self);
