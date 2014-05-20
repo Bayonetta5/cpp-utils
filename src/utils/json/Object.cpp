@@ -20,6 +20,7 @@ namespace utils
         {
             stream<<"{\n";
             ++i;
+
             if(values.size()>0)
             {
                 auto begin = values.begin();
