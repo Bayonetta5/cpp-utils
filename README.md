@@ -14,7 +14,7 @@ utils::string
 String manipulation
 
 * split
-* join
+* join(del,...)
 * replace
 
 
@@ -23,10 +23,10 @@ utils::maths
 
 Maths functions
 
-* sign
+* sign(T)
 * min(...)
 * max(...)
-* abs
+* abs(T)
 
 
 utils::log
