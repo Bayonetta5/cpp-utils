@@ -41,7 +41,13 @@ namespace utils
 
             private:
                 friend class Parser;
+                friend class Value;
+
                 std::unordered_map<std::string,Value> values;
+
+                static void ident(std::ostream& out,int);
+
+                void print_ident(std::ostream& out,int i)const;
 
         };
     }

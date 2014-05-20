@@ -250,26 +250,39 @@ namespace utils
 
         std::ostream& operator<<(std::ostream& stream, const Value& self)
         {
-            switch(self.type)
+            self.print_ident(stream,0);
+            return stream;
+        }
+
+        void Value::print_ident(std::ostream& stream, int i)const
+        {
+            switch(type)
             {
                 case Value::Type::STRING:
-                    stream<<"\""<<*self.v_string<<"\"";break;
+                    stream<<"\""<<*v_string<<"\"";
+                    break;
                 case Value::Type::INT:
-                    stream<<self.v_int;break;
+                    stream<<v_int;
+                    break;
                 case Value::Type::FLOAT:
-                    stream<<self.v_float;break;
+                    stream<<v_float;
+                    break;
                 case Value::Type::ARRAY:
-                    stream<<*self.v_array;break;
+                    stream<<*v_array;
+                    break;
                 case Value::Type::OBJECT:
-                    stream<<*self.v_object;break;
+                    v_object->print_ident(stream,i);
+                    break;
                 case Value::Type::BOOL:
-                    stream<<(self.v_bool?"true":"false");break;
+                    stream<<(v_bool?"true":"false");
+                    break;
                 case Value::Type::NIL:
-                    stream<<"null";break;
+                    stream<<"null";
+                    break;
                 default:
-                    stream<<"UNKNOW TYPE";break;
+                    stream<<"UNKNOW TYPE";
+                    break;
             }
-            return stream;
         }
 
         long double& Value::as_float()

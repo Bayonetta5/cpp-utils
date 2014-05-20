@@ -12,21 +12,37 @@ namespace utils
 
         std::ostream& operator<<(std::ostream& stream, const Object& self)
         {
-            stream<<"{";
-            if(self.values.size()>0)
+            self.print_ident(stream,0);
+            return stream;
+        }
+
+        void Object::print_ident(std::ostream& stream, int i)const
+        {
+            stream<<"{\n";
+            ++i;
+            if(values.size()>0)
             {
-                auto begin = self.values.begin();
-                auto end = self.values.end();
-                stream<<"\""<<begin->first<<"\":"<<begin->second;
+                auto begin = values.begin();
+                auto end = values.end();
+
+                ident(stream,i);
+                stream<<"\""<<begin->first<<"\":";
+                begin->second.print_ident(stream,i);
+
                 ++begin;
                 while(begin!=end)
                 {
-                    stream<<",\""<<begin->first<<"\":"<<begin->second;
+                    stream<<",\n";
+                    ident(stream,i);
+                    stream<<"\""<<begin->first<<"\":";
+                    begin->second.print_ident(stream,i);
                     ++begin;
                 }
             }
+            --i;
+            stream<<"\n";
+            ident(stream,i);
             stream<<"}";
-            return stream;
         }
 
         Value& Object::operator[] (const std::string& key)
@@ -67,6 +83,13 @@ namespace utils
         size_t Object::size() const
         {
             return values.size();
+        }
+
+
+        void Object::ident(std::ostream& out,int max)
+        {
+            for(int i=0;i<max;++i)
+                out<<"    ";
         }
 
     }

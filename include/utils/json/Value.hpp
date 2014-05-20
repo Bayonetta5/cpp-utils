@@ -92,6 +92,8 @@ namespace utils
 
 
             private:
+                friend class Object;
+                
                 union {
                     std::string*    v_string;
                     long long int   v_int;
@@ -102,6 +104,8 @@ namespace utils
                 };
 
                 Type type;
+                
+                void print_ident(std::ostream& out,int i)const;
         };
     }
 }
