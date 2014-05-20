@@ -16,7 +16,11 @@ namespace utils
             public:
                 Value(std::string* v);
                 Value(long long int v);
+                Value(long int v);
+                Value(int v);
                 Value(long double v);
+                Value(double);
+                Value(float);
                 Value(utils::json::Array* v);
                 Value(utils::json::Object* v);
                 Value(bool v);
@@ -28,23 +32,33 @@ namespace utils
                 Value(Value&&) = default;
                 Value& operator=(Value&&) = default;
 
+                ~Value();
+
                 /** Cast operator for float */
-                explicit operator long double() const;
-            
+                operator long double() const;
                 /** Cast operator for int */
-                explicit operator long long int() const;
-            
+                operator long long int() const;
                 /** Cast operator for bool */
-                explicit operator bool() const;
-            
+                operator bool() const;
                 /** Cast operator for string */
-                explicit operator const std::string&() const;
-            
+                operator const std::string&() const;
                 /** Cast operator for Object */
-                explicit operator const Object&() const;
-            
+                operator const Object&() const;
                 /** Cast operator for Object */
-                explicit operator const Array&() const;
+                operator const Array&() const;
+                
+                /** Cast operator for float */
+                operator long double&();
+                /** Cast operator for int */
+                operator long long int&();
+                /** Cast operator for bool */
+                operator bool&();
+                /** Cast operator for string */
+                operator std::string&();
+                /** Cast operator for Object */
+                operator Object&();
+                /** Cast operator for Object */
+                operator Array&();
 
                 enum Type {
                     STRING,
@@ -57,6 +71,14 @@ namespace utils
                 };
                     
                 Type getType()const;
+                
+                bool isString()const;
+                bool isInt()const;
+                bool isFloat()const;
+                bool isArray()const;
+                bool isObject()const;
+                bool isBool()const;
+                bool isNull()const;
 
                 friend std::ostream& operator<<(std::ostream& stream, const Value& self);
 

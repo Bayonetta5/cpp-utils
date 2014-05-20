@@ -14,7 +14,23 @@ namespace utils
         {
         }
 
+        Value::Value(long int v) : v_int(v), type(INT)
+        {
+        }
+
+        Value::Value(int v) : v_int(v), type(INT)
+        {
+        }
+
         Value::Value(long double v) : v_float(v), type(FLOAT)
+        {
+        }
+
+        Value::Value(double v) : v_float(v), type(FLOAT)
+        {
+        }
+
+        Value::Value(float v): v_float(v), type(FLOAT)
         {
         }
 
@@ -32,6 +48,32 @@ namespace utils
 
         Value::Value() : type(NIL)
         {
+        }
+
+        Value::~Value()
+        {
+            switch(type)
+            {
+                case Value::Type::STRING:
+                    delete v_string;
+                    break;
+                case Value::Type::INT:
+                    break;
+                case Value::Type::FLOAT:
+                    break;
+                case Value::Type::ARRAY:
+                    delete v_array;
+                    break;
+                case Value::Type::OBJECT:
+                    delete v_object;
+                    break;
+                case Value::Type::BOOL:
+                    break;
+                case Value::Type::NIL:
+                    break;
+                default:
+                    break;
+            }
         }
 
         /** Cast operator for float */
@@ -69,11 +111,79 @@ namespace utils
         {
             return *v_array;
         }
+        
+        Value::operator long double&()
+        {
+            return v_float;
+        }
+
+        Value::operator long long int&()
+        {
+            return v_int;
+        }
+
+        Value::operator bool&()
+        {
+            return v_bool;
+        }
+
+        Value::operator std::string&()
+        {
+            return *v_string;
+        }
+
+        Value::operator Object&()
+        {
+            return *v_object;
+        }
+
+        Value::operator Array&()
+        {
+            return *v_array;
+        }
 
         Value::Type Value::getType()const
         {
             return type;
         }
+
+        ///////// HELPERS ///////////////
+        bool Value::isString()const
+        {
+            return type == STRING;
+        }
+
+        bool Value::isInt()const
+        {
+            return type == INT;
+        }
+
+        bool Value::isFloat()const
+        {
+            return type == FLOAT;
+        }
+
+        bool Value::isArray()const
+        {
+            return type == ARRAY;
+        }
+
+        bool Value::isObject()const
+        {
+            return type == OBJECT;
+        }
+
+        bool Value::isBool()const
+        {
+            return type == BOOL;
+        }
+
+        bool Value::isNull()const
+        {
+            return type == NIL;
+        }
+
+
 
         std::ostream& operator<<(std::ostream& stream, const Value& self)
         {
