@@ -110,6 +110,49 @@ int main(int argc,char* argv[])
 }
 ```
 
+utils::json::Value
+------------------
+
+Represent a single value.
+
+* Type getType()const;
+* long double& as_float();
+* long long int& as_int();
+* bool& as_bool();
+* std::string& as_string();
+* Object& as_object();
+* Array& as_array();
+* cast operators
+* operator<<(std::ostream& stream, const Value& self);
+
+
+utils::json::Object
+-------------------
+
+Representation of a object.
+
+* Value& operator[](const std::string&)
+* const Value& operator[](const std::string&)const 
+* std::unordered_map<std::string, Value>::const_iterator begin() const;
+* std::unordered_map<std::string, Value>::const_iterator end() const;
+* std::unordered_map<std::string, Value>::iterator begin();
+* std::unordered_map<std::string, Value>::iterator end();
+* size_t size() const;
+* operator<<(std::ostream& stream, const Object& self);
+
+
+utils::json::Array
+------------------
+
+Represent a json array. Internalty, it's a list.
+
+* std::list<Values> values
+* operator<<(std::ostream& stream, const Array& self);
+
+
+
+
+
 
 
 
