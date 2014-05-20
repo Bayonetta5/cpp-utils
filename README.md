@@ -131,8 +131,8 @@ utils::json::Object
 
 Representation of a object.
 
-* Value& operator[](const std::string&)
-* const Value& operator[](const std::string&)const 
+* Value& operator\[\](const std::string&)
+* const Value& operator\[\](const std::string&)const 
 * std::unordered_map\<std::string, Value\>::const_iterator begin() const;
 * std::unordered_map\<std::string, Value\>::const_iterator end() const;
 * std::unordered_map\<std::string, Value\>::iterator begin();
