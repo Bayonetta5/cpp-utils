@@ -45,6 +45,8 @@ namespace utils
                  */
                 static Value* parse(std::istream& in);
 
+                static Value* parse(const std::string& in);
+
                 /**
                  * \brief Parse a file and return a Analyse
                  * \param filename the file name

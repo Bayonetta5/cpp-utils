@@ -1,6 +1,7 @@
 #include <utils/json/Driver.hpp>
 
 #include <fstream>
+#include <sstream>
 #include <utils/log.hpp>
 
 namespace utils
@@ -33,6 +34,13 @@ namespace utils
         Value* Driver::parse(std::istream& in)
         {
             Driver driver(in);
+            return driver.parse();
+        }
+
+        Value* Driver::parse(const std::string& in)
+        {
+            std::istringstream ss(in);
+            Driver driver(ss);
             return driver.parse();
         }
 
