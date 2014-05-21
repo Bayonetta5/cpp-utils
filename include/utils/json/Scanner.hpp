@@ -2,7 +2,9 @@
 #define UTILS_JSON_SCANNER_HPP
 
 #if ! defined(yyFlexLexerOnce)
-#include <utils/json/FlexLexer.hpp>
+#define yyFlexLexer UtilsJsonFlexLexer
+#include <mgf/FlexLexer.hpp>
+#undef yyFlexLexer
 #endif
 
 // Override the interface for yylex since we namespaced it
@@ -25,7 +27,7 @@ namespace utils
         /**
          * \brief The lexer that tokenize the input
          */
-        class Scanner : public yyFlexLexer
+        class Scanner : public UtilsJsonFlexLexer
         {
             public:
                 /**

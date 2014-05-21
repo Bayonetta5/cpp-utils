@@ -4,7 +4,7 @@ namespace utils
 {
     namespace json
     {
-        Scanner::Scanner(std::istream& in) : yyFlexLexer(&in), yylval(nullptr)
+        Scanner::Scanner(std::istream& in) : UtilsJsonFlexLexer(&in), yylval(nullptr)
         {
         }
 
