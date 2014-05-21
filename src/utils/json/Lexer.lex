@@ -28,32 +28,26 @@
 }
 
 "[" {
-    utils::log::info("T_SQUARE_BRACKET_L");
     return token::T_SQUARE_BRACKET_L;
 }
 
 "]" {
-    utils::log::info("T_SQUARE_BRACKET_R");
     return token::T_SQUARE_BRACKET_R;
 }
 
 "{" {
-    utils::log::info("T_CURLY_BRACKET_L");
     return token::T_CURLY_BRACKET_L;
 }
 
 "}" {
-    utils::log::info("T_CURLY_BRACKET_R");
     return token::T_CURLY_BRACKET_R;
 }
 
 "," {
-    utils::log::info("T_COMMA");
     return token::T_COMMA;
 }
 
 ":" {
-    utils::log::info("T_COLON");
     return token::T_COLON;
 }
 
@@ -61,35 +55,29 @@
 }
 
 [-+]?[0-9]+  {
-    utils::log::info("T_NUMBER_I");
     yylval->v_int = ::atoi(yytext);
     return token::T_NUMBER_I;
 }
 
 [-+]?[0-9]*\.?[0-9]*([eE][-+]?[0-9]+)?  {
-    utils::log::info("T_NUMBER_F");
     yylval->v_float = atof(yytext);
     return token::T_NUMBER_F;
 }
 
 true {
-    utils::log::info("T_BOOLEAN");
     yylval->v_bool = true;
     return token::T_BOOLEAN;
 }
 false {
-    utils::log::info("T_BOOLEAN");
     yylval->v_bool = false;
     return token::T_BOOLEAN;
 }
 
 null {
-    utils::log::info("T_NULL");
     return token::T_NULL;
 }
 
 \"[^\"]*\" { 
-    utils::log::info("T_DOUBLE_QUOTED_STRING");
     yylval->v_string = new std::string(yytext);
     return token::T_DOUBLE_QUOTED_STRING;
 }
