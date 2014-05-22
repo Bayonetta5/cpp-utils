@@ -2,38 +2,40 @@ set(INCROOT ${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME}/json)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME}/json)
 
 
-FIND_PACKAGE(BISON REQUIRED)
 SET(BisonOutputSrc ${SRCROOT}/Parser.cpp)
 set(BisonOutputInc ${SRCROOT}/Parser.hpp)
 set(BisonOutputExtra ${SRCROOT}/stack.hh)
-IF(BISON_FOUND)
-    ADD_CUSTOM_COMMAND(
-        OUTPUT ${BisonOutputSrc} ${BisonOutputInc} ${BisonOutputExtra}
-      COMMAND ${BISON_EXECUTABLE}
-      --output=${BisonOutputSrc}
-      --defines=${BisonOutputInc}
-              ${SRCROOT}/Parser.yy
-      COMMENT "Generating Parser.cpp"
-    )
-    INSTALL( FILES ${BisonOutputExtra} ${BisonOutputInc} DESTINATION include/${CMAKE_PROJECT_NAME}/json )
-else()
-    message( SEND_ERROR "Bison is required" )
-ENDIF()
-
-FIND_PACKAGE(FLEX REQUIRED)
 SET(FlexOutputSrc ${SRCROOT}/Lexer.cpp)
-IF(FLEX_FOUND)
-    ADD_CUSTOM_COMMAND(
-        OUTPUT ${FlexOutputSrc}
-      COMMAND ${FLEX_EXECUTABLE}
-      --outfile=${FlexOutputSrc}
-              ${SRCROOT}/Lexer.lex
-              COMMENT "Generating Lexer.cpp"
-    )
-else()
-    message( SEND_ERROR "Flex is required" )
-ENDIF()
 
+if(BUILD_PARSER)
+    FIND_PACKAGE(BISON REQUIRED)
+    IF(BISON_FOUND)
+        ADD_CUSTOM_COMMAND(
+            OUTPUT ${BisonOutputSrc} ${BisonOutputInc} ${BisonOutputExtra}
+          COMMAND ${BISON_EXECUTABLE}
+          --output=${BisonOutputSrc}
+          --defines=${BisonOutputInc}
+                  ${SRCROOT}/Parser.yy
+          COMMENT "Generating Parser.cpp"
+        )
+        INSTALL( FILES ${BisonOutputExtra} ${BisonOutputInc} DESTINATION include/${CMAKE_PROJECT_NAME}/json )
+    else()
+        message( SEND_ERROR "Bison is required" )
+    ENDIF()
+
+    FIND_PACKAGE(FLEX REQUIRED)
+    IF(FLEX_FOUND)
+        ADD_CUSTOM_COMMAND(
+            OUTPUT ${FlexOutputSrc}
+          COMMAND ${FLEX_EXECUTABLE}
+          --outfile=${FlexOutputSrc}
+                  ${SRCROOT}/Lexer.lex
+                  COMMENT "Generating Lexer.cpp"
+        )
+    else()
+        message( SEND_ERROR "Flex is required" )
+    ENDIF()
+endif()
 
 #ROOT files
 set(ROOT_SRC
