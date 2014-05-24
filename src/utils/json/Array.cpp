@@ -32,5 +32,25 @@ namespace utils
             }
             stream<<"]";
         }
+
+        std::list<Value>::const_iterator Array::begin() const
+        {
+            return values.begin();
+        }
+
+        std::list<Value>::const_iterator Array::end() const
+        {
+            return values.end();
+        }
+
+        std::list<Value>::iterator Array::begin()
+        {
+            return values.begin();
+        }
+
+        std::list<Value>::iterator Array::end()
+        {
+            return values.end();
+        }
     }
 }
