@@ -3,7 +3,7 @@
 
 #if ! defined(yyFlexLexerOnce)
 #define yyFlexLexer UtilsJsonFlexLexer
-#include <mgf/FlexLexer.hpp>
+#include <utils/json/FlexLexer.hpp>
 #undef yyFlexLexer
 #endif
 
