@@ -155,6 +155,18 @@ Represent a json array. Internalty, it's a list.
 * operator<<(std::ostream& stream, const Array& self);
 
 
+utils::thread::Pool
+-------------------
+
+Represent a thread pool.
+
+*   Pool(size_t number)
+* template<typename F>void push(F f)
+* size_t size();
+* void wait(std::chrono::milliseconds d =std::chrono::milliseconds(500));
+
+
+
 
 
 

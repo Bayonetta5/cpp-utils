@@ -183,7 +183,6 @@ void test_thread()
     std::cout<<"=== END test_thread ==="<<std::endl;
 
     pool.wait();
-
 }
 
 

@@ -16,17 +16,15 @@ namespace utils
         class Pool
         {
             public:
-                Pool(size_t number);
-                ~Pool();
+                Pool(size_t size);///< construct a Pool of size size
+                ~Pool(); ///< destruct the object. wait for the end of running task and skip the others.
 
                 template<typename F>
-                void push(F f);
+                void push(F f); ///< add a function of type F to queue
 
+                size_t size();///< return the number of function to call
 
-                size_t size();
-
-                void wait(std::chrono::milliseconds d =std::chrono::milliseconds(500));
-
+                void wait(std::chrono::milliseconds d =std::chrono::milliseconds(500)); ///< wait for the end of all tasks
 
             private:
                 std::atomic<bool> stop;
