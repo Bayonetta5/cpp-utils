@@ -3,9 +3,14 @@ cpp-utils
 
 add some usefull missing functions in the stl.
 
+adds: 
 
-
-add string manipulation,maths, system and logs functions and json parser.
+* string manipulation (0.1.0)
+* maths (0.0.1)
+* system info (0.1.0)
+* logs functions (0.1.0)
+* json parser (0.1.2)
+* Thread pool (0.1.3)
 
 
 utils::string

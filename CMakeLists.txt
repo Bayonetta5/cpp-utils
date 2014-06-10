@@ -14,7 +14,7 @@ project (utils)
 # setup version numbers
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
-set(VERSION_PATCH 2)
+set(VERSION_PATCH 3)
 
 
 # add the  header path
