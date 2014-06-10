@@ -3,10 +3,6 @@
 #include <ctime>
 #include <iostream>
 
-#define HARPE_ALGO_WARNNIG(txt) std::cout<<MGF_COMMENTAIRE<<"/!\\ warning file "<<__FILE__<<" line"<<__LINE__<<" : "<<txt<<MGF_BLANC<<std::endl;
-
-#define HARPE_ALGO_ERROR(txt) std::cout<<MGF_ROUGE<<"/!\\ warning file "<<__FILE__<<" line"<<__LINE__<<" : "<<txt<<MGF_BLANC<<std::endl;
-
 namespace utils
 {
 namespace log

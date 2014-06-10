@@ -22,12 +22,22 @@ namespace utils
                 
                 friend std::ostream& operator<<(std::ostream& stream, const Array& self);
 
-                std::list<Value> values;
+                std::list<Value>::const_iterator begin() const;
+
+                std::list<Value>::const_iterator end() const;
+
+                std::list<Value>::iterator begin();
+
+                std::list<Value>::iterator end();
+
 
             private:
                 friend class Value;
+                friend class Parser;
 
                 void print_ident(std::ostream& out,int i)const;
+
+                std::list<Value> values;
 
         };
     }
