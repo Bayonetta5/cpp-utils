@@ -18,7 +18,7 @@ namespace log
     template <typename T>
     void todo(const T& msg)
     {
-        std::cout<<colors::yellow<<time
+        std::clog<<colors::yellow<<time
             <<msg
             <<colors::reset<<std::endl;
     }
@@ -26,15 +26,15 @@ namespace log
     template <typename T,typename ... Args>
     void todo(const T& type,const Args& ... args)
     {
-        std::cout<<colors::yellow<<time<<"["<<type<<"]";
-        __out_helper(std::cout,args ...);
-        std::cout<<colors::reset<<std::endl;
+        std::clog<<colors::yellow<<time<<"["<<type<<"]";
+        __out_helper(std::clog,args ...);
+        std::clog<<colors::reset<<std::endl;
     }
     //////////////////// info //////////////////////
     template <typename T>
     void info(const T& msg)
     {
-        std::cout<<colors::light_cyan<<time
+        std::clog<<colors::light_cyan<<time
             <<msg
             <<colors::reset<<std::endl;
     }
@@ -42,16 +42,16 @@ namespace log
     template <typename T,typename ... Args>
     void info(const T& type,const Args& ... args)
     {
-        std::cout<<colors::light_cyan<<time<<"["<<type<<"]";
-        __out_helper(std::cout,args ...);
-        std::cout<<colors::reset<<std::endl;
+        std::clog<<colors::light_cyan<<time<<"["<<type<<"]";
+        __out_helper(std::clog,args ...);
+        std::clog<<colors::reset<<std::endl;
     }
 
     /////////// WARNING //////////////
     template <typename T>
     void warning(const T& msg)
     {
-        std::cout<<colors::light_blue<<time
+        std::clog<<colors::light_blue<<time
             <<msg
             <<colors::reset<<std::endl;
     }
@@ -59,15 +59,15 @@ namespace log
     template <typename T,typename ... Args>
     void warning(const T& type,const Args& ... args)
     {
-        std::cout<<colors::light_blue<<time<<"["<<type<<"]";
-        __out_helper(std::cout,args ...);
-        std::cout<<colors::reset<<std::endl;
+        std::clog<<colors::light_blue<<time<<"["<<type<<"]";
+        __out_helper(std::clog,args ...);
+        std::clog<<colors::reset<<std::endl;
     }
     ////////////// ERROR ///////////////
     template <typename T>
     void error(const T& msg)
     {
-        std::cout<<colors::magenta<<time
+        std::clog<<colors::magenta<<time
             <<msg
             <<colors::reset<<std::endl;
     }
@@ -75,15 +75,15 @@ namespace log
     template <typename T,typename ... Args>
     void error(const T& type,const Args& ... args)
     {
-        std::cout<<colors::magenta<<time<<"["<<type<<"]";
-        __out_helper(std::cout,args ...);
-        std::cout<<colors::reset<<std::endl;
+        std::clog<<colors::magenta<<time<<"["<<type<<"]";
+        __out_helper(std::clog,args ...);
+        std::clog<<colors::reset<<std::endl;
     }
     ///////////////// CRITICAL ///////////////
     template <typename T>
     void critical(const T& msg)
     {
-        std::cout<<format::bold<<bg::red<<time
+        std::clog<<format::bold<<bg::red<<time
             <<msg
             <<format::reset<<std::endl;
     }
@@ -91,9 +91,9 @@ namespace log
     template <typename T,typename ... Args>
     void critical(const T& type,const Args& ... args)
     {
-        std::cout<<format::bold<<bg::red<<time<<"["<<type<<"]"<<type;
-        __out_helper(std::cout,args ...);
-        std::cout<<format::reset<<std::endl;
+        std::clog<<format::bold<<bg::red<<time<<"["<<type<<"]"<<type;
+        __out_helper(std::clog,args ...);
+        std::clog<<format::reset<<std::endl;
     }
 
     template <typename T,typename ... Args>
