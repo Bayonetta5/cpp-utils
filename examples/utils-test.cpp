@@ -3,7 +3,7 @@
 #include <utils/log.hpp>
 void test_logs()
 {
-
+    std::cout<<"=== test_logs ==="<<std::endl;
     {
         using namespace utils::log::format;
         std::cout<<bold<<"bold"<<reset_bold<<"reset_bold"<<std::endl;
@@ -90,12 +90,14 @@ void test_logs()
         log(LOG_LVL::CRITICAL,"information test");
         log(LOG_LVL::CRITICAL,"test_logs","information test");
     }
-
+    std::cout<<"=== END test_logs ==="<<std::endl;
 }
 
 #include <utils/maths.hpp>
 void test_maths()
 {
+    std::cout<<"=== test_maths ==="<<std::endl;
+
     using namespace utils::maths;
     std::cout<<"sign(-42)"<<sign(-42)<<std::endl;
     std::cout<<"sign(42)"<<sign(42)<<std::endl;
@@ -121,11 +123,15 @@ void test_maths()
     std::cout<<"max(1,2,2,3,4,5)"<<max(1,2,3,4,5)<<std::endl;
     std::cout<<"max(1,2,12,4,5)"<<max(1,2,-12,4,5)<<std::endl;
     std::cout<<"max(1,2,3,4,12)"<<max(1,2,-12,4,5)<<std::endl;
+
+    std::cout<<"=== END test_logs ==="<<std::endl;
 }
 
 #include <utils/string.hpp>
 void test_string()
 {
+    std::cout<<"=== test_string ==="<<std::endl;
+
     using namespace utils::string;
     std::string base = "test testtest testestestestest";
     std::cout<<"Base:"<<base<<std::endl;
@@ -141,13 +147,15 @@ void test_string()
     std::cout<<"join(\"/\",split(base,\"bl\"))"<<std::endl;
     std::cout<<join("|",split(base,"bl"))<<std::endl;
 
-
     std::cout<<join("|",1,2,3,"blaghjio",42.f)<<std::endl;
+
+    std::cout<<"=== END test_logs ==="<<std::endl;
 }
 
 #include <utils/sys.hpp>
 void test_sys()
 {
+    std::cout<<"=== test_sys ==="<<std::endl;
     {
         using namespace utils::sys::dir;
         //rm("/tmp/tmp",true);
@@ -157,6 +165,25 @@ void test_sys()
     {
         using namespace utils::sys::file;
     }
+    std::cout<<"=== END test_logs ==="<<std::endl;
+}
+
+
+#include <utils/thread.hpp>
+void test_thread()
+{
+    std::cout<<"=== test_thread ==="<<std::endl;
+    utils::thread::Pool pool(5);
+    pool.push(test_logs);
+    pool.push(test_maths);
+    pool.push(test_string);
+    pool.push(test_sys);
+    pool.push(test_logs);
+    pool.push(test_maths);
+    std::cout<<"=== END test_thread ==="<<std::endl;
+
+    pool.wait();
+
 }
 
 
@@ -166,6 +193,8 @@ int main(int argc,char* argv[])
     test_maths();
     test_string();
     test_sys();
+
+    test_thread();
 
     return 0;
 }

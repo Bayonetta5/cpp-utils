@@ -34,14 +34,19 @@ set_option(BUILD_JSON TRUE BOOL "TRUE to generate json parser, FALSE to ignore i
 
 set_option(BUILD_PARSER TRUE BOOL "TRUE to use flex/bison to generate the parsers, FALSE to ignore it")
 
-
+set(LIBS "-lpthread")
+if(${WIN32})
+    find_library(PTHREAD_LIBS "winpthread-1")
+else()
+    find_library(PTHREAD_LIBS pthread)
+endif()
+set(LIBS ${PTHREAD_LIBS})
 
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(DEFINES "")
-set(LIBS "")
 set(WARNING "-Wall")
 set(FLAGS "-o3 -std=c++0x")
-set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS} ${LIBS}")
+set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)

@@ -9,6 +9,7 @@ set(ROOT_SRC
     ${SRCROOT}/log.cpp
     ${SRCROOT}/string.cpp
     ${SRCROOT}/sys.cpp
+    ${SRCROOT}/thread.cpp
 )
 
 set(ROOT_HEADER
@@ -20,6 +21,8 @@ set(ROOT_HEADER
     ${INCROOT}/string.hpp
     ${INCROOT}/string.tpl
     ${INCROOT}/sys.hpp
+    ${INCROOT}/thread.hpp
+    ${INCROOT}/thread.tpl
 )
 
 
@@ -42,6 +45,7 @@ SET_TARGET_PROPERTIES(${CMAKE_PROJECT_NAME}
     VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
     SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
 )
+target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBS})
 INSTALL(TARGETS ${CMAKE_PROJECT_NAME}
     DESTINATION lib
 )
@@ -52,6 +56,7 @@ SET_TARGET_PROPERTIES(${CMAKE_PROJECT_NAME}-static
     VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
     SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
 )
+target_link_libraries(${CMAKE_PROJECT_NAME}-static ${LIBS})
 INSTALL(TARGETS ${CMAKE_PROJECT_NAME}-static
     DESTINATION lib
 )
