@@ -47,25 +47,26 @@ namespace log
         std::clog<<colors::reset<<std::endl;
     }
 
-    /////////// WARNING //////////////
+    //////////////////// ok //////////////////////
     template <typename T>
-    void warning(const T& msg)
+    void ok(const T& msg)
     {
-        std::clog<<colors::light_blue<<time
+        std::clog<<colors::green<<time
             <<msg
             <<colors::reset<<std::endl;
     }
 
     template <typename T,typename ... Args>
-    void warning(const T& type,const Args& ... args)
+    void ok(const T& type,const Args& ... args)
     {
-        std::clog<<colors::light_blue<<time<<"["<<type<<"]";
+        std::clog<<colors::green<<time<<"["<<type<<"]";
         __out_helper(std::clog,args ...);
         std::clog<<colors::reset<<std::endl;
     }
-    ////////////// ERROR ///////////////
+
+    /////////// WARNING //////////////
     template <typename T>
-    void error(const T& msg)
+    void warning(const T& msg)
     {
         std::clog<<colors::magenta<<time
             <<msg
@@ -73,9 +74,25 @@ namespace log
     }
 
     template <typename T,typename ... Args>
-    void error(const T& type,const Args& ... args)
+    void warning(const T& type,const Args& ... args)
     {
         std::clog<<colors::magenta<<time<<"["<<type<<"]";
+        __out_helper(std::clog,args ...);
+        std::clog<<colors::reset<<std::endl;
+    }
+    ////////////// ERROR ///////////////
+    template <typename T>
+    void error(const T& msg)
+    {
+        std::clog<<colors::light_red<<time
+            <<msg
+            <<colors::reset<<std::endl;
+    }
+
+    template <typename T,typename ... Args>
+    void error(const T& type,const Args& ... args)
+    {
+        std::clog<<colors::light_red<<time<<"["<<type<<"]";
         __out_helper(std::clog,args ...);
         std::clog<<colors::reset<<std::endl;
     }
