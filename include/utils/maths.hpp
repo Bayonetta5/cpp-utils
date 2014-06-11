@@ -53,9 +53,19 @@ namespace utils
         template <int N>
         struct power;
 
+
+        /**
+         * \brief call discretize<T>(tab.begin(),tab.end(),f) 
+         */
         template<typename T>
         T discretize(const T& tab,std::function<double(double)> f);
 
+        /**
+         * \brief f is a repartition function defined between [-1 .. 1], an must return a result > 0
+         * the index between first, last are convert in a [-1 .. 1] value passed to f. The result
+         * of f is store in a cumulator.
+         * Each time that the cumulator is >= 1, the value is append to the new T.
+         */
         template<typename T,typename Iterator>
         T discretize(Iterator first,Iterator last,std::function<double(double)> f);
 

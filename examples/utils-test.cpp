@@ -131,19 +131,16 @@ void test_maths()
 
 
     std::vector<int> v;
-    for(int i=0;i<100;++i)
+    for(int i=0;i<100000;++i)
         v.push_back(i);
 
     int size = v.size();
 
-    std::vector<int> v2 = discretize(v,[size](double a)->double{
-         return 1.0/ker::gaussian(a,0.55);
+    std::vector<int> v2 = discretize<decltype(v)>(v,[size](double a)->double{
+         return 1.0/ker::gaussian(a,2.51);
     });
 
-    std::cout<<"Discretisation avec 1/gauss(a,0.55,0) sur un vecteur de [0 ..99] : Size = "<<v2.size()<<" contenu:"<<std::endl;
-    for(int i : v2)
-        std::cout<<i<<" ";
-    std::cout<<"\n fin discretisation"<<std::endl;
+    std::cout<<"Discretisation avec 1/gauss(a,0.55,0) sur un vecteur de [0 ..99] : Size = "<<v2.size()<<std::endl;
 
     std::cout<<"=== END test_logs ==="<<std::endl;
 }
