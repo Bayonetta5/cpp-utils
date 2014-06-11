@@ -137,10 +137,10 @@ void test_maths()
     int size = v.size();
 
     std::vector<int> v2 = discretize(v,[size](double a)->double{
-         return 1.0/ker::gaussian(a,0.5);
+         return 1.0/ker::gaussian(a,0.55);
     });
 
-    std::cout<<"Discretisation avec 1/gauss(a,0.5,0) sur un vecteur de [0 ..99] : Size = "<<v2.size()<<" contenu:"<<std::endl;
+    std::cout<<"Discretisation avec 1/gauss(a,0.55,0) sur un vecteur de [0 ..99] : Size = "<<v2.size()<<" contenu:"<<std::endl;
     for(int i : v2)
         std::cout<<i<<" ";
     std::cout<<"\n fin discretisation"<<std::endl;
@@ -214,7 +214,7 @@ int main(int argc,char* argv[])
     test_string();
     test_sys();
 
-    test_thread();
+    //test_thread();
 
 
     return 0;
