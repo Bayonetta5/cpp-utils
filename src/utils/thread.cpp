@@ -6,6 +6,7 @@ namespace utils
     {
         Pool::Pool(size_t number) : stop(false)
         {
+            workers.reserve(number);
             for(size_t i= 0;i<number;++i)
                 workers.emplace_back(Worker(*this));
         }

@@ -124,6 +124,8 @@ void test_maths()
     std::cout<<"max(1,2,12,4,5)"<<max(1,2,-12,4,5)<<std::endl;
     std::cout<<"max(1,2,3,4,12)"<<max(1,2,-12,4,5)<<std::endl;
 
+    std::cout<<"5^5= "<<utils::maths::power<5>::of(5)<<std::endl;
+
     std::cout<<"=== END test_logs ==="<<std::endl;
 }
 
@@ -194,6 +196,7 @@ int main(int argc,char* argv[])
     test_sys();
 
     test_thread();
+
 
     return 0;
 }
