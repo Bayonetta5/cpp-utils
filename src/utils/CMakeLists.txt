@@ -14,7 +14,6 @@ set(ROOT_SRC
 
 set(ROOT_HEADER
     ${INCROOT}/json.hpp
-    ${INCROOT}/kernel.hpp
     ${INCROOT}/log.hpp
     ${INCROOT}/log.tpl
     ${INCROOT}/maths.hpp

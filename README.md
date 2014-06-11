@@ -35,8 +35,8 @@ Maths functions
 * abs(T)
 
 
-utils::ker
-==========
+utils::maths::ker
+=================
 
 * inline double uniform(double)
 * inline double triangular(double)

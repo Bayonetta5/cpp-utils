@@ -61,6 +61,35 @@ namespace utils
             template <typename NUMERIC_TYPE>
             static inline NUMERIC_TYPE of(const NUMERIC_TYPE& x) {return 1;}
         };
+
+        namespace ker
+        {
+            //unaire
+            inline double uniform(double _1);
+
+            inline double triangular(double _1);
+
+            inline double epanechnikov(double _1);
+
+            inline double quartic(double _1);
+
+            inline double triweight(double _1);
+
+            inline double tricube(double _1);
+
+            inline double gaussian(double _1,double _2=1,double _3=0);
+
+            inline double cosine(double _1);
+
+            //binary
+            inline double mul(double _1,double _2);
+
+            inline double div(double _1,double _2);
+
+            inline double add(double _1,double _2);
+
+            inline double sub(double _1,double _2);
+        }
     }
 }
 #include <utils/maths.tpl>
