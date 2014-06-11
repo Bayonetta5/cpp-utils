@@ -45,22 +45,12 @@ namespace utils
         inline T abs(const T& a);
 
         /**
+         * \brief usage power<N>::of(number)
          * \return the power on number at N
          */
 
         template <int N>
-        struct power
-        {
-            template <typename NUMERIC_TYPE>
-            static inline NUMERIC_TYPE of(const NUMERIC_TYPE& x){return x * power<N-1>::of(x);}
-        };
-
-        template <>
-        struct power<0> 
-        {
-            template <typename NUMERIC_TYPE>
-            static inline NUMERIC_TYPE of(const NUMERIC_TYPE& x) {return 1;}
-        };
+        struct power;
 
         namespace ker
         {
