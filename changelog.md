@@ -10,3 +10,8 @@ Log
 ---
 
 add log::ok(args...) that print log in green
+
+Ker
+---
+
+Add kernel functions for learning machin in utils::ker namespace

@@ -3,7 +3,6 @@
 
 namespace utils
 {
-
     /**
      * \brief regroup some math utility
      */

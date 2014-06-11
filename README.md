@@ -11,6 +11,7 @@ adds:
 * logs functions (0.1.0)
 * json parser (0.1.2)
 * Thread pool (0.1.3)
+* Kernel function for learning machin (0.1.4)
 
 
 utils::string
@@ -32,6 +33,23 @@ Maths functions
 * min(...)
 * max(...)
 * abs(T)
+
+
+utils::ker
+==========
+
+* inline double uniform(double)
+* inline double triangular(double)
+* inline double epanechnikov(double)
+* inline double quartic(double)
+* inline double triweight(double)
+* inline double tricube(double)
+* inline double gaussian(double,double=1,double=0)
+* inline double cosine(double)
+* inline double mul(double,double)
+* inline double div(double,double)
+* inline double add(double,double)
+* inline double sub(double,double)
 
 
 utils::log
