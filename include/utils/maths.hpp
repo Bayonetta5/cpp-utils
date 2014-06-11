@@ -1,6 +1,8 @@
 #ifndef UTILS_MATHS_HPP
 #define UTILS_MATHS_HPP
 
+#include <functional>
+
 namespace utils
 {
     /**
@@ -48,9 +50,14 @@ namespace utils
          * \brief usage power<N>::of(number)
          * \return the power on number at N
          */
-
         template <int N>
         struct power;
+
+        template<typename T>
+        T discretize(const T& tab,std::function<double(double)> f);
+
+        template<typename T,typename Iterator>
+        T discretize(Iterator first,Iterator last,std::function<double(double)> f);
 
         namespace ker
         {

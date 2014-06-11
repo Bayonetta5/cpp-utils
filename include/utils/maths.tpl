@@ -1,4 +1,6 @@
 #include <cmath>
+#include <iterator>
+
 namespace utils
 {
 namespace maths
@@ -52,6 +54,33 @@ namespace maths
         template <typename NUMERIC_TYPE>
         static inline NUMERIC_TYPE of(const NUMERIC_TYPE& x) {return 1;}
     };
+
+    template<typename T>
+    T discretize(const T& tab,std::function<double(double)> f)
+    {
+        return discretize<T>(tab.begin(),tab.end(),f);
+    }
+
+    template<typename T,typename Iterator>
+    T discretize(Iterator first,Iterator last,std::function<double(double)> f)
+    {
+        const size_t size = std::distance(first,last);
+        T res;
+        double store = 0;
+        for(unsigned int i=0; first != last;++first,++i)
+        {
+            store += f((i*2.0)/size-1);
+            if(store > 1)
+            {
+                res.emplace_back(*first);
+                do{
+                    store -=1;
+                }while(store >= 1);
+            }
+        }
+
+        return res;
+    }
     
     namespace ker
     {
