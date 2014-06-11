@@ -1,6 +1,9 @@
 #include <iostream>
+#include <vector>
 
 #include <utils/log.hpp>
+
+
 void test_logs()
 {
     std::cout<<"=== test_logs ==="<<std::endl;
@@ -125,6 +128,22 @@ void test_maths()
     std::cout<<"max(1,2,3,4,12)"<<max(1,2,-12,4,5)<<std::endl;
 
     std::cout<<"5^5= "<<utils::maths::power<5>::of(5)<<std::endl;
+
+
+    std::vector<int> v;
+    for(int i=0;i<100;++i)
+        v.push_back(i);
+
+    int size = v.size();
+
+    std::vector<int> v2 = discretize(v,[size](double a)->double{
+         return 1.0/ker::gaussian(a,0.5);
+    });
+
+    std::cout<<"Discretisation avec 1/gauss(a,0.5,0) sur un vecteur de [0 ..99] : Size = "<<v2.size()<<" contenu:"<<std::endl;
+    for(int i : v2)
+        std::cout<<i<<" ";
+    std::cout<<"\n fin discretisation"<<std::endl;
 
     std::cout<<"=== END test_logs ==="<<std::endl;
 }
