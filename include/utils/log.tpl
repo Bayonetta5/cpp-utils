@@ -84,7 +84,7 @@ namespace log
     template <typename T>
     void error(const T& msg)
     {
-        std::clog<<colors::light_red<<time
+        std::clog<<colors::red<<time
             <<msg
             <<colors::reset<<std::endl;
     }
@@ -92,7 +92,7 @@ namespace log
     template <typename T,typename ... Args>
     void error(const T& type,const Args& ... args)
     {
-        std::clog<<colors::light_red<<time<<"["<<type<<"]";
+        std::clog<<colors::red<<time<<"["<<type<<"]";
         __out_helper(std::clog,args ...);
         std::clog<<colors::reset<<std::endl;
     }
