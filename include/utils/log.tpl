@@ -135,6 +135,8 @@ namespace log
                 todo(args ...);break;
             case INFO:
                 info(args...);break;
+            case OK:
+                ok(args...);break;
             case WARNING:
                 warning(args ...);break;
             case ERROR:
