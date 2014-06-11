@@ -52,7 +52,7 @@ namespace utils
         };
 
         inline double gaussian(double _1,double _2=1,double _3=0){
-            return (1.0/_2*sqrt(2*M_PI))*exp(-0.5*utils::maths::power<2>::of((_1-_3)/_2));
+            return (1.0/_2*sqrt(2*M_PI))*exp(-utils::maths::power<2>::of(_1-_3)/(2*utils::maths::power<2>::of(_2)));
         };
 
         inline double cosine(double _1){
