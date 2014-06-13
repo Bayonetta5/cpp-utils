@@ -41,7 +41,7 @@ namespace string
     }
 
     template<typename ... Args>
-    std::string join(const std::string& del,const Args& ... args)
+    inline std::string join(const std::string& del,const Args& ... args)
     {
         std::stringstream ss;
         __join_helper(ss,del,args...);

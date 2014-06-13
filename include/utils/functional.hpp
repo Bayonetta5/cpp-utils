@@ -1,0 +1,48 @@
+#ifndef UTILS_FUNCTIONAL_HPP
+#define UTILS_FUNCTIONAL_HPP
+
+#include <utility>
+#include <tuple>
+
+namespace utils
+{
+    /**
+     * \brief try namespace (for tests)
+     */
+    namespace func
+    {
+        
+        template<typename Ret,typename ... Args>
+        constexpr Ret apply(Ret(*f)(Args...),const std::tuple<Args...>& t);
+
+        class VFunc
+        {
+            public:
+                template<typename Ret,typename ... Args>
+                Ret call(Args&& ... args)const;
+
+            protected:
+                virtual void _call(void* ret,void* tuple)const = 0;
+        };
+
+
+        template<typename Ret,typename ... Args>
+        class Func: public VFunc
+        {
+            public:
+                typedef Ret(*ftype)(Args...);
+
+                Func(ftype f);
+                Ret operator()(Args&& ... args)const;
+            protected:
+
+                virtual void _call(void* ret,void* tuple)const;
+                ftype func;
+        };
+
+        template<typename Ret,typename ... Args>
+        constexpr Func<Ret,Args...> make_func(Ret (*f)(Args...));
+    }
+}
+#include <utils/functional.tpl>
+#endif

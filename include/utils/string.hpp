@@ -37,7 +37,7 @@ namespace string
     std::string join(const std::string& del,const std::vector<T>& datas,bool reverse=false);
 
     template<typename ... Args>
-    std::string join(const std::string& del,const Args& ... args);
+    inline std::string join(const std::string& del,const Args& ... args);
 }
 }
 #include <utils/string.tpl>

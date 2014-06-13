@@ -12,6 +12,7 @@ adds:
 * json parser (0.1.2)
 * Thread pool (0.1.3)
 * Kernel function for learning machin (0.1.4)
+* Function manipulation (0.1.5)
 
 
 utils::string
@@ -178,10 +179,20 @@ utils::thread::Pool
 
 Represent a thread pool.
 
-*   Pool(size_t number)
+* Pool(size_t number)
 * template<typename F>void push(F f)
 * size_t size();
 * void wait(std::chrono::milliseconds d =std::chrono::milliseconds(500));
+
+utils::func
+-----------
+
+* apply the c++14 feature
+* VFunc a virtual class for function
+* Func\<Ret,Args ...\> specified class for function. Extands VFunc
+* make_func(f) return a Func of the good type for f
+
+
 
 
 

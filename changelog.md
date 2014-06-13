@@ -1,3 +1,23 @@
+0.1.5
+=====
+
+* Add namespace func for function management
+* Add namespace tr for tests, ideas ...
+
+Func
+----
+* apply(f, Args&& ... args) the c++14 apply function
+* VFunc a base class of all function? This class is virtual
+** .call<Ret>(Args&& ... args) call the function with the params args, and the return type Ret
+* Func<Ret,Args...> a specilize class for VFunc
+** Ret operator()(Args&& .. args) call the function as a function
+* make_fuction(f) return a Function object
+
+tr
+--
+
+Do not use function insid this namespace, there wille be moved in other namespace in the future
+
 0.1.4
 =====
 

@@ -206,6 +206,29 @@ void test_thread()
     pool.wait();
 }
 
+#include <utils/functional.hpp>
+double f(int a,int b)
+{
+    std::cout<<"f("<<a<<" "<<b<<")"<<std::endl;
+    return 41.5;
+}
+
+void test_functional()
+{
+    using namespace utils::func;
+    std::cout<<"=== test functional ==="<<std::endl;
+
+    std::cout<<"apply(f,std::make_tuple(1,5)) = "<<apply(f,std::make_tuple(1,5))<<std::endl;
+
+    auto func=make_func(f);
+    std::cout<<func(3,5)<<std::endl; //know complet type
+
+    VFunc& vfunc=func;
+    vfunc.call<double>(1,5); //must specify the return type
+
+    std::cout<<"=== END test functional ==="<<std::endl;
+}
+
 
 int main(int argc,char* argv[])
 {

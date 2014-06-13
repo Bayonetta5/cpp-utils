@@ -13,6 +13,8 @@ set(ROOT_SRC
 )
 
 set(ROOT_HEADER
+    ${INCROOT}/functional.hpp
+    ${INCROOT}/functional.tpl
     ${INCROOT}/json.hpp
     ${INCROOT}/log.hpp
     ${INCROOT}/log.tpl
