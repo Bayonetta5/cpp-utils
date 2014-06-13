@@ -23,6 +23,7 @@ set(ROOT_HEADER
     ${INCROOT}/sys.hpp
     ${INCROOT}/thread.hpp
     ${INCROOT}/thread.tpl
+    ${INCROOT}/tr.hpp
 )
 
 
