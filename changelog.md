@@ -1,3 +1,14 @@
+0.1.6
+=====
+
+sys
+---
+
+* add bool file::exists(const std::string& file_path)
+* add bool file::touch(const std::string& file_path)
+* add std::string whereis(const std::string& finename)
+
+
 0.1.5
 =====
 
@@ -6,6 +17,7 @@
 
 Func
 ----
+
 * apply(f, Args&& ... args) the c++14 apply function
 * VFunc a base class of all function? This class is virtual
 ** .call<Ret>(Args&& ... args) call the function with the params args, and the return type Ret
@@ -34,5 +46,5 @@ add ker namespace
 Log
 ---
 
-add log::ok(args...) that print log in green
+* add log::ok(args...) that print log in green
 

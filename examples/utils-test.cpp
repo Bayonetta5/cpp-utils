@@ -179,12 +179,20 @@ void test_sys()
     std::cout<<"=== test_sys ==="<<std::endl;
     {
         using namespace utils::sys::dir;
-        //rm("/tmp/tmp",true);
-        //rm_if_empty("/tmp/tmp",true);
+        std::cout<<"dir::create: "<<create("/tmp/test")<<std::endl;
+        std::cout<<"dir::rm: "<<rm("/tmp/test",true)<<std::endl;
+
+        std::cout<<"dir::create: "<<create("/tmp/test")<<std::endl;
+        std::cout<<"dir::rm_if_empty: "<<rm_if_empty("/tmp/test",true)<<std::endl;
     }
 
     {
         using namespace utils::sys::file;
+
+        std::cout<<"file::touch: "<<touch("/tmp/test/file")<<std::endl;
+        std::cout<<"file::exist: "<<exists("/tmp/test/file")<<std::endl;
+        std::cout<<"file::rm: "<<rm("/tmp/test/file")<<std::endl;
+        std::cout<<"file::whereis: "<<whereis("g++")<<std::endl;
     }
     std::cout<<"=== END test_logs ==="<<std::endl;
 }

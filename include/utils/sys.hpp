@@ -12,6 +12,12 @@ namespace utils
 namespace sys
 {
     /**
+     * \brief search a file in $PATH
+     * \return the path where the file was find. if no file find, the value is empty
+     */
+    std::string whereis(const std::string& filename);
+    
+    /**
      * \brief regroup functions on dir and manipulation
      */
     namespace dir
@@ -72,6 +78,19 @@ namespace sys
          * \return true on success
          */
         bool rm(const std::string& path);
+
+        /**
+         * \return true if the file file_path exists
+         */
+        bool exists(const std::string& file_path);
+
+        /**
+         * \brief creat a empty file (creat the dir tree)
+         * \return true on success
+         */
+        bool touch(const std::string& file_path);
+
+
     }
 }
 }

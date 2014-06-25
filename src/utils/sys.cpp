@@ -10,12 +10,44 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <errno.h>
-#include <string.h>
+#include <cstring>
+#include <cstdlib>
 
 namespace utils
 {
 namespace sys
 {
+    std::string whereis(const std::string& name)
+    {
+        //compute path dirs vector
+        std::vector<std::string> paths = utils::string::split(std::string(::getenv("PATH")),
+        #ifdef _WIN32 //_WIN64
+        ";"
+        #else
+        ":"
+        #endif
+        );
+
+        for(std::string& bpath : paths)
+        {
+            std::string fpath = bpath;
+            if(bpath.size() > 1)
+            {
+                #ifdef _WIN32 //_WIN64
+                if(bpath[bpath.size()-1] != '\\')
+                    fpath += '\\';
+                #else
+                if(bpath[bpath.size()-1] != '/')
+                    fpath += '/';
+                #endif
+            }
+            fpath += name;
+            if(utils::sys::file::exists(fpath))
+                return fpath;
+        }
+        return {};
+    }
+
     namespace dir
     {
         int create(const std::string& dirpath,const int permissions)
@@ -183,6 +215,41 @@ namespace sys
             return ::unlink(path.c_str()) == 0;
             #endif
         }
+
+        bool exists(const std::string& name)
+        {
+            if (FILE *file = fopen(name.c_str(), "rb"))
+            {
+                fclose(file);
+                return true;
+            }
+            return false;
+        }
+
+        bool touch(const std::string& file_path)
+        {
+            //build dir tree
+            #ifdef _WIN32 //_WIN64
+            file_path = utils::replace(file_path,"\\","/");
+            #endif
+            std::vector<std::string> dirs = utils::string::split(file_path,"/");
+            if(dirs.size()>1)
+                dirs.pop_back();
+            std::string dir_path = "/"+utils::string::join("/",dirs);
+            if(not dir::create(dir_path))
+                return false;
+
+            //create file
+            if (FILE *file = fopen(file_path.c_str(), "ab"))
+            {
+                fclose(file);
+                return true;
+            }
+            return false;
+
+        }
+
+        
     }
 }
 }
