@@ -177,6 +177,12 @@ void test_string()
 void test_sys()
 {
     std::cout<<"=== test_sys ==="<<std::endl;
+
+    {
+        using namespace utils::sys;
+        std::cout<<"whereis: "<<whereis("g++")<<std::endl;
+    }
+
     {
         using namespace utils::sys::dir;
         std::cout<<"dir::create: "<<create("/tmp/test")<<std::endl;
@@ -192,7 +198,6 @@ void test_sys()
         std::cout<<"file::touch: "<<touch("/tmp/test/file")<<std::endl;
         std::cout<<"file::exist: "<<exists("/tmp/test/file")<<std::endl;
         std::cout<<"file::rm: "<<rm("/tmp/test/file")<<std::endl;
-        std::cout<<"file::whereis: "<<whereis("g++")<<std::endl;
     }
     std::cout<<"=== END test_logs ==="<<std::endl;
 }
