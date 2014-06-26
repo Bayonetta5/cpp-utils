@@ -17,6 +17,8 @@ adds:
 * shared library loading and function management (0.1.6)
 
 
+See exemples/ for exemples
+
 utils::string
 =============
 
