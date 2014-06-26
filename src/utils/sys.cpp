@@ -48,6 +48,207 @@ namespace sys
         return {};
     }
 
+    //NoCompilerException
+    NoCompilerException::NoCompilerException(const std::string& name) : msg("no compiler \""+ name + "\" find")
+    {
+    };
+
+    const char* NoCompilerException::what() const throw()
+    {
+        return msg.c_str();
+    }
+
+    //CompilationException
+    CompilationException::CompilationException(const std::string& name) : msg(name)
+    {
+    };
+
+    const char* CompilationException::what() const throw()
+    {
+        return msg.c_str();
+    }
+
+    //Library
+    Library::Library(const std::string& name) : _name(name),lib(nullptr)
+    {
+    }
+
+    bool Library::load()
+    {
+        #ifdef _WIN32 //_WIN64
+        lib = ::LoadLibrary(_name.c_str());
+        if (lib == nullptr)
+        {
+            utils::log::error("utils:sys::Library::load","Unable to load ",_name);
+            return false;
+        }
+        #elif __linux //|| __unix //or __APPLE__
+        lib = ::dlopen(_name.c_str(), RTLD_LAZY);
+        char* err = ::dlerror();
+        if (lib == nullptr or err)
+        {
+            utils::log::error("utils:sys::Library::load","Unable to load ",_name,err);
+            return false;
+        }
+        #endif
+        return true;
+    }
+
+    void Library::close()
+    {
+
+        //clear all linked functions
+        for(auto& c : funcs)
+            delete c.second;
+        funcs.clear();
+
+        //delete the lib
+        #ifdef _WIN32 //_WIN64
+        ::FreeLibrary(lib);
+        #elif __linux
+        ::dlclose(lib);
+        ::dlerror();
+        #endif
+
+    }
+
+    utils::func::VFunc* Library::operator[](const std::string& name)
+    {
+        auto value = funcs.find(name);
+        if(value != funcs.end())
+            return value->second;
+        return nullptr;
+    }
+
+    //Compiler
+    Compiler Compiler::getCompiler()
+    {
+        try
+        {
+            #ifdef _WIN32 //_WIN64
+            return getCompiler("mingw32-g++.exe");
+            #else
+            return getCompiler("g++");
+            #endif
+        }
+        catch(NoCompilerException& e)
+        {
+            try
+            {
+                #ifdef _WIN32 //_WIN64
+                return getCompiler("clang.exe");
+                #else
+                return getCompiler("clang");
+                #endif
+            }
+            catch(NoCompilerException& e)
+            {
+                #ifdef _WIN32 //_WIN64
+                throw NoCompilerException("mingw-g++.exe or clang.exe");
+                #else
+                throw NoCompilerException("g++ or clang");
+                #endif
+            }
+        }
+    }
+
+    Compiler Compiler::getCompiler(const std::string& name)
+    {
+        std::string path = sys::whereis(name);
+        if(name.empty())
+            throw NoCompilerException(name);
+        return Compiler(path);
+    }
+
+    Compiler& Compiler::output(const std::string& out)
+    {
+        _output = out;
+
+        return *this;
+    }
+
+
+    Library Compiler::get() const
+    {
+        for(const std::string& u : make_cmds())
+        {
+            utils::log::info("utils:sys::Compiler::get","system(\""+u+"\")");
+            int res = ::system(u.c_str());
+            if(res == -1)
+            {
+                utils::log::error("utils:sys::Compiler::get","failed to make sytem call");
+                throw CompilationException("fork failed");
+            }
+            else if(res != 0)
+            {
+                utils::log::error("utils:sys::Compiler::get","the command return the error code:",res);
+                throw CompilationException("Error");
+            }
+
+        }
+        return {_output+
+        #ifdef _WIN32
+        ".dll"
+        #else
+        ".so"
+        #endif
+        };
+    }
+
+    std::ostream& operator<<(std::ostream& output,const Compiler& self)
+    {
+        for(const std::string& u : self.make_cmds())
+            output<<u<<std::endl;
+        return output;
+    }
+
+
+    Compiler::Compiler(const std::string& name) : _name(name), _output("out")
+    {
+    }
+
+    std::vector<std::string> Compiler::make_cmds() const
+    {
+        std::vector<std::string> res;
+        //compile as .o
+        unsigned int _size = _inputs.size();
+        for(unsigned int i=0;i<_size;++i)
+        {
+            std::string tmp = _name + " -fpic";
+
+            unsigned int _s = _flags.size();
+            for(unsigned int i=0;i<_s;++i)
+                tmp+=" "+_flags[i];
+
+            tmp +=" -c \"" +_inputs[i]+"\" -o \""+_inputs[i]+"\".o";
+
+            res.push_back(std::move(tmp));
+        }
+        //compile .o as .so/.dll
+        {
+            std::string tmp = _name + " -shared -o "+_output+
+            #ifdef _WIN32
+            ".dll";
+            #else
+            ".so";
+            #endif
+
+            unsigned int _s = _links.size();
+            if(_s>0)
+            {
+                for(unsigned int i=0;i<_s;++i)
+                    tmp += " -l"+_links[i];
+            }
+
+            for(unsigned int i=0;i<_size;++i)
+                tmp+= " \""+_inputs[i]+".o\"";
+
+            res.push_back(std::move(tmp));
+        }
+        
+        return res;
+    }
+
     namespace dir
     {
         int create(const std::string& dirpath,const int permissions)

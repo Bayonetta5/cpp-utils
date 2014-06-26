@@ -21,6 +21,8 @@ namespace utils
                 template<typename Ret,typename ... Args>
                 Ret call(Args&& ... args)const;
 
+                virtual ~VFunc(){};
+
             protected:
                 virtual void _call(void* ret,void* tuple)const = 0;
         };
@@ -34,10 +36,13 @@ namespace utils
 
                 Func(ftype f);
                 Ret operator()(Args&& ... args)const;
-            protected:
 
+                virtual ~Func(){};
+
+            private:
                 virtual void _call(void* ret,void* tuple)const;
                 ftype func;
+
         };
 
         template<typename Ret,typename ... Args>

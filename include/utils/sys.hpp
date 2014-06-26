@@ -3,9 +3,28 @@
 
 #include <string>
 #include <list>
+#include <vector>
+#include <exception>
+#include <unordered_map>
+
+#include <iostream>
+
+#ifdef _WIN32 //_WIN64
+    #include <windows.h>
+#elif __linux //|| __unix //or __APPLE__ 
+    #include <dlfcn.h>
+#else
+    #error not defined for this platform
+#endif
+
+#include <utils/log.hpp>
+#include <utils/functional.hpp>
 
 namespace utils
 {
+    namespace func{
+        class VFunc;
+    }
 /**
  * \brief a namspace that regroup function for the system
  */
@@ -16,6 +35,152 @@ namespace sys
      * \return the path where the file was find. if no file find, the value is empty
      */
     std::string whereis(const std::string& filename);
+
+    /**
+     * \brief Exeption class for Compiler
+     */
+    class NoCompilerException : std::exception
+    {
+        public:
+            NoCompilerException(const std::string& name);
+            virtual const char* what() const throw();
+        private:
+            std::string msg;
+    };
+
+    /**
+     * \brief Exeption class for compiler
+     */
+    class CompilationException : std::exception
+    {
+        public:
+            CompilationException(const std::string& name);
+            virtual const char* what() const throw();
+        private:
+            std::string msg;
+    };
+
+    /**
+     * \brief A class to load dynamic library
+     */
+    class Library
+    {
+        public:
+            Library(const Library&)=delete;
+            Library& operator=(const Library&)=delete;
+            
+            Library(Library&&) = default;
+            Library& operator=(Library&&) = default;
+
+            /**
+             * \param name the library filename (with no .dll/.so extention
+             */
+            Library(const std::string& name);
+
+            /**
+             * \brief load the library
+             * \return true on success
+             */
+            bool load();
+
+            /**
+             * \brief close the library and free the memory.
+             * Must be call before the object destruction
+             */
+            void close();
+
+            /**
+             * \brief Load a function from the library by his name
+             * \param Ret the return type
+             * \param Args the func params
+             * \return true on success
+             */
+            template<typename Ret,typename ... Args>
+            bool load_f(const std::string& name);
+            
+            /**
+             * \return the loaded function by his name. return nullptr on error
+             */
+            utils::func::VFunc* operator[](const std::string& name);
+
+        private:
+            std::string _name;
+            std::unordered_map<std::string,utils::func::VFunc*> funcs;
+
+            #ifdef _WIN32 //_WIN64
+            HMODULE lib; ///< lib manager
+            #elif __linux
+            void* lib; ///< lig manager
+            #endif
+    };
+
+    class Compiler
+    {
+        public:
+            Compiler(const Compiler&) = default;
+            Compiler& operator=(const Compiler&) = default;
+            Compiler(Compiler&&) = default;
+            Compiler& operator=(Compiler&&) = default;
+
+            /**
+             * \brief search for a compiler in the sytstem
+             * note : search for linux : g++, clang | win : mingw32-g++.exe, clang.exe
+             * \return the firt compiler find
+             * throw NoCompilerException on error
+             */
+            static Compiler getCompiler();
+
+            /**
+             * \brief search the compiler of the name
+             * \param name the compiler name to find
+             * \return the compiler
+             * throw NoCompilerException on error
+             */
+            static Compiler getCompiler(const std::string& name);
+
+            /**
+             * \brief add input file to compile
+             */
+            template<typename ... Args>
+            Compiler& input(Args&& ... args);
+            
+            /**
+             * \brief set the output lib name (no .so/.dll needed)
+             */
+            Compiler& output(const std::string& out);
+
+            /**
+             * \brief add compiler flags
+             */
+            template<typename ... Args>
+            Compiler& flags(Args&& ... args);
+
+            /**
+             * \brief add external liubrary to link with
+             */
+            template<typename ... Args>
+            Compiler& link(Args&& ... args);
+
+            /**
+             * \brief run the compilation, and return a Library. You have to load it
+             */
+            Library get() const;
+
+            /**
+             * \brief get the command lines use to build the lib
+             */
+            friend std::ostream& operator<<(std::ostream& output,const Compiler& self);
+        private:
+            std::string _name;
+            std::vector<std::string> _inputs;
+            std::string _output;
+            std::vector<std::string> _flags;
+            std::vector<std::string> _links;
+
+
+            Compiler(const std::string& name);
+            std::vector<std::string> make_cmds() const;
+    };
     
     /**
      * \brief regroup functions on dir and manipulation
@@ -94,4 +259,5 @@ namespace sys
     }
 }
 }
+#include <utils/sys.tpl>
 #endif
