@@ -34,13 +34,15 @@ set_option(BUILD_JSON TRUE BOOL "TRUE to generate json parser, FALSE to ignore i
 
 set_option(BUILD_PARSER TRUE BOOL "TRUE to use flex/bison to generate the parsers, FALSE to ignore it")
 
-set(LIBS "-lpthread")
 if(${WIN32})
-    find_library(PTHREAD_LIBS "winpthread-1")
+    find_library(PTHREAD_LIB "winpthread-1")
+    find_library(KERNEL_LIBS kernel32)#dlopen
+    set(LIBS ${PTHREAD_LIB} ${KERNEL_LIB})
 else()
-    find_library(PTHREAD_LIBS pthread)
+    find_library(PTHREAD_LIB pthread)
+    find_library(DL_LIB dl)#dlopen
+    set(LIBS ${PTHREAD_LIB} ${DL_LIB})
 endif()
-set(LIBS ${PTHREAD_LIBS})
 
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(DEFINES "")

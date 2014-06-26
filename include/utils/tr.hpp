@@ -57,24 +57,62 @@ namespace utils
         class Library
         {
             public:
-                Library(const std::string& name) : _name(name)
+                Library(const std::string& name) : _name(name),lib(nullptr)
                 {
                 }
 
                 bool load()
                 {
-                    return false;
+                    bool res = true;
+                    #ifdef _WIN32 //_WIN64
+                    lib = ::LoadLibrary(_name.c_str());
+                    #elif __linux //|| __unix //or __APPLE__
+                    lib = ::dlopen(_name.c_str(), RTLD_LAZY);
+                    #endif
+                    if (lib == nullptr)
+                    {
+                        utils::log::error("utils:tr::Library::load","Unable to load ",_name);
+                        res = false;
+                    }
+                    return res;
                 }
 
-                bool close()
+                void close()
                 {
-                    return false;
+                    #ifdef _WIN32 //_WIN64
+                    ::FreeLibrary(lib);
+                    #elif __linux
+                    ::dlclose(lib);
+                    #endif
                 }
 
                 template<typename Ret,typename ... Args>
                 bool load_f(const std::string& name)
                 {
-                    void* f = 
+                    if (lib == nullptr)
+                        return false;
+
+                    auto value = funcs.find(name);
+                    if(value != funcs.end())
+                    {
+                        utils::log::error("utils:tr::Library::load_f","function of name",name,"already exists");
+                        return false;
+                    }
+
+                    void* f = nullptr;
+                    #ifdef _WIN32 //_WIN64
+                    f = (void*)::GetProcAddress(lib,name.c_str());
+                    #elif __linux //|| __unix //or __APPLE__
+                    f = ::dlsym(lib,name.c_str());
+                    #endif
+                    if(f == nullptr)
+                    {
+                        utils::log::error("utils:tr::Library::load_f","Unable to load function",name);
+                        return false;
+                    }
+
+                    funcs.emplace(name,new utils::func::Func<Ret,Args...>(reinterpret_cast<Ret(*)(Args...)>(f)));
+                    return true;
                 }
 
                 utils::func::VFunc* operator[](const std::string& name)
@@ -178,7 +216,7 @@ namespace utils
                 {
                     for(const std::string& u : make_cmds())
                     {
-                        utils::log::info("utils:tr::Compiler::get","system(\"",u,"\")");
+                        utils::log::info("utils:tr::Compiler::get","system(\""+u+"\")");
                         int res = ::system(u.c_str());
                         if(res == -1)
                         {

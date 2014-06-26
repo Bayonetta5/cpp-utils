@@ -12,10 +12,8 @@ int main(int argc,char* argv[])
 
     if(libf.load())
     {
-        if(libf.load_f<int,int>("f"))
-        {
-            libf["f"]->call<int>(21);
-        }
+        if(libf.load_f<int,int>("print"))
+            libf["print"]->call<int>(21);
 
         libf.close();
     }
