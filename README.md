@@ -13,6 +13,8 @@ adds:
 * Thread pool (0.1.3)
 * Kernel function for learning machin (0.1.4)
 * Function manipulation (0.1.5)
+* Run time compilation as shared library (0.1.6)
+* shared library loading and function management (0.1.6)
 
 
 utils::string
