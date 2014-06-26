@@ -37,6 +37,8 @@ namespace utils
                 Func(ftype f);
                 Ret operator()(Args&& ... args)const;
 
+                operator ftype()const;
+
                 virtual ~Func(){};
 
             private:

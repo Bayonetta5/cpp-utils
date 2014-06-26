@@ -192,7 +192,10 @@ void test_sys()
         {
             if(libf.load_f<int,int>("print"))
                 libf["print"]->call<int>(21);
-
+            //cast test
+            int(*cast)(int) =  *reinterpret_cast<utils::func::Func<int,int>*>(libf["print"]);
+            cast(22);
+            
             libf.close();
         }
     }

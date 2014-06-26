@@ -214,13 +214,13 @@ namespace sys
         unsigned int _size = _inputs.size();
         for(unsigned int i=0;i<_size;++i)
         {
-            std::string tmp = _name + " -fpic";
+            std::string tmp = _name + " -fpic ";
 
             unsigned int _s = _flags.size();
             for(unsigned int i=0;i<_s;++i)
                 tmp+=" "+_flags[i];
 
-            tmp +=" -c \"" +_inputs[i]+"\" -o \""+_inputs[i]+"\".o";
+            tmp +=" -x c++ -c \"" +_inputs[i]+"\" -o \""+_inputs[i]+".o\"";
 
             res.push_back(std::move(tmp));
         }
@@ -233,15 +233,15 @@ namespace sys
             ".so";
             #endif
 
+            for(unsigned int i=0;i<_size;++i)
+                tmp+= " \""+_inputs[i]+".o\"";
+
             unsigned int _s = _links.size();
             if(_s>0)
             {
                 for(unsigned int i=0;i<_s;++i)
                     tmp += " -l"+_links[i];
             }
-
-            for(unsigned int i=0;i<_size;++i)
-                tmp+= " \""+_inputs[i]+".o\"";
 
             res.push_back(std::move(tmp));
         }
