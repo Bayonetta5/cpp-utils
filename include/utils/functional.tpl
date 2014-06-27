@@ -69,6 +69,12 @@ namespace utils
         }
 
         template<typename Ret,typename ... Args>
+        Func<Ret,Args...>::operator ftype()const
+        {
+            return func;
+        }
+
+        template<typename Ret,typename ... Args>
         void Func<Ret,Args...>::_call(void* ret,void* tuple)const
         {
             *reinterpret_cast<Ret*>(ret)=apply(func,*reinterpret_cast<std::tuple<Args...>*>(tuple));

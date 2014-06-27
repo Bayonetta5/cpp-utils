@@ -23,6 +23,7 @@ set(ROOT_HEADER
     ${INCROOT}/string.hpp
     ${INCROOT}/string.tpl
     ${INCROOT}/sys.hpp
+    ${INCROOT}/sys.tpl
     ${INCROOT}/thread.hpp
     ${INCROOT}/thread.tpl
     ${INCROOT}/tr.hpp

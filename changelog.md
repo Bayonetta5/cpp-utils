@@ -7,6 +7,8 @@ sys
 * add bool file::exists(const std::string& file_path)
 * add bool file::touch(const std::string& file_path)
 * add std::string whereis(const std::string& finename)
+* add Library
+* add Compiler
 
 
 0.1.5
