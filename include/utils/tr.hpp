@@ -16,8 +16,8 @@ namespace utils
      */
     namespace tr
     {
-        //library blah = Compiler::getCompiler(or "compname").input("files",...).output((lib)"blah".so/.dll).flags(...).link((lib)"names").get();
-        class NoCompilerException : std::exception {
+        class NoCompilerException : std::exception
+        {
             public:
                 NoCompilerException(const std::string& name) : msg("no compiler \""+ name + "\" find") {};
 
@@ -29,11 +29,13 @@ namespace utils
                 std::string msg;
         };
 
+
         class Library
         {
             private:
         };
 
+        //library blah = Compiler::getCompiler(or "compname").input("files",...).output((lib)"blah".so/.dll).flags(...).link((lib)"names").get();
         class Compiler
         {
             public:
@@ -91,12 +93,24 @@ namespace utils
 
                 Library get() const;
 
+
+                friend std::ostream& operator<<(std::ostream& output,const Compiler& self)
+                {
+                    output<<self.make_cmd();
+                    return output;
+                }
+
             private:
                 std::string _name;
                 std::list<std::string> _inputs;
                 std::string _output;
                 std::list<std::string> _flags;
                 std::list<std::string> _links;
+
+                std::string make_cmd()const
+                {
+                    return {};
+                }
 
 
                 Compiler(const std::string& name) : _name(name), _output("out")
