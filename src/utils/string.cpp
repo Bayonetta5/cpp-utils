@@ -1,4 +1,5 @@
 #include <utils/string.hpp>
+#include <cstring>
 
 namespace utils
 {
@@ -31,6 +32,22 @@ namespace string
             source.replace(i, find.length(), rep);
             i += rep.length() - find.length() + 1;
         }
+    }
+
+    bool startswith(const std::string& comp,const std::string& with)
+    {
+        auto c = comp.size();
+        auto w = with.size();
+        return (w <= c
+                and ::strncmp(with.c_str(),comp.c_str(),w)== 0);
+    }
+
+    bool endswith(const std::string& comp,const std::string& with)
+    {
+        auto c = comp.size();
+        auto w = with.size();
+        return (w <= c
+                and ::strncmp(with.c_str(),comp.c_str()+c-w,w)== 0);
     }
 }
 }

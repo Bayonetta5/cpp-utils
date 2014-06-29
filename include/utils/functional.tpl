@@ -48,14 +48,33 @@ namespace utils
         }
         */
 
+        template<typename Ret>
+        struct __vcall_healper
+        {
+            template<typename ... Args>
+            inline Ret operator()(const VFunc& f,Args&& ... args)const{
+                auto t = std::make_tuple(std::forward<Args>(args)...);
+                Ret res;
+                f._call(&res,&t);
+                return res;
+            }
+        };
+
+        template<>
+        struct __vcall_healper<void>
+        {
+            template<typename ... Args>
+            inline void operator()(const VFunc& f,Args&& ... args)const{
+                auto t = std::make_tuple(std::forward<Args>(args)...);
+                f._call(nullptr,&t);
+            }
+        };
+
         /*** VFunc ***/
         template<typename Ret,typename ... Args>
         Ret VFunc::call(Args&& ... args)const
         {
-            auto t = std::make_tuple(std::forward<Args>(args)...);
-            Ret res;
-            _call(&res,&t);
-            return res;
+            return __vcall_healper<Ret>()(*this,std::forward<Args>(args)...);
         }
 
         /*** Func ***/
@@ -74,10 +93,28 @@ namespace utils
             return func;
         }
 
+        template<typename Ret>
+        struct __call_healper
+        {
+            template<typename Func,typename Tuple>
+            inline void operator()(void* ret,Func func,Tuple&& tuple)const{
+                *reinterpret_cast<Ret*>(ret)=apply(func,tuple);
+            };
+        };
+
+        template<>
+        struct __call_healper<void>
+        {
+            template<typename Func,typename Tuple>
+            inline void operator()(void* ret,Func func,Tuple&& tuple)const{
+                apply(func,tuple);
+            };
+        };
+
         template<typename Ret,typename ... Args>
         void Func<Ret,Args...>::_call(void* ret,void* tuple)const
         {
-            *reinterpret_cast<Ret*>(ret)=apply(func,*reinterpret_cast<std::tuple<Args...>*>(tuple));
+            __call_healper<Ret>()(ret,func,*reinterpret_cast<std::tuple<Args...>*>(tuple));
         }
 
         template<typename Ret,typename ... Args>

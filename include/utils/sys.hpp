@@ -4,7 +4,6 @@
 #include <string>
 #include <list>
 #include <vector>
-#include <exception>
 #include <unordered_map>
 
 #include <iostream>
@@ -35,31 +34,7 @@ namespace sys
      * \return the path where the file was find. if no file find, the value is empty
      */
     std::string whereis(const std::string& filename);
-
-    /**
-     * \brief Exeption class for Compiler
-     */
-    class NoCompilerException : std::exception
-    {
-        public:
-            NoCompilerException(const std::string& name);
-            virtual const char* what() const throw();
-        private:
-            std::string msg;
-    };
-
-    /**
-     * \brief Exeption class for compiler
-     */
-    class CompilationException : std::exception
-    {
-        public:
-            CompilationException(const std::string& name);
-            virtual const char* what() const throw();
-        private:
-            std::string msg;
-    };
-
+    
     /**
      * \brief A class to load dynamic library
      */
@@ -126,7 +101,7 @@ namespace sys
              * \brief search for a compiler in the sytstem
              * note : search for linux : g++, clang | win : mingw32-g++.exe, clang.exe
              * \return the firt compiler find
-             * throw NoCompilerException on error
+             * throw std::runtime_error on error
              */
             static Compiler getCompiler();
 
@@ -134,7 +109,7 @@ namespace sys
              * \brief search the compiler of the name
              * \param name the compiler name to find
              * \return the compiler
-             * throw NoCompilerException on error
+             * throw std::runtime_error on error
              */
             static Compiler getCompiler(const std::string& name);
 

@@ -15,6 +15,7 @@ namespace utils
         template<typename Ret,typename ... Args>
         constexpr Ret apply(Ret(*f)(Args...),const std::tuple<Args...>& t);
 
+
         class VFunc
         {
             public:
@@ -24,6 +25,7 @@ namespace utils
                 virtual ~VFunc(){};
 
             protected:
+                template<typename T> friend class __vcall_healper;
                 virtual void _call(void* ret,void* tuple)const = 0;
         };
 

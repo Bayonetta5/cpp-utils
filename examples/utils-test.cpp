@@ -170,6 +170,12 @@ void test_string()
 
     std::cout<<join("|",1,2,3,"blaghjio",42.f)<<std::endl;
 
+    std::cout<<"startswith(\"test\",\"te\") "<<startswith("test","te")<<std::endl;
+    std::cout<<"startswith(\"test\",\"es\") "<<startswith("test","es")<<std::endl;
+
+    std::cout<<"endswith(\"test\",\"st\") "<<endswith("test","st")<<std::endl;
+    std::cout<<"endswith(\"test\",\"et\") "<<endswith("test","et")<<std::endl;
+
     std::cout<<"=== END test_logs ==="<<std::endl;
 }
 
@@ -177,7 +183,6 @@ void test_string()
 void test_sys()
 {
     std::cout<<"=== test_sys ==="<<std::endl;
-
     {
         using namespace utils::sys;
         std::cout<<"whereis: "<<whereis("g++")<<std::endl;
@@ -239,8 +244,13 @@ void test_thread()
 #include <utils/functional.hpp>
 double f(int a,int b)
 {
-    std::cout<<"f("<<a<<" "<<b<<")"<<std::endl;
+    std::cout<<"double f("<<a<<" "<<b<<")"<<std::endl;
     return 41.5;
+}
+
+void f2(int a,int b)
+{
+    std::cout<<"void f2("<<a<<" "<<b<<")"<<std::endl;
 }
 
 void test_functional()
@@ -256,6 +266,12 @@ void test_functional()
     VFunc& vfunc=func;
     vfunc.call<double>(1,5); //must specify the return type
 
+    auto func2=make_func(f2);
+    func2(3,5); //know complet type
+
+    VFunc& vfunc2=func2;
+    vfunc2.call<void>(1,5); //must specify the return type
+
     std::cout<<"=== END test functional ==="<<std::endl;
 }
 
@@ -266,6 +282,7 @@ int main(int argc,char* argv[])
     test_maths();
     test_string();
     test_sys();
+    test_functional();
 
     //test_thread();
 

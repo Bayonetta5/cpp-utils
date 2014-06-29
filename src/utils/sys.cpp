@@ -1,6 +1,8 @@
 #include <utils/sys.hpp>
 #include <utils/string.hpp>
 
+#include <stdexcept>
+
 #if __unix || __unix__
 #include <unistd.h>
 #include <ftw.h>
@@ -47,27 +49,7 @@ namespace sys
         }
         return {};
     }
-
-    //NoCompilerException
-    NoCompilerException::NoCompilerException(const std::string& name) : msg("no compiler \""+ name + "\" find")
-    {
-    };
-
-    const char* NoCompilerException::what() const throw()
-    {
-        return msg.c_str();
-    }
-
-    //CompilationException
-    CompilationException::CompilationException(const std::string& name) : msg(name)
-    {
-    };
-
-    const char* CompilationException::what() const throw()
-    {
-        return msg.c_str();
-    }
-
+    
     //Library
     Library::Library(const std::string& name) : _name(name),lib(nullptr)
     {
@@ -131,7 +113,7 @@ namespace sys
             return getCompiler("g++");
             #endif
         }
-        catch(NoCompilerException& e)
+        catch(std::runtime_error& e)
         {
             try
             {
@@ -141,13 +123,15 @@ namespace sys
                 return getCompiler("clang");
                 #endif
             }
-            catch(NoCompilerException& e)
+            catch(std::runtime_error& e)
             {
+                throw std::runtime_error("no compilater "
                 #ifdef _WIN32 //_WIN64
-                throw NoCompilerException("mingw-g++.exe or clang.exe");
+                "mingw-g++.exe or clang.exe"
                 #else
-                throw NoCompilerException("g++ or clang");
+                "g++ or clang"
                 #endif
+                " find");
             }
         }
     }
@@ -156,13 +140,26 @@ namespace sys
     {
         std::string path = sys::whereis(name);
         if(name.empty())
-            throw NoCompilerException(name);
+            throw std::runtime_error(name);
         return Compiler(path);
     }
 
     Compiler& Compiler::output(const std::string& out)
     {
-        _output = out;
+        if(not out.empty())
+        {
+            #ifdef _WIN32 //_WIN64
+            if(string::startswith(out,".\\")) 
+                _output = out;
+            else
+                _output = ".\\"+out;
+            #else
+            if(string::startswith(out,"./")) 
+                _output = out;
+            else
+                _output = "./"+out;
+            #endif
+        }
 
         return *this;
     }
@@ -177,12 +174,12 @@ namespace sys
             if(res == -1)
             {
                 utils::log::error("utils:sys::Compiler::get","failed to make sytem call");
-                throw CompilationException("fork failed");
+                throw std::runtime_error("fork failed");
             }
             else if(res != 0)
             {
                 utils::log::error("utils:sys::Compiler::get","the command return the error code:",res);
-                throw CompilationException("Error");
+                throw std::runtime_error("fork failed");
             }
 
         }
@@ -203,7 +200,7 @@ namespace sys
     }
 
 
-    Compiler::Compiler(const std::string& name) : _name(name), _output("out")
+    Compiler::Compiler(const std::string& name) : _name(name), _output("./out")
     {
     }
 

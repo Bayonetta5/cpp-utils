@@ -38,6 +38,9 @@ namespace string
 
     template<typename ... Args>
     inline std::string join(const std::string& del,const Args& ... args);
+
+    bool startswith(const std::string& comp,const std::string& with);
+    bool endswith(const std::string& comp,const std::string& with);
 }
 }
 #include <utils/string.tpl>

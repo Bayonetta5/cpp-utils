@@ -5,6 +5,10 @@ if(BUILD_JSON)
     add_subdirectory(json)
 endif()
 
+if(BUILD_ICPP)
+    add_subdirectory(icpp)
+endif()
+
 set(ROOT_SRC
     ${SRCROOT}/log.cpp
     ${SRCROOT}/string.cpp

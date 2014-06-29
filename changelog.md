@@ -1,3 +1,19 @@
+0.1.7
+=====
+
+string
+------
+
+* add startswith(string,string)
+* add endswith(string,string)
+
+
+functional
+----------
+
+* add call of void functions
+
+
 0.1.6
 =====
 
