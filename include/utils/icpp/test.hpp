@@ -167,6 +167,4 @@ class Value
             double      v_double;
             std::string* v_string;
         };
-
-
 };

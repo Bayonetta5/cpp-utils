@@ -26,7 +26,9 @@ namespace utils
 
             protected:
                 template<typename T> friend class __vcall_healper;
-                virtual void _call(void* ret,void* tuple)const = 0;
+                void* func;
+
+                VFunc(void* f);
         };
 
 
@@ -44,8 +46,6 @@ namespace utils
                 virtual ~Func(){};
 
             private:
-                virtual void _call(void* ret,void* tuple)const;
-                ftype func;
 
         };
 

@@ -14,15 +14,18 @@ int main(int argc,char* argv[])
         v.show(std::cout)<<std::endl;
 
     sys::Compiler comp = sys::Compiler::getCompiler();
-    sys::Library libf = comp.input("f.cpp")
-        .output("f")
-        .flags("-o3","-Wall")
+    sys::Library libf = comp.input("f2.cpp")
+        .output("f2")
+        .flags("-o3","-Wall","-I../include","-std=c++0x")
         .get();
 
     if(libf.load())
     {
         if(libf.load_f<int,int>("print"))
             libf["print"]->call<int>(21);
+
+        if(libf.load_f<void,const Value&>("show"))
+            libf["show"]->call<void>(vec[2]);
         //cast test
         libf.close();
     }
