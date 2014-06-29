@@ -11,6 +11,7 @@ endif()
 
 set(ROOT_SRC
     ${SRCROOT}/log.cpp
+    ${SRCROOT}/plot.cpp
     ${SRCROOT}/string.cpp
     ${SRCROOT}/sys.cpp
     ${SRCROOT}/thread.cpp
@@ -24,6 +25,8 @@ set(ROOT_HEADER
     ${INCROOT}/log.tpl
     ${INCROOT}/maths.hpp
     ${INCROOT}/maths.tpl
+    ${INCROOT}/plot.hpp
+    ${INCROOT}/plot.tpl
     ${INCROOT}/string.hpp
     ${INCROOT}/string.tpl
     ${INCROOT}/sys.hpp

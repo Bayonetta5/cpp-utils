@@ -15,6 +15,7 @@ adds:
 * Function manipulation (0.1.5)
 * Run time compilation as shared library (0.1.6)
 * shared library loading and function management (0.1.6)
+* Gnuplot (0.1.7)
 
 
 See exemples/ for exemples

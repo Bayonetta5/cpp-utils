@@ -275,6 +275,39 @@ void test_functional()
     std::cout<<"=== END test functional ==="<<std::endl;
 }
 
+#include <utils/plot.hpp>
+void test_plot()
+{
+    using namespace utils::plot;
+    Gnuplot g;
+
+    g.plot("sin(x)");
+    g.plot("log(x)");
+    g.cmd("plot cos(x)");
+
+    std::cout<<"press a key to continue"<<std::endl;
+    std::cin.get();
+    g.clear();
+
+    {
+        auto x = {1,2,3,4};
+        auto y = {1,4,2,5};
+
+        g.plot("test",x,y,Gnuplot::Style::lines);
+    }
+
+    {
+        auto x = {1,2,3,4};
+        auto y = {3,4,8,2};
+
+        g.plot(x,y,Gnuplot::Style::lines);
+    }
+
+    std::cout<<"press a key to close"<<std::endl;
+    std::cin.get();
+    g.close();
+}
+
 
 int main(int argc,char* argv[])
 {
@@ -283,6 +316,7 @@ int main(int argc,char* argv[])
     test_string();
     test_sys();
     test_functional();
+    test_plot();
 
     //test_thread();
 

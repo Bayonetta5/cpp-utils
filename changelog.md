@@ -1,11 +1,18 @@
 0.1.7
 =====
 
+add plot namespace
+
 string
 ------
 
 * add startswith(string,string)
 * add endswith(string,string)
+
+plot
+----
+
+* add Gnuplot class
 
 
 functional
