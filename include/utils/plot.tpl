@@ -36,7 +36,7 @@ namespace utils
 
                 *this<<"e\n";
 
-                has_plot = true;
+                ++nb_plot;
 
                 //*this
             }

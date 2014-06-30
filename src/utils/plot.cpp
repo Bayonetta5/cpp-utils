@@ -7,13 +7,11 @@ namespace utils
     {
         void Gnuplot::plot(const std::string& cmd)
         {
-            if(has_plot)
+            if(nb_plot>0)
                 *this<<"replot "<<cmd<<"\n";
             else
-            {
                 *this<<"plot "<<cmd<<"\n";
-                has_plot = true;
-            }
+            ++nb_plot;
         }
 
         void Gnuplot::cmd(const std::string& cmd)
@@ -24,7 +22,7 @@ namespace utils
         void Gnuplot::clear()
         {
             *this<<"clear\n";
-            has_plot = false;
+            nb_plot = 0;
         }
 
         bool Gnuplot::isOpen()const
@@ -68,7 +66,7 @@ namespace utils
             return true;
         }
 
-        Gnuplot::Gnuplot() : pipe(nullptr), has_plot(false)
+        Gnuplot::Gnuplot() : pipe(nullptr), nb_plot(0), _mod(Mod::MULTI)
         {
             open();
         }

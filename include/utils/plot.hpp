@@ -51,10 +51,23 @@ namespace utils
                 template<typename T>
                 friend Gnuplot& operator<<(Gnuplot& self,const T& value);
 
+                void draw();
+                void draw(int plot_number);
+
+                enum class Mod{
+                    MULTI,
+                    WINDOW
+                };
+
+                void mod()const;
+                void mod(Mod mod);
+
 
             private:
                 FILE* pipe;
-                bool has_plot;
+                int nb_plot;
+
+                Mod _mod;
 
                 static inline std::string convert(const Style& style);
         };

@@ -55,5 +55,7 @@ compile "f.cpp", "f.cpp" with flags "o3","Wall" link p as libf4
 
 wget "127.0.0.1:8000/test.cpp" as wget_file
 
+source "file.icpp"
+
 
 exit
