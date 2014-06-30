@@ -298,6 +298,7 @@ void test_plot()
         g[0].add("serie2");
         g[0][1].style(Serie::Style::lines);
         g[0][1].addPoints(x,y);
+        g[0][1].addPoint(5,9);
 
         g.add("test2");
         g[1].style(Serie::Style::points);

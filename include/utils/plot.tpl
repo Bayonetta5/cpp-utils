@@ -1,4 +1,5 @@
 #include <sstream>
+#include <iostream>
 
 namespace utils
 {
@@ -8,7 +9,8 @@ namespace utils
         template<typename X,typename Y>
         void Serie::addPoint(X&& x, Y&& y)
         {
-            (*this)<<x<<" "<<y<<std::endl;
+            (*this)<<x<<" "<<y<<"\n";
+            _out<<std::flush;
         }
 
         template<typename X,typename Y>
@@ -36,6 +38,13 @@ namespace utils
             return self;
         }
 
+        template<typename T>
+        Serie& operator<<(Serie& self,T&& value)
+        {
+            self._out<<value;
+            return self;
+        }
+
         /************* Graph ******************/
         template<typename ... Args>
         bool Graph::add(Args&& ... args)
@@ -55,7 +64,7 @@ namespace utils
             if(this->_series.size()<=0)
                 if(not this->add())
                     return false;
-            _series[0]->addPoint(std::forward<Args>(args)...);
+            _series[0]->addPoint<Args...>(std::forward<Args>(args)...);
             return true;
         }
 
@@ -65,7 +74,7 @@ namespace utils
             if(this->_series.size()<=0)
                 if(not this->add())
                     return false;
-            _series[0]->addPoints(std::forward<Args>(args)...);
+            _series[0]->addPoints<Args ...>(std::forward<Args>(args)...);
             return true;
         }
 

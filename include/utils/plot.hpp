@@ -62,6 +62,9 @@ namespace utils
                 template<typename T>
                 friend Serie& operator<<(Serie& self,const T& value);
 
+                template<typename T>
+                friend Serie& operator<<(Serie& self,T&& value);
+
                 friend Gnuplot& operator<<(Gnuplot& plot,const Serie& self);
 
             private:
