@@ -5,12 +5,50 @@
 #include <cstdlib>
 
 #include <string>
-
+#include <fstream>
 
 namespace utils
 {
     namespace plot
     {
+
+        class Serie
+        {
+            public:
+
+                explicit Serie(const std::string& ="");
+
+                enum class Style
+                {
+                    points,
+                    lines,
+                    linespoints,
+                    impulses,
+                    dots,
+                    steps,
+                    errorbars,
+                    boxes,
+                    boxerrorbars,
+                };
+
+                const std::string& title()const;
+                void title(const std::string&);
+
+                Style style()const;
+                void style(Style);
+
+                template<typename X,typename Y>
+                void add(X&& x,Y&& y);
+
+                template<typename T>
+                friend Serie& operator<<(Serie& self,const T& value);
+
+            private:
+                std::string _title;
+                std::ofstream _out;
+                Style _style;
+        };
+
         class Gnuplot
         {
             public:

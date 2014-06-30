@@ -49,7 +49,6 @@ namespace utils
         */
 
         /*** VFunc ***/
-        VFunc::VFunc(void* f) : func(f){}
 
         template<typename Ret,typename ... Args>
         Ret VFunc::call(Args&& ... args)const

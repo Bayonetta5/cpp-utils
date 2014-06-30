@@ -1,10 +1,63 @@
 #include <utils/plot.hpp>
+#include <utils/sys.hpp>
 
+#include <cstring>
 #include <stdexcept>
+
+#ifndef _WIN32
+#include <unistd.h>
+#endif
+
 namespace utils
 {
     namespace plot
     {
+        /********* Serie **************/
+        Serie::Serie(const std::string& title) : _title(title), _style(Style::lines)
+        {
+            if(utils::sys::dir::create("./plot") == 0)
+                throw std::runtime_error("Unable to create tempory dir plot");
+
+            char *tmpname = ::strdup("./plot/serie_XXXXXX");
+            #ifdef _WIN32
+            if(::_mkstemp(tmpname)==nullptr)
+            #else
+            int fd = ::mkstemp(tmpname);
+            if(fd == -1)
+            #endif
+            {
+                ::free(tmpname);
+                throw std::runtime_error("Unable to create tempory file");
+            }
+
+            _out.open(tmpname);
+            ::free(tmpname);
+            #ifndef _WIN32
+            ::close(fd);
+            #endif
+        }
+
+        const std::string& Serie::title()const
+        {
+            return _title;
+        }
+
+        void Serie::title(const std::string& title)
+        {
+            _title = title;
+        }
+
+        Serie::Style Serie::style()const
+        {
+            return _style;
+        }
+
+        void Serie::style(Serie::Style style)
+        {
+            _style = style;
+        }
+        
+        //Gnuplot
         void Gnuplot::plot(const std::string& cmd)
         {
             if(nb_plot>0)

@@ -4,6 +4,19 @@ namespace utils
 {
     namespace plot
     {
+
+        template<typename X,typename Y>
+        void Serie::add(X&& x, Y&& y)
+        {
+            (*this)<<x<<" "<<y<<std::endl;
+        }
+
+        template<typename T>
+        Serie& operator<<(Serie& self,const T& value)
+        {
+            self._out<<value;
+            return self;
+        }
             template<typename CONTAINER_X,typename CONTAINER_Y>
             void Gnuplot::plot(const CONTAINER_X& x,const CONTAINER_Y& y,const Style& style)
             {

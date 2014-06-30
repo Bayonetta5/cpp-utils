@@ -10,6 +10,7 @@ if(BUILD_ICPP)
 endif()
 
 set(ROOT_SRC
+    ${SRCROOT}/functional.cpp
     ${SRCROOT}/log.cpp
     ${SRCROOT}/plot.cpp
     ${SRCROOT}/string.cpp
