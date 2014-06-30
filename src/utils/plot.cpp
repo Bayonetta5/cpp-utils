@@ -84,8 +84,8 @@ namespace utils
         Gnuplot& operator<<(Gnuplot& plot,const Serie& self)
         {
             plot<<"\""<<self._filename<<"\"";
-            /*if(not self._title.empty())
-                plot<<" title "<<self._title;*/
+            if(not self._title.empty())
+                plot<<" title \""<<self._title<<"\"";
             plot<<" with "<<self.style_str();
             return plot;
         }
