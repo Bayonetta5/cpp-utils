@@ -288,7 +288,7 @@ namespace utils
             if(_mod == Mod::MULTI)
             {
                 float sq = sqrt(_size);
-                (*this)<<"set term wxt 0\n";
+                (*this)<<"set term wxt title \"\" 0\n";
                 (*this)<<"set multiplot layout "<<::round(sq)<<","<<::ceil(sq)<<"\n";
                 flush();
             }
@@ -308,7 +308,7 @@ namespace utils
             //set mod
             if(_mod == Mod::WINDOW)
             {
-                (*this)<<"set term wxt "<<i<<"\n";
+                (*this)<<"set term wxt title \""<<_graphs[i]->_title<<"\" "<<i<<"\n";
             }
             (*this)<<*_graphs[i];
         }
