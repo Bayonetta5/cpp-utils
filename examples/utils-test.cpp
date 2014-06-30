@@ -281,26 +281,34 @@ void test_plot()
     using namespace utils::plot;
     Gnuplot g;
 
-    g.plot("sin(x)");
-    g.plot("log(x)");
     g.cmd("plot cos(x)");
 
     std::cout<<"press a key to continue"<<std::endl;
     std::cin.get();
     g.clear();
+    g.mod(Gnuplot::Mod::WINDOW);
 
     {
         auto x = {1,2,3,4};
         auto y = {1,4,2,5};
 
-        g.plot("test",x,y,Gnuplot::Style::lines);
-    }
+        g.add("test1");
+        g[0].style(Serie::Style::points);
+        g[0].addPoints(x,y);
+        g[0].add("serie2");
+        g[0][1].style(Serie::Style::lines);
+        g[0][1].addPoints(x,y);
 
-    {
-        auto x = {1,2,3,4};
-        auto y = {3,4,8,2};
+        g.add("test2");
+        g[1].style(Serie::Style::points);
+        g[1].addPoints(x,y);
+        g.draw();
 
-        g.plot(x,y,Gnuplot::Style::lines);
+        std::cout<<"press a key to continue"<<std::endl;
+        std::cin.get();
+        g.mod(Gnuplot::Mod::MULTI);
+        g.draw();
+
     }
 
     std::cout<<"press a key to close"<<std::endl;
