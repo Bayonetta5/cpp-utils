@@ -151,7 +151,9 @@ class Value
         }
 
 
-    private:
+
+    //private:
+
         enum Type {
             BOOL,
             CHAR,
