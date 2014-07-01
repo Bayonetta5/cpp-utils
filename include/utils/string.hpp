@@ -36,10 +36,22 @@ namespace string
     template<typename T>
     std::string join(const std::string& del,const std::vector<T>& datas,bool reverse=false);
 
+    /**
+     * \brief like the python join
+     * \param  del the delimitor to use
+     * \param args create a string using std::sstream. It must have a std::stringstream& operator<<(const T&,std::stringstream&)
+     */
     template<typename ... Args>
     inline std::string join(const std::string& del,const Args& ... args);
 
+    /**
+     * \return true if comp starts with with
+     */
     bool startswith(const std::string& comp,const std::string& with);
+
+    /**
+     * \return true if comp ends with with
+     */
     bool endswith(const std::string& comp,const std::string& with);
 }
 }

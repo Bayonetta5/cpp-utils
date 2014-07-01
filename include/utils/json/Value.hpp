@@ -11,6 +11,9 @@ namespace utils
         class Array;
         class Object;
 
+        /**
+         * \brief A class to store JSON value
+         */
         class Value
         {
             public:
@@ -71,7 +74,7 @@ namespace utils
                     UNDEFINE
                 };
                     
-                Type getType()const;
+                Type getType()const; //< return the value type
                 
                 bool isString()const;
                 bool isInt()const;
@@ -81,7 +84,7 @@ namespace utils
                 bool isBool()const;
                 bool isNull()const;
 
-                friend std::ostream& operator<<(std::ostream& stream, const Value& self);
+                friend std::ostream& operator<<(std::ostream& stream, const Value& self); //< output the json
 
                 long double& as_float();
                 long long int& as_int();
@@ -106,7 +109,7 @@ namespace utils
 
                 Type type;
                 
-                void print_ident(std::ostream& out,int i)const;
+                void print_ident(std::ostream& out,int i)const; //< print the json as human readable
         };
     }
 }

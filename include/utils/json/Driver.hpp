@@ -8,6 +8,9 @@
 
 namespace utils
 {
+    /**
+     * \brief namspace for json
+     */
     namespace json {
         /**
          * A class that have to be use to parse json input
@@ -45,6 +48,10 @@ namespace utils
                  */
                 static Value* parse(std::istream& in);
 
+                /**
+                 * \brief Parse a input
+                 * \param in The input stream to parse
+                 */
                 static Value* parse(const std::string& in);
 
                 /**
@@ -62,8 +69,8 @@ namespace utils
                 Scanner scanner; ///< The lexer
                 Parser parser; ///< The parser
 
-                bool validity;
-                utils::json::Value* value;
+                bool validity;//< is valid
+                utils::json::Value* value;///< the root node
 
         };
     }

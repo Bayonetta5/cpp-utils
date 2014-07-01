@@ -1,6 +1,10 @@
 #include <string>
 #include <iostream>
 
+
+/**
+ * \brief DO NOT USE THIS FOR THE MOMENT
+ */
 class Value
 {
     public:

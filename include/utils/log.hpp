@@ -68,6 +68,9 @@ namespace log
     template <typename ... Args>
     void log(LOG_LVL lvl,Args&& ... args);
 
+    /**
+     * \brief add the time as : [day-mounth-year hour-min-sec]
+     */
     std::ostream& time(std::ostream& output);
 
     /**

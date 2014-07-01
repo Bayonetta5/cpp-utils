@@ -9,6 +9,10 @@ namespace utils
 {
     namespace json
     {
+        /**
+         * \brief a class to manage JSon objects
+         * Stored as std::unordered_map
+         */
         class Object
         {
             public:
@@ -20,10 +24,18 @@ namespace utils
                 Object(Object&&) = default;
                 Object& operator=(Object&&) = default;
 
-                friend std::ostream& operator<<(std::ostream& stream, const Object& self);
+                friend std::ostream& operator<<(std::ostream& stream, const Object& self); //< output as json
 
+                /**
+                 * \return the Value with key key
+                 * Note a new one is create if key does't exist
+                 */
                 Value& operator[] (const std::string& key);
 
+                /**
+                 * \return the Value with key key
+                 * Note make a error is key is not valid
+                 */
                 const Value& operator[] (const std::string& key) const;
 
                 std::unordered_map<std::string, Value>::const_iterator begin() const;
@@ -36,7 +48,7 @@ namespace utils
 
                 //std::pair<std::unordered_map<std::string, Value>::iterator, bool> insert(const std::pair<std::string, Value>& v);
                 
-                size_t size() const;
+                size_t size() const; //< return the object size
 
 
             private:

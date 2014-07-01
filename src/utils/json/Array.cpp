@@ -52,5 +52,10 @@ namespace utils
         {
             return values.end();
         }
+
+        size_t Array::size()const
+        {
+            return values.size();
+        }
     }
 }

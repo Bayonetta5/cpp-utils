@@ -79,8 +79,8 @@ namespace sys
             utils::func::VFunc* operator[](const std::string& name);
 
         private:
-            std::string _name;
-            std::unordered_map<std::string,utils::func::VFunc*> funcs;
+            std::string _name;///<filename
+            std::unordered_map<std::string,utils::func::VFunc*> funcs;///< loaded functions
 
             #ifdef _WIN32 //_WIN64
             HMODULE lib; ///< lib manager
@@ -89,6 +89,9 @@ namespace sys
             #endif
     };
 
+    /**
+     * \brieaf a class that manage system compiler
+     */
     class Compiler
     {
         public:
@@ -146,15 +149,15 @@ namespace sys
              */
             friend std::ostream& operator<<(std::ostream& output,const Compiler& self);
         private:
-            std::string _name;
-            std::vector<std::string> _inputs;
-            std::string _output;
-            std::vector<std::string> _flags;
-            std::vector<std::string> _links;
+            std::string _name; ///<compiler binary path
+            std::vector<std::string> _inputs; ///< files to compile
+            std::string _output; //< output lib name
+            std::vector<std::string> _flags;///< optionals flags
+            std::vector<std::string> _links;///< optional extern libs to link mith
 
 
-            Compiler(const std::string& name);
-            std::vector<std::string> make_cmds() const;
+            Compiler(const std::string& name); //< constructor
+            std::vector<std::string> make_cmds() const; ///< make the cmd to send to the system
     };
     
     /**
@@ -229,8 +232,6 @@ namespace sys
          * \return true on success
          */
         bool touch(const std::string& file_path);
-
-
     }
 }
 }

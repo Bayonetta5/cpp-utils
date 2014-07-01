@@ -11,8 +11,14 @@
 
 namespace utils
 {
+    /**
+     * \brief namespace for thread classes
+     */
     namespace thread
     {
+        /**
+         * \brief a class to manage a thread pool
+         */
         class Pool
         {
             public:

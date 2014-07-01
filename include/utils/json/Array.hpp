@@ -9,6 +9,10 @@ namespace utils
 {
     namespace json
     {
+        /**
+         * \brief class to manage the special Array value
+         * Internaly stored as a list. Operator [] is not allowed
+         */
         class Array
         {
             public:
@@ -20,7 +24,7 @@ namespace utils
                 Array(Array&&) = default;
                 Array& operator=(Array&&) = default;
                 
-                friend std::ostream& operator<<(std::ostream& stream, const Array& self);
+                friend std::ostream& operator<<(std::ostream& stream, const Array& self); //< output as json
 
                 std::list<Value>::const_iterator begin() const;
 
@@ -29,6 +33,8 @@ namespace utils
                 std::list<Value>::iterator begin();
 
                 std::list<Value>::iterator end();
+
+                size_t size() const; //< return the size
 
 
             private:
