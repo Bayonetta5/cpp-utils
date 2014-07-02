@@ -150,6 +150,21 @@ class Value
             return out;
         }
 
+        std::string type_str()const
+        {
+            switch(type)
+            {
+                case BOOL:return "bool";
+                case CHAR:return "char";
+                case INT: return "int";
+                case FLOAT: return "float";
+                case DOUBLE: return "double";
+                case STRING: return "string";
+                case NIL: return "null";
+                default: return "???";
+            }
+        }
+
 
 
     //private:

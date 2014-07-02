@@ -45,13 +45,13 @@ run p(3) detached //asynchone
 run p(4) detached as thread_p //syntaxe error detached thread can't be stored
 
 compile "f.cpp" as libf
-from libf import int print(int)
+from libf import int print
 
 compile "f.cpp", "f.cpp" as libf2
 
-compile "f.cpp", "f.cpp" with flags "o3","Wall" as libf3
+compile "f.cpp", "f.cpp" with flags("o3","Wall") as libf3
 
-compile "f.cpp", "f.cpp" with flags "o3","Wall" link p as libf4
+compile "f.cpp", "f.cpp" with flags("o3","Wall") link(p) as libf4
 
 wget "127.0.0.1:8000/test.cpp" as wget_file
 

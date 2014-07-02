@@ -1,6 +1,8 @@
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME}/icpp)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME}/icpp)
 
+find_library(AVCALL_LIB avcall)
+set(LIBS ${LIBS} ${AVCALL_LIB})
 
 #SET(BisonOutputSrc ${SRCROOT}/Parser.cpp)
 #set(BisonOutputInc ${SRCROOT}/Parser.hpp)
@@ -67,7 +69,7 @@ set(FILES_SRC
 )
 
 add_executable(${CMAKE_PROJECT_NAME}-icpp ${FILES_HEADER} ${FILES_SRC})
-target_link_libraries(${CMAKE_PROJECT_NAME}-icpp ${CMAKE_PROJECT_NAME})
+target_link_libraries(${CMAKE_PROJECT_NAME}-icpp ${LIBS} ${CMAKE_PROJECT_NAME})
 
 ##SHARED lib
 #add_library(${CMAKE_PROJECT_NAME}-icpp SHARED ${FILES_HEADER} ${FILES_SRC})
