@@ -214,6 +214,9 @@ namespace utils
             unsigned int _size = self._series.size();
             if(_size>0)
             {
+                plot<<"set key ins vert\n"
+                    <<"set key bot right\n";
+
                 if(not self._title.empty())
                     plot<<"set title \""<<self._title<<"\"\n";
 
