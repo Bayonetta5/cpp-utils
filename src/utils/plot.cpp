@@ -90,6 +90,24 @@ namespace utils
             return plot;
         }
 
+        bool Serie::isOpen()const
+        {
+            return _out.is_open();
+        }
+
+        bool Serie::open(std::ofstream::openmode mode)
+        {
+            if(_out.is_open())
+                return false;
+            _out.open(_filename,mode);
+            return _out.good();
+        }
+
+        void Serie::close()
+        {
+            return _out.close();
+        }
+
         /************* Graph *****************/
         Graph::Graph(const std::string& title) : _title(title), _style(Serie::Style::lines)
         {

@@ -101,6 +101,22 @@ namespace utils
                 template<typename T>
                 friend Serie& operator<<(Serie& self,T&& value);
 
+                /**
+                 * \return tru if the filestream is open
+                 */
+                bool isOpen()const;
+
+                /**
+                 * \brief open th file stream
+                 * \return true on success
+                 */
+                bool open(std::ofstream::openmode mode = std::ofstream::out | std::ofstream::app);
+
+                /***
+                 * \brief close the file stream
+                 */
+                void close();
+
 
             private:
                 friend class Graph;
