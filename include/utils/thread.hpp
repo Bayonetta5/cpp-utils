@@ -39,7 +39,6 @@ namespace utils
                 //sync
                 std::mutex mutex_tasks;
                 std::condition_variable cv;
-                std::condition_variable cv_end;
 
 
                 class Worker
