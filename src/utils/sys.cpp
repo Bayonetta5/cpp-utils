@@ -189,6 +189,8 @@ namespace sys
             }
 
         }
+        for(const std::string& f: _inputs)
+            sys::file::rm(f+".o");
         return {_output+
         #ifdef _WIN32
         ".dll"
