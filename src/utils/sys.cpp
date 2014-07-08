@@ -55,6 +55,12 @@ namespace sys
     {
     }
 
+    Library::~Library()
+    {
+        if(lib)
+            close();
+    }
+
     bool Library::load()
     {
         #ifdef _WIN32 //_WIN64
@@ -91,6 +97,7 @@ namespace sys
         ::dlclose(lib);
         ::dlerror();
         #endif
+        lib = nullptr;
 
     }
 
