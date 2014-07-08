@@ -52,6 +52,8 @@ namespace sys
              */
             Library(const std::string& name);
 
+            ~Library();
+
             /**
              * \brief load the library
              * \return true on success
