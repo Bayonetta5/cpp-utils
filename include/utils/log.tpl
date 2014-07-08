@@ -18,15 +18,20 @@ namespace log
     template <typename T>
     void todo(const T& msg)
     {
-        std::clog<<colors::yellow<<time
-            <<msg
+        std::clog<<colors::yellow;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<msg
             <<colors::reset<<std::endl;
     }
 
     template <typename T,typename ... Args>
     void todo(const T& type,const Args& ... args)
     {
-        std::clog<<colors::yellow<<time<<"["<<type<<"]";
+        std::clog<<colors::yellow;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<"["<<type<<"]";
         __out_helper(std::clog,args ...);
         std::clog<<colors::reset<<std::endl;
     }
@@ -34,15 +39,20 @@ namespace log
     template <typename T>
     void info(const T& msg)
     {
-        std::clog<<colors::light_cyan<<time
-            <<msg
+        std::clog<<colors::light_cyan;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<msg
             <<colors::reset<<std::endl;
     }
 
     template <typename T,typename ... Args>
     void info(const T& type,const Args& ... args)
     {
-        std::clog<<colors::light_cyan<<time<<"["<<type<<"]";
+        std::clog<<colors::light_cyan;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<"["<<type<<"]";
         __out_helper(std::clog,args ...);
         std::clog<<colors::reset<<std::endl;
     }
@@ -51,15 +61,20 @@ namespace log
     template <typename T>
     void ok(const T& msg)
     {
-        std::clog<<colors::green<<time
-            <<msg
+        std::clog<<colors::green;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<msg
             <<colors::reset<<std::endl;
     }
 
     template <typename T,typename ... Args>
     void ok(const T& type,const Args& ... args)
     {
-        std::clog<<colors::green<<time<<"["<<type<<"]";
+        std::clog<<colors::green;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<"["<<type<<"]";
         __out_helper(std::clog,args ...);
         std::clog<<colors::reset<<std::endl;
     }
@@ -68,15 +83,20 @@ namespace log
     template <typename T>
     void warning(const T& msg)
     {
-        std::clog<<colors::magenta<<time
-            <<msg
+        std::clog<<colors::magenta;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<msg
             <<colors::reset<<std::endl;
     }
 
     template <typename T,typename ... Args>
     void warning(const T& type,const Args& ... args)
     {
-        std::clog<<colors::magenta<<time<<"["<<type<<"]";
+        std::clog<<colors::magenta;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<"["<<type<<"]";
         __out_helper(std::clog,args ...);
         std::clog<<colors::reset<<std::endl;
     }
@@ -84,15 +104,20 @@ namespace log
     template <typename T>
     void error(const T& msg)
     {
-        std::clog<<colors::red<<time
-            <<msg
+        std::clog<<colors::red;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<msg
             <<colors::reset<<std::endl;
     }
 
     template <typename T,typename ... Args>
     void error(const T& type,const Args& ... args)
     {
-        std::clog<<colors::red<<time<<"["<<type<<"]";
+        std::clog<<colors::red;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<"["<<type<<"]";
         __out_helper(std::clog,args ...);
         std::clog<<colors::reset<<std::endl;
     }
@@ -100,15 +125,20 @@ namespace log
     template <typename T>
     void critical(const T& msg)
     {
-        std::clog<<format::bold<<bg::red<<time
-            <<msg
+        std::clog<<format::bold<<bg::red;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<msg
             <<format::reset<<std::endl;
     }
 
     template <typename T,typename ... Args>
     void critical(const T& type,const Args& ... args)
     {
-        std::clog<<format::bold<<bg::red<<time<<"["<<type<<"]"<<type;
+        std::clog<<format::bold<<bg::red;
+        if(show_time)
+            std::clog<<time;
+        std::clog<<"["<<type<<"]"<<type;
         __out_helper(std::clog,args ...);
         std::clog<<format::reset<<std::endl;
     }

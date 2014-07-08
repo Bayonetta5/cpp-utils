@@ -11,7 +11,8 @@ namespace utils
  */
 namespace log
 {
-
+    
+    static bool show_time = true;
     /**
      * \brief print a message
      */
