@@ -53,6 +53,13 @@ namespace sys
     //Library
     Library::Library(const std::string& name) : _name(name),lib(nullptr)
     {
+        #ifdef _WIN32
+        if(not utils::string::endswith(_name,".dll"))
+            _name+=".dll";
+        #else
+        if(not utils::string::endswith(_name,".so"))
+            _name+=".so";
+        #endif
     }
 
     Library::~Library()
@@ -192,13 +199,14 @@ namespace sys
         }
         for(const std::string& f: _inputs)
             sys::file::rm(f+".o");
-        return {_output+
+        return {_output};
+        /*+
         #ifdef _WIN32
         ".dll"
         #else
         ".so"
         #endif
-        };
+        ;*/
     }
 
     std::ostream& operator<<(std::ostream& output,const Compiler& self)
