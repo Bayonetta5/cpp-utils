@@ -187,7 +187,7 @@ void test_sys()
         using namespace utils::sys;
         std::cout<<"whereis: "<<whereis("g++")<<std::endl;
 
-        Compiler comp = Compiler::getCompiler();
+        Compiler comp;
         Library libf = comp.input("f.cpp")
             .output("f")
             .flags("-o3","-Wall")

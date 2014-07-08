@@ -103,45 +103,39 @@ namespace sys
     }
 
     //Compiler
-    Compiler Compiler::getCompiler()
+    Compiler::Compiler() : _output("./out")
     {
-        try
+        #ifdef _WIN32 //_WIN64
+        auto comp_list = {"mingw32-g++.exe","clang.exe"};
+        #else
+        auto comp_list = {"g++","clang"};
+        #endif
+
+        for(const std::string& c : comp_list)
         {
+            std::string path = sys::whereis(c);
+            if(not path.empty())
+            {
+                _name = c;
+                break;
+            }
+        }
+        if(_name.empty())
+            throw std::runtime_error("no compilater "
             #ifdef _WIN32 //_WIN64
-            return getCompiler("mingw32-g++.exe");
+            "mingw-g++.exe or clang.exe"
             #else
-            return getCompiler("g++");
+            "g++ or clang"
             #endif
-        }
-        catch(std::runtime_error& e)
-        {
-            try
-            {
-                #ifdef _WIN32 //_WIN64
-                return getCompiler("clang.exe");
-                #else
-                return getCompiler("clang");
-                #endif
-            }
-            catch(std::runtime_error& e)
-            {
-                throw std::runtime_error("no compilater "
-                #ifdef _WIN32 //_WIN64
-                "mingw-g++.exe or clang.exe"
-                #else
-                "g++ or clang"
-                #endif
-                " find");
-            }
-        }
+            " find");
     }
 
-    Compiler Compiler::getCompiler(const std::string& name)
+    Compiler::Compiler(const std::string& name) : _output("./out")
     {
         std::string path = sys::whereis(name);
-        if(name.empty())
+        if(path.empty())
             throw std::runtime_error(name);
-        return Compiler(path);
+        _name = path;
     }
 
     Compiler& Compiler::output(const std::string& out)
@@ -200,9 +194,6 @@ namespace sys
     }
 
 
-    Compiler::Compiler(const std::string& name) : _name(name), _output("./out")
-    {
-    }
 
     std::vector<std::string> Compiler::make_cmds() const
     {

@@ -103,10 +103,10 @@ namespace sys
             /**
              * \brief search for a compiler in the sytstem
              * note : search for linux : g++, clang | win : mingw32-g++.exe, clang.exe
-             * \return the firt compiler find
+             * \return the first compiler find
              * throw std::runtime_error on error
              */
-            static Compiler getCompiler();
+            Compiler();
 
             /**
              * \brief search the compiler of the name
@@ -114,7 +114,7 @@ namespace sys
              * \return the compiler
              * throw std::runtime_error on error
              */
-            static Compiler getCompiler(const std::string& name);
+            Compiler(const std::string& name);
 
             /**
              * \brief add input file to compile
@@ -156,7 +156,6 @@ namespace sys
             std::vector<std::string> _links;///< optional extern libs to link mith
 
 
-            Compiler(const std::string& name); //< constructor
             std::vector<std::string> make_cmds() const; ///< make the cmd to send to the system
     };
     
