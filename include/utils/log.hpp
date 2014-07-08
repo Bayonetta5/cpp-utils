@@ -12,7 +12,7 @@ namespace utils
 namespace log
 {
     
-    static bool show_time = true;
+    extern bool show_time;
     /**
      * \brief print a message
      */

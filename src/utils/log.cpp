@@ -7,6 +7,8 @@ namespace utils
 {
 namespace log
 {
+    bool show_time = true;
+
     void __out_helper(std::ostream& out)
     {
     }
