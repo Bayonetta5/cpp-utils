@@ -109,6 +109,11 @@ namespace sys
         return nullptr;
     }
 
+    const std::string Library::name()const
+    {
+        return _name;
+    }
+
     //Compiler
     Compiler::Compiler() : _output("./out")
     {

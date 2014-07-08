@@ -80,6 +80,8 @@ namespace sys
              */
             utils::func::VFunc* operator[](const std::string& name);
 
+            const std::string name()const;
+
         private:
             std::string _name;///<filename
             std::unordered_map<std::string,utils::func::VFunc*> funcs;///< loaded functions
