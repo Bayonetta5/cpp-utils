@@ -163,7 +163,7 @@ namespace sys
     {
         for(const std::string& u : make_cmds())
         {
-            utils::log::info("utils:sys::Compiler::get","system(\""+u+"\")");
+            utils::log::info("utils:sys::Compiler::get","system("+u+")");
             int res = ::system(u.c_str());
             if(res == -1)
             {
