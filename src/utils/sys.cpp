@@ -173,6 +173,7 @@ namespace sys
 
     Library Compiler::get() const
     {
+        //TODO build in thread::Pool[0.-1]
         for(const std::string& u : make_cmds())
         {
             utils::log::info("utils:sys::Compiler::get","system("+u+")");
