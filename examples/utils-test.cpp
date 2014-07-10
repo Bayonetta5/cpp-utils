@@ -310,6 +310,11 @@ void test_plot()
         g.mod(Gnuplot::Mod::MULTI);
         g.draw();
 
+        std::cout<<"press a key to continue"<<std::endl;
+        std::cin.get();
+        g.mod(Gnuplot::Mod::HYBRID);
+        g.draw();
+
     }
 
     std::cout<<"press a key to close"<<std::endl;

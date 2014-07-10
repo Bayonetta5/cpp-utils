@@ -305,10 +305,6 @@ namespace utils
                  */
                 void draw();
 
-                /**
-                 * \brief draw the graph in index graph
-                 */
-                void draw(unsigned int graph);
 
                 /**
                  * \brief draw the first grapth with title title
@@ -317,7 +313,8 @@ namespace utils
 
                 enum class Mod{
                     MULTI, //< default. use mltiplot
-                    WINDOW //< each graph is plot in a separate window
+                    WINDOW, //< each graph is plot in a separate window
+                    HYBRID //< each graph is plot in a separate window + a window with all
                 };
 
                 /**
@@ -384,6 +381,14 @@ namespace utils
                 std::vector<Graph*> _graphs; //< graphs
 
                 Mod _mod; //< mod
+
+                /**
+                 * \brief draw the graph in index graph
+                 */
+                void draw(unsigned int graph);
+
+                void draw_multi(unsigned int window);
+                void draw_window(unsigned int window_start);
         };
     }
 }

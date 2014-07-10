@@ -304,33 +304,50 @@ namespace utils
         {
 
             (*this)<<"reset\nclear\n";
-            const unsigned int _size = _graphs.size();
             //set mod
             if(_mod == Mod::MULTI)
             {
-                float sq = sqrt(_size);
-                (*this)<<"set term wxt title \"\" 0\n";
-                (*this)<<"set multiplot layout "<<::round(sq)<<","<<::ceil(sq)<<"\n";
-                flush();
+                draw_multi(0);
             }
+            else if (_mod == Mod::WINDOW)
+            {
+                draw_window(0);
+            }
+            else //HYBRID
+            {
+                draw_window(0);
+                draw_multi(_graphs.size());
+            }
+        }
+
+        void Gnuplot::draw_multi(unsigned int window)
+        {
+            const unsigned int _size = _graphs.size();
+            float sq = sqrt(_size);
+            (*this)<<"set term wxt title \"\""<<window<<"\n";
+            (*this)<<"set multiplot layout "<<::round(sq)<<","<<::ceil(sq)<<"\n";
+            flush();
 
             for(unsigned int i=0;i<_size;++i)
                 draw(i);
 
-            if(_mod == Mod::MULTI)
+            (*this)<<"unset multiplot\n";
+            flush();
+        }
+
+        void Gnuplot::draw_window(unsigned int window_start)
+        {
+            const unsigned int _size = _graphs.size();
+            for(unsigned int i=0;i<_size;++i)
             {
-                (*this)<<"unset multiplot\n";
-                flush();
+                (*this)<<"set term wxt title \""<<_graphs[i]->_title<<"\" "<<i+window_start<<"\n";
+                draw(i);
             }
         }
 
         void Gnuplot::draw(unsigned int i)
         {
             //set mod
-            if(_mod == Mod::WINDOW)
-            {
-                (*this)<<"set term wxt title \""<<_graphs[i]->_title<<"\" "<<i<<"\n";
-            }
             (*this)<<*_graphs[i];
         }
 
