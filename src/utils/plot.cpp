@@ -349,6 +349,7 @@ namespace utils
         {
             //set mod
             (*this)<<*_graphs[i];
+            flush();
         }
 
         void Gnuplot::draw(const std::string& graph)
