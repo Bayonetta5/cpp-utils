@@ -115,7 +115,7 @@ namespace sys
         f = (void*)::GetProcAddress(lib,name.c_str());
         if(f == nullptr)
         {
-            utils::log::error("utils:sys::Library::load_f","Unable to load function",name);
+            utils::log::error("utils:sys::Library::get_f","Unable to load function",name);
         }
         #elif __linux //|| __unix //or __APPLE__
         f = ::dlsym(lib,name.c_str());
@@ -123,7 +123,7 @@ namespace sys
         if(f == nullptr or err)
         {
             f = nullptr;
-            utils::log::error("utils:sys::Library::load_f","Unable to load function",name,err);
+            utils::log::error("utils:sys::Library::get_f","Unable to load function",name,err);
         }
         #endif
         return f;
