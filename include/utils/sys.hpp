@@ -74,6 +74,11 @@ namespace sys
              */
             template<typename Ret,typename ... Args>
             bool load_f(const std::string& name);
+
+            /**
+             * \return the function pointer of name name. nullptr on error
+             */
+            void* get_f(const std::string& name)const;
             
             /**
              * \return the loaded function by his name. return nullptr on error

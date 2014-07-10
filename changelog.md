@@ -3,6 +3,11 @@
 
 add plot namespace
 
+sys
+---
+
+* add Library::get_f(const std::string& name)const
+
 string
 ------
 

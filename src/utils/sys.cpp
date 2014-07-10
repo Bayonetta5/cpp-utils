@@ -108,6 +108,27 @@ namespace sys
 
     }
 
+    void* Library::get_f(const std::string& name)const
+    {
+        void* f = nullptr;
+        #ifdef _WIN32 //_WIN64
+        f = (void*)::GetProcAddress(lib,name.c_str());
+        if(f == nullptr)
+        {
+            utils::log::error("utils:sys::Library::load_f","Unable to load function",name);
+        }
+        #elif __linux //|| __unix //or __APPLE__
+        f = ::dlsym(lib,name.c_str());
+        char* err = ::dlerror();
+        if(f == nullptr or err)
+        {
+            f = nullptr;
+            utils::log::error("utils:sys::Library::load_f","Unable to load function",name,err);
+        }
+        #endif
+        return f;
+    }
+
     utils::func::VFunc* Library::operator[](const std::string& name)
     {
         auto value = funcs.find(name);
