@@ -84,14 +84,14 @@ void test_logs()
         log(LOG_LVL::INFO,"information test");
         log(LOG_LVL::INFO,"test_logs","information test");
 
-        log(LOG_LVL::WARNING,"information test");
-        log(LOG_LVL::WARNING,"test_logs","information test");
+        log(LOG_LVL::WARN,"information test");
+        log(LOG_LVL::WARN,"test_logs","information test");
 
-        log(LOG_LVL::ERROR,"information test");
-        log(LOG_LVL::ERROR,"test_logs","information test");
+        log(LOG_LVL::ERR,"information test");
+        log(LOG_LVL::ERR,"test_logs","information test");
 
-        log(LOG_LVL::CRITICAL,"information test");
-        log(LOG_LVL::CRITICAL,"test_logs","information test");
+        log(LOG_LVL::CRIT,"information test");
+        log(LOG_LVL::CRIT,"test_logs","information test");
     }
     std::cout<<"=== END test_logs ==="<<std::endl;
 }

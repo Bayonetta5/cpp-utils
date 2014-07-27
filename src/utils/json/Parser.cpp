@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.0.
+// A Bison parser, made by GNU Bison 3.0.2.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
@@ -33,13 +33,13 @@
 
 // First part of user declarations.
 
-#line 37 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:398
+#line 37 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:399
 
-# ifndef YY_NULL
+# ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
-#   define YY_NULL nullptr
+#   define YY_NULLPTR nullptr
 #  else
-#   define YY_NULL 0
+#   define YY_NULLPTR 0
 #  endif
 # endif
 
@@ -47,9 +47,9 @@
 
 // User implementation prologue.
 
-#line 51 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:406
+#line 51 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:407
 // Unqualified %code blocks.
-#line 37 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:407
+#line 37 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:408
 
     #include <utils/json/Driver.hpp>
     #include <string>
@@ -58,7 +58,7 @@
 
     #define DEL(x) delete x; x=nullptr;
 
-#line 62 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:407
+#line 62 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:408
 
 
 #ifndef YY_
@@ -123,9 +123,9 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-#line 8 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:473
+#line 8 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:474
 namespace utils { namespace json {
-#line 129 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:473
+#line 129 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:474
 
   /// Build a parser object.
   Parser::Parser (utils::json::Scanner& scanner_yyarg, utils::json::Driver& driver_yyarg)
@@ -366,13 +366,13 @@ namespace utils { namespace json {
 #endif // YYDEBUG
 
   inline Parser::state_type
-  Parser::yy_lr_goto_state_ (state_type yystate, int yylhs)
+  Parser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yylhs - yyntokens_] + yystate;
+    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yylhs - yyntokens_];
+      return yydefgoto_[yysym - yyntokens_];
   }
 
   inline bool
@@ -395,6 +395,7 @@ namespace utils { namespace json {
 
     // State.
     int yyn;
+    /// Length of the RHS of the rule being reduced.
     int yylen = 0;
 
     // Error handling.
@@ -403,9 +404,6 @@ namespace utils { namespace json {
 
     /// The lookahead symbol.
     symbol_type yyla;
-
-    /// $$ and @$.
-    stack_symbol_type yylhs;
 
     /// The return value of parse ().
     int yyresult;
@@ -422,7 +420,7 @@ namespace utils { namespace json {
        location values to have been already stored, initialize these
        stacks with a primary value.  */
     yystack_.clear ();
-    yypush_ (YY_NULL, 0, yyla);
+    yypush_ (YY_NULLPTR, 0, yyla);
 
     // A new symbol was pushed on the stack.
   yynewstate:
@@ -500,169 +498,171 @@ namespace utils { namespace json {
   `-----------------------------*/
   yyreduce:
     yylen = yyr2_[yyn];
-    yylhs.state = yy_lr_goto_state_(yystack_[yylen].state, yyr1_[yyn]);
-    /* If YYLEN is nonzero, implement the default value of the action:
-       '$$ = $1'.  Otherwise, use the top of the stack.
+    {
+      stack_symbol_type yylhs;
+      yylhs.state = yy_lr_goto_state_(yystack_[yylen].state, yyr1_[yyn]);
+      /* If YYLEN is nonzero, implement the default value of the
+         action: '$$ = $1'.  Otherwise, use the top of the stack.
 
-       Otherwise, the following line sets YYLHS.VALUE to garbage.
-       This behavior is undocumented and Bison
-       users should not rely upon it.  */
-    if (yylen)
-      yylhs.value = yystack_[yylen - 1].value;
-    else
-      yylhs.value = yystack_[0].value;
+         Otherwise, the following line sets YYLHS.VALUE to garbage.
+         This behavior is undocumented and Bison users should not rely
+         upon it.  */
+      if (yylen)
+        yylhs.value = yystack_[yylen - 1].value;
+      else
+        yylhs.value = yystack_[0].value;
 
 
-    // Perform the reduction.
-    YY_REDUCE_PRINT (yyn);
-    try
-      {
-        switch (yyn)
-          {
+      // Perform the reduction.
+      YY_REDUCE_PRINT (yyn);
+      try
+        {
+          switch (yyn)
+            {
   case 2:
-#line 91 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 91 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
      driver.value = (yystack_[0].value.v_value);
      }
-#line 528 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 528 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 3:
-#line 95 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 95 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
       (yylhs.value.v_object)=(yystack_[1].value.v_object);
       (yystack_[1].value.v_object)=nullptr;
 }
-#line 537 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 537 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 4:
-#line 101 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 101 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
       (yylhs.value.v_array)=(yystack_[1].value.v_array);
       (yystack_[1].value.v_array)=nullptr;
       }
-#line 546 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 546 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 5:
-#line 107 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 107 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
     (yylhs.value.v_string)=new std::string((yystack_[0].value.v_string)->substr(1,(yystack_[0].value.v_string)->length()-2));
     DEL((yystack_[0].value.v_string));
     }
-#line 555 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 555 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 6:
-#line 113 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 113 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_string));
         (yystack_[0].value.v_string)=nullptr;
       }
-#line 564 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 564 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 7:
-#line 117 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 117 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_int));
       }
-#line 572 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 572 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 8:
-#line 120 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 120 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_float));
       }
-#line 580 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 580 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 9:
-#line 123 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 123 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_object));
         (yystack_[0].value.v_object)=nullptr;
       }
-#line 589 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 589 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 10:
-#line 127 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 127 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_array));
         (yystack_[0].value.v_array)=nullptr;
       }
-#line 598 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 598 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 11:
-#line 131 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 131 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_bool));
       }
-#line 606 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 606 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 12:
-#line 134 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 134 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_value)=new utils::json::Value();
       }
-#line 614 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 614 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 13:
-#line 139 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 139 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_array)=new utils::json::Array();
      }
-#line 622 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 622 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 14:
-#line 142 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 142 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_array)=new utils::json::Array();
         (yylhs.value.v_array)->values.push_back(std::move(*(yystack_[0].value.v_value)));
         DEL((yystack_[0].value.v_value));
     }
-#line 632 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 632 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 15:
-#line 147 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 147 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
         (yylhs.value.v_array)=(yystack_[2].value.v_array);
         (yystack_[2].value.v_array)=nullptr;
         (yylhs.value.v_array)->values.push_back(std::move(*(yystack_[0].value.v_value)));
         DEL((yystack_[0].value.v_value));
     }
-#line 643 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 643 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 16:
-#line 155 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 155 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
                     (yylhs.value.v_object)=new utils::json::Object();
                 }
-#line 651 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 651 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 17:
-#line 158 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 158 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
                     (yylhs.value.v_object)=new utils::json::Object();
                     (yylhs.value.v_object)->values.emplace(std::move(*(yystack_[2].value.v_string)),std::move(*(yystack_[0].value.v_value)));
                     DEL((yystack_[2].value.v_string));
                     DEL((yystack_[0].value.v_value));
                 }
-#line 662 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 662 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
   case 18:
-#line 164 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:846
+#line 164 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
                     (yylhs.value.v_object)=(yystack_[4].value.v_object);
                     (yystack_[4].value.v_object)=nullptr;
@@ -670,27 +670,28 @@ namespace utils { namespace json {
                     DEL((yystack_[2].value.v_string));
                     DEL((yystack_[0].value.v_value));
                }
-#line 674 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
+#line 674 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;
 
 
-#line 678 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:846
-          default:
-            break;
-          }
-      }
-    catch (const syntax_error& yyexc)
-      {
-        error (yyexc);
-        YYERROR;
-      }
-    YY_SYMBOL_PRINT ("-> $$ =", yylhs);
-    yypop_ (yylen);
-    yylen = 0;
-    YY_STACK_PRINT ();
+#line 678 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
+            default:
+              break;
+            }
+        }
+      catch (const syntax_error& yyexc)
+        {
+          error (yyexc);
+          YYERROR;
+        }
+      YY_SYMBOL_PRINT ("-> $$ =", yylhs);
+      yypop_ (yylen);
+      yylen = 0;
+      YY_STACK_PRINT ();
 
-    // Shift the result of the reduction.
-    yypush_ (YY_NULL, yylhs);
+      // Shift the result of the reduction.
+      yypush_ (YY_NULLPTR, yylhs);
+    }
     goto yynewstate;
 
   /*--------------------------------------.
@@ -810,11 +811,11 @@ namespace utils { namespace json {
         // Do not try to display the values of the reclaimed symbols,
         // as their printer might throw an exception.
         if (!yyempty)
-          yy_destroy_ (YY_NULL, yyla);
+          yy_destroy_ (YY_NULLPTR, yyla);
 
         while (1 < yystack_.size ())
           {
-            yy_destroy_ (YY_NULL, yystack_[0]);
+            yy_destroy_ (YY_NULLPTR, yystack_[0]);
             yypop_ ();
           }
         throw;
@@ -917,7 +918,7 @@ namespace utils { namespace json {
   "\"curry bracket right\"", "\"coma\"", "\"colon\"", "\"integer\"",
   "\"float\"", "\"boolean\"", "\"null\"", "\"double quoted string\"",
   "$accept", "start", "object", "array", "str", "value", "list",
-  "assignment_list", YY_NULL
+  "assignment_list", YY_NULLPTR
   };
 
 
@@ -1005,10 +1006,10 @@ namespace utils { namespace json {
       return undef_token_;
   }
 
-#line 8 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:1156
+#line 8 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:1155
 } } // utils::json
-#line 1011 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.cpp" // lalr1.cc:1156
-#line 173 "C:\\Documents and Settings\\aaa\\Mes documents\\GitHub\\Harpe-client\\Qt\\..\\..\\cpp-utils\\src\\utils\\json\\Parser.yy" // lalr1.cc:1157
+#line 1012 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:1155
+#line 173 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:1156
 
 
 void utils::json::Parser::error(const std::string &message)
