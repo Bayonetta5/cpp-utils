@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <cstdlib>
 namespace utils
 {
 namespace log
@@ -149,7 +149,7 @@ namespace log
         if(code != 0)
         {
             critical(type,args...,". Exit with code:",code);
-            exit(code);
+            std::exit(code);
         }
         else
             critical(type,args...);
@@ -167,11 +167,11 @@ namespace log
                 info(args...);break;
             case OK:
                 ok(args...);break;
-            case WARNING:
+            case WARN:
                 warning(args ...);break;
-            case ERROR:
+            case ERR:
                 error(args ...); break;
-            case CRITICAL:
+            case CRIT:
                 critical(args ...);break;
             default:
                 error("utils::log::log()","Unknow value of lvl. Message show as info:");

@@ -1,10 +1,13 @@
 #include <utils/plot.hpp>
 #include <utils/sys.hpp>
 
-#include <cstring>
+#include <string.h>
 #include <cmath>
 
-#ifndef _WIN32
+#ifdef _WIN32
+#include <io.h>
+#include <stdio.h>
+#else
 #include <unistd.h>
 #endif
 
@@ -18,22 +21,25 @@ namespace utils
             if(utils::sys::dir::create("./plot") == 0)
                 throw std::runtime_error("Unable to create tempory dir plot");
 
-            char *tmpname = ::strdup("./plot/serie_XXXXXX");
+
             #ifdef _WIN32
-            if(::_mkstemp(tmpname)==nullptr)
+            char tmpname[] = "./plot/serie_XXXXXX";
+            if(::_mktemp(tmpname)==0)
+            {
             #else
+            char *tmpname = ::strdup("./plot/serie_XXXXXX");
             int fd = ::mkstemp(tmpname);
             if(fd == -1)
-            #endif
             {
                 ::free(tmpname);
+            #endif
                 throw std::runtime_error("Unable to create tempory file");
             }
-            
+
             _filename = tmpname;
             _out.open(_filename);
-            ::free(tmpname);
             #ifndef _WIN32
+            ::free(tmpname);
             ::close(fd);
             #endif
         }
@@ -128,7 +134,7 @@ namespace utils
         {
             _title = title;
         }
-        
+
         Serie::Style Graph::style()const
         {
             return _style;
@@ -228,8 +234,8 @@ namespace utils
             }
             return plot;
         }
-        
-        
+
+
         /********** Gnuplot ********************/
         Gnuplot::Gnuplot() : pipe(nullptr), _mod(Mod::MULTI)
         {
@@ -249,7 +255,7 @@ namespace utils
                 ::fflush(pipe);
         }
 
-        
+
         void Gnuplot::clear()
         {
             for(Graph* g: _graphs)
@@ -269,11 +275,11 @@ namespace utils
                 return false;
 
             #ifdef WIN32
-            pipe = _popen("gnuplot.exe", "w");
+            pipe = ::_popen("gnuplot.exe", "w");
             #else
-            pipe = popen("gnuplot", "w");
+            pipe = ::popen("gnuplot", "w");
             #endif
-            
+
             if(pipe == nullptr)
             {
                 throw std::runtime_error("gnuplot not found. Is gnuplot"

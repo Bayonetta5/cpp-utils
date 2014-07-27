@@ -61,9 +61,9 @@ namespace log
         TODO = 1,
         INFO,
         OK,
-        WARNING,
-        ERROR,
-        CRITICAL
+        WARN,
+        ERR,
+        CRIT
     };
 
     template <typename ... Args>

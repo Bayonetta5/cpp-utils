@@ -1,7 +1,7 @@
  /* use newer C++ skeleton file */
 %skeleton "lalr1.cc"
 /* Require bison version or later */
-%require "3.0.2"
+%require "3.0"
 /* verbose error messages */
 /*%error-verbose*/
 /* namespace to enclose parser in */
