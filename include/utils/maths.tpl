@@ -1,3 +1,8 @@
+#ifdef _WIN32
+#define M_PI           3.14159265358979323846  /* pi */
+#define M_PIl          3.141592653589793238462643383279502884L /* pi */
+#endif
+
 #include <cmath>
 #include <iterator>
 
@@ -49,7 +54,7 @@ namespace maths
     };
 
     template <>
-    struct power<0> 
+    struct power<0>
     {
         template <typename NUMERIC_TYPE>
         static inline NUMERIC_TYPE of(const NUMERIC_TYPE& x) {return 1;}
@@ -81,7 +86,7 @@ namespace maths
 
         return res;
     }
-    
+
     namespace ker
     {
         //unaire
