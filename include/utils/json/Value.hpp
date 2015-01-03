@@ -87,11 +87,22 @@ namespace utils
                 friend std::ostream& operator<<(std::ostream& stream, const Value& self); //< output the json
 
                 long double& as_float();
+                const long double& as_float() const;
+
                 long long int& as_int();
+                const long long int& as_int()const;
+
                 bool& as_bool();
+                const bool& as_bool()const;
+
                 std::string& as_string();
+                const std::string& as_string()const;
+
                 Object& as_object();
+                const Object& as_object()const;
+
                 Array& as_array();
+                const Array& as_array()const ;
 
 
             private:

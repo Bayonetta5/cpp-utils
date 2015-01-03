@@ -8,6 +8,34 @@ macro(set_option var default type docstring)
     set(${var} ${${var}} CACHE ${type} ${docstring} FORCE)
 endmacro()
 
+function(Compile arg shared_libs static_libs)
+    add_library(${arg} SHARED ${FILES_SRC} ${FILES_HEADER})
+    SET_TARGET_PROPERTIES(${arg}
+        PROPERTIES
+        OUTPUT_NAME ${arg}
+        CLEAN_DIRECT_OUTPUT 1
+        VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
+        SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
+        )
+    target_link_libraries(${arg} ${LIBS} ${shared_libs})
+    INSTALL(TARGETS ${arg}
+        DESTINATION lib
+    )
+
+    add_library(${arg}-static STATIC ${FILES_HEADER} ${FILES_SRC})
+    SET_TARGET_PROPERTIES(${arg}-static
+        PROPERTIES
+        OUTPUT_NAME ${arg}
+        CLEAN_DIRECT_OUTPUT 1
+        VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
+        SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
+        )
+    target_link_libraries(${arg}-static ${LIBS} ${static_libs})
+    INSTALL(TARGETS ${arg}-static
+    DESTINATION lib
+    )
+endfunction()
+
 # project name
 project (utils)
 
@@ -47,7 +75,7 @@ endif()
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(DEFINES "")
 set(WARNING "-Wall")
-set(FLAGS "-o3 -std=c++0x")
+set(FLAGS "-g -std=c++0x")
 set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)

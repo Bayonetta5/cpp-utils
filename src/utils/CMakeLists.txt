@@ -12,6 +12,7 @@ set(ROOT_SRC
     ${SRCROOT}/string.cpp
     ${SRCROOT}/sys.cpp
     ${SRCROOT}/thread.cpp
+    ${SRCROOT}/memory.cpp
 )
 
 set(ROOT_HEADER
@@ -30,6 +31,8 @@ set(ROOT_HEADER
     ${INCROOT}/sys.tpl
     ${INCROOT}/thread.hpp
     ${INCROOT}/thread.tpl
+    ${INCROOT}/memory.hpp
+    ${INCROOT}/memory.tpl
     ${INCROOT}/tr.hpp
 )
 
@@ -47,28 +50,7 @@ set(FILES_SRC
     ${ROOT_SRC}
 )
 
-add_library(${CMAKE_PROJECT_NAME} SHARED ${FILES_SRC} ${FILES_HEADER})
-SET_TARGET_PROPERTIES(${CMAKE_PROJECT_NAME}
-    PROPERTIES
-    VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
-    SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
-)
-target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBS})
-INSTALL(TARGETS ${CMAKE_PROJECT_NAME}
-    DESTINATION lib
-)
-
-add_library(${CMAKE_PROJECT_NAME}-static STATIC ${FILES_HEADER} ${FILES_SRC})
-SET_TARGET_PROPERTIES(${CMAKE_PROJECT_NAME}-static
-    PROPERTIES
-    VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
-    SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
-)
-target_link_libraries(${CMAKE_PROJECT_NAME}-static ${LIBS})
-INSTALL(TARGETS ${CMAKE_PROJECT_NAME}-static
-    DESTINATION lib
-)
-
+Compile("${CMAKE_PROJECT_NAME}" "" "" )
 
 file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME}/*")
 foreach(ITEM ${DEPLOY_FILES_AND_DIRS})
@@ -81,14 +63,3 @@ endforeach()
 INSTALL( FILES ${FILES_TO_DEPLOY} ${BisonOutputInc} DESTINATION include/${CMAKE_PROJECT_NAME} )
 INSTALL( DIRECTORY ${DIRS_TO_DEPLOY} DESTINATION include/${CMAKE_PROJECT_NAME} )
 
-
-########################################################################
-# Create uninstall target
-########################################################################
-CONFIGURE_FILE(
-    "${PROJECT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
-    "${PROJECT_SOURCE_DIR}/cmake/cmake_uninstall.cmake"
-  IMMEDIATE @ONLY)
-ADD_CUSTOM_TARGET(uninstall
-    "${CMAKE_COMMAND}" -P "${PROJECT_SOURCE_DIR}/cmake/cmake_uninstall.cmake"
-)

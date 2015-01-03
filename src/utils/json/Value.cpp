@@ -289,8 +289,18 @@ namespace utils
         {
             return v_float;
         }
+
+        const long double& Value::as_float()const 
+        {
+            return v_float;
+        }
         
         long long int& Value::as_int()
+        {
+            return v_int;
+        }
+
+        const long long int& Value::as_int()const 
         {
             return v_int;
         }
@@ -300,7 +310,17 @@ namespace utils
             return v_bool;
         }
 
+        const bool& Value::as_bool()const 
+        {
+            return v_bool;
+        }
+
         std::string& Value::as_string()
+        {
+            return *v_string;
+        }
+
+        const std::string& Value::as_string()const
         {
             return *v_string;
         }
@@ -310,7 +330,17 @@ namespace utils
             return *v_object;
         }
 
+        const Object& Value::as_object()const
+        {
+            return *v_object;
+        }
+
         Array& Value::as_array()
+        {
+            return *v_array;
+        }
+
+        const Array& Value::as_array()const
         {
             return *v_array;
         }

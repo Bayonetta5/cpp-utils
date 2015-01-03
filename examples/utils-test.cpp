@@ -322,15 +322,40 @@ void test_plot()
     g.close();
 }
 
+#include <utils/memory.hpp>
+void test_memory()
+{
+    using namespace utils::memory;
+    std::cout<<"========== memory ======="<<std::endl;
+
+    Pool<double> pool;
+    pool.resize(42);
+    pool.emplace(0,12);
+    pool.emplace(4,15);
+    pool.emplace(1,12);
+
+    for(auto it = pool.begin(); it != pool.end();++it)
+        std::cout<<it.index()<<"=>"<<it.data()<<", ";
+    std::cout<<std::endl;
+
+    std::cout<<"erase index 1"<<std::endl;
+
+    pool.erase(1);
+    for(auto it = pool.begin(); it != pool.end();++it)
+        std::cout<<it.index()<<"=>"<<it.data()<<", ";
+
+    std::cout<<std::endl;
+}
 
 int main(int argc,char* argv[])
 {
-    test_logs();
+    /*test_logs();
     test_maths();
     test_string();
     test_sys();
     test_functional();
-    test_plot();
+    test_plot();*/
+    test_memory();
 
     //test_thread();
 
