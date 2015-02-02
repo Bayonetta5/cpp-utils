@@ -1,3 +1,14 @@
+0.1.8
+=====
+
+add memory namespace
+
+memory
+------
+
+* add Pool<T> class that manage a memory pool of posible empty cells
+
+
 0.1.7
 =====
 

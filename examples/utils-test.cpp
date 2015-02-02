@@ -349,12 +349,12 @@ void test_memory()
 
 int main(int argc,char* argv[])
 {
-    /*test_logs();
+    test_logs();
     test_maths();
     test_string();
     test_sys();
     test_functional();
-    test_plot();*/
+    test_plot();
     test_memory();
 
     //test_thread();
