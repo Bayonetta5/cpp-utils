@@ -46,6 +46,12 @@ namespace maths
         return (a<T(0))?-a:a;
     }
 
+    template <typename T>
+    inline T clamp(T value, T min, T max)
+    {
+        return value < min ? min : (value > max ? max : value);
+    }
+
     template <int N>
     struct power
     {

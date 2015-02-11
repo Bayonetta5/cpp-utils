@@ -46,6 +46,9 @@ namespace utils
         template <typename T>
         inline T abs(const T& a);
 
+        template <typename T>
+        inline T clamp(T value, T min, T max);
+
         /**
          * \brief usage power<N>::of(number)
          * \return the power on number at N
