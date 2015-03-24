@@ -1,5 +1,5 @@
-set(INCROOT ${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME}/json)
-set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${CMAKE_PROJECT_NAME}/json)
+set(INCROOT ${INCROOT}/json)
+set(SRCROOT ${SRCROOT}/json)
 
 
 SET(BisonOutputSrc ${SRCROOT}/Parser.cpp)
@@ -18,7 +18,7 @@ if(BUILD_PARSER)
                   ${SRCROOT}/Parser.yy
           COMMENT "Generating Parser.cpp"
         )
-        INSTALL( FILES ${BisonOutputExtra} ${BisonOutputInc} DESTINATION include/${CMAKE_PROJECT_NAME}/json )
+        INSTALL( FILES ${BisonOutputExtra} ${BisonOutputInc} DESTINATION include/${PROJECT_NAME}/json )
     else()
         message( SEND_ERROR "Bison is required" )
     ENDIF()
@@ -70,7 +70,7 @@ set(FILES_SRC
     ${ROOT_SRC}
 )
 
-Compile("${CMAKE_PROJECT_NAME}-json" ${CMAKE_PROJECT_NAME} "${CMAKE_PROJECT_NAME}-static")
+Compile("${PROJECT_NAME}-json" ${PROJECT_NAME} "${PROJECT_NAME}-static")
 
 
 

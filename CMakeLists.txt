@@ -37,7 +37,8 @@ function(Compile arg shared_libs static_libs)
 endfunction()
 
 # project name
-project (utils)
+set(PROJECT_NAME utils)
+project (${PROJECT_NAME})
 
 # setup version numbers
 set(VERSION_MAJOR 0)
@@ -84,7 +85,7 @@ set(LIB_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples)
 
 # add the subdirectories
-add_subdirectory(src/${CMAKE_PROJECT_NAME})
+add_subdirectory(src/${PROJECT_NAME})
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
