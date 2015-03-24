@@ -53,15 +53,17 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_D
 #set_option(BUILD_SHARED_LIBS FALSE BOOL "TRUE to build as shared libraries, FALSE to build it as static libraries")
 
 #add an option for building the examples
-set_option(BUILD_EXAMPLES TRUE BOOL "TRUE to build the examples, FALSE to ignore them")
+set_option(UTILS_BUILD_EXAMPLES TRUE BOOL "TRUE to build the examples, FALSE to ignore them")
 
 # add an option for building the API documentation
-set_option(BUILD_DOC TRUE BOOL "TRUE to generate the API documentation, FALSE to ignore it")
+set_option(UTILS_BUILD_DOC TRUE BOOL "TRUE to generate the API documentation, FALSE to ignore it")
 
 # add an option for building the API documentation
-set_option(BUILD_JSON TRUE BOOL "TRUE to generate json parser, FALSE to ignore it")
+set_option(UTILS_BUILD_JSON TRUE BOOL "TRUE to generate json parser, FALSE to ignore it")
 
-set_option(BUILD_PARSER FALSE BOOL "TRUE to use flex/bison to generate the parsers, FALSE to ignore it")
+set_option(UTILS_BUILD_PARSER FALSE BOOL "TRUE to use flex/bison to generate the parsers, FALSE to ignore it")
+
+set(LIBS "")
 
 if(${WIN32})
     find_library(PTHREAD_LIB "winpthread-1")
@@ -86,11 +88,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples)
 
 # add the subdirectories
 add_subdirectory(src/${PROJECT_NAME})
-if(BUILD_EXAMPLES)
+if(UTILS_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 #build doc
-if(BUILD_DOC)
+if(UTILS_BUILD_DOC)
     add_subdirectory(doc)
 endif()
 

@@ -1,7 +1,7 @@
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${PROJECT_NAME})
 
-if(BUILD_JSON)
+if(UTILS_BUILD_JSON)
     add_subdirectory(json)
 endif()
 

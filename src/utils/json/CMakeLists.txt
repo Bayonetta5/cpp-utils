@@ -7,7 +7,7 @@ set(BisonOutputInc ${SRCROOT}/Parser.hpp)
 set(BisonOutputExtra ${SRCROOT}/stack.hh)
 SET(FlexOutputSrc ${SRCROOT}/Lexer.cpp)
 
-if(BUILD_PARSER)
+if(UTILS_BUILD_PARSER)
     FIND_PACKAGE(BISON REQUIRED)
     IF(BISON_FOUND)
         ADD_CUSTOM_COMMAND(
