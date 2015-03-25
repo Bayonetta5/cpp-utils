@@ -54,8 +54,8 @@ set(ROOT_HEADER
     ${INCROOT}/Object.hpp
     ${INCROOT}/Scanner.hpp
     ${INCROOT}/Value.hpp
-    ${BisonOutputInc}
-    ${BisonOutputExtra}
+    ${INCROOT}/Parser.hpp
+    ${INCROOT}/stack.hh
 )
 set(ROOT_FILES
     ${ROOT_HEADER}
