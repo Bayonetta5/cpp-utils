@@ -72,8 +72,8 @@ set(FILES_SRC
 
 build_library("${PROJECT_NAME}-json"
     SOURCES ${FILES_SRC}
-    TYPE STATIC
-    DEPENDS ${PROJECT_NAME}
+    TYPE SHARED
+    DEPENDS ${PROJECT_NAME}-shared
 )
 
 deploy(

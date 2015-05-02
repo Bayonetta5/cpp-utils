@@ -6,5 +6,5 @@ target_link_libraries(event-test ${PROJECT_NAME}-shared)
 
 if(UTILS_BUILD_JSON)
     add_executable(json-test json-test.cpp)
-    target_link_libraries(json-test ${PROJECT_NAME} ${PROJECT_NAME}-json)
+    target_link_libraries(json-test ${PROJECT_NAME}-shared ${PROJECT_NAME}-json-shared)
 endif()

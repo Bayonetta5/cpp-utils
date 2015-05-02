@@ -5,10 +5,7 @@ set(FILES_SRC "")
 set(FILES_HEADER "")
 
 add_subdirectory(event)
-
 add_subdirectory(functional)
-
-
 add_subdirectory(log)
 
 list(APPEND FILES_SRC
@@ -48,8 +45,9 @@ build_library(${PROJECT_NAME}
 )
 
 deploy(
-    FILES ${FILES_HEADER}
+    ROOT ${INCROOT}
     DESTINATION include
+
 )
 
 if(UTILS_BUILD_JSON)

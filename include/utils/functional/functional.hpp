@@ -69,5 +69,5 @@ namespace utils
         constexpr Func<Ret,Args...> make_func(Ret (*f)(Args...));
     }
 }
-#include <utils/functional.tpl>
+#include <utils/functional/functional.tpl>
 #endif

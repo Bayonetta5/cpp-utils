@@ -1,4 +1,4 @@
-#include <utils/log.hpp>
+#include <utils/log/log.hpp>
 
 #include <ctime>
 #include <iostream>
@@ -9,7 +9,7 @@ namespace log
 {
     bool show_time = true;
 
-    void __out_helper(std::ostream& out)
+    void _out_helper(std::ostream& out)
     {
     }
 

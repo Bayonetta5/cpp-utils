@@ -43,20 +43,20 @@ endmacro()
 
 
 macro(deploy)
-	cmake_parse_arguments(THIS "" "" "FILES;DESTINATION" ${ARGN})
+    cmake_parse_arguments(THIS "" "" "ROOT;DESTINATION" ${ARGN})
 	
-	file(GLOB DEPLOY_FILES_AND_DIRS "${THIS_FILES}")
+    file(GLOB DEPLOY_FILES_AND_DIRS ${THIS_ROOT})
 	
 	set(FILES_TO_DEPLOY "")
 	set(DIRS_TO_DEPLOY "")
-	
+
 	foreach(ITEM ${DEPLOY_FILES_AND_DIRS})
 		IF( IS_DIRECTORY "${ITEM}" )
 			LIST( APPEND DIRS_TO_DEPLOY "${ITEM}" )
 			message(DIR ${ITEM})
 		ELSE()
 			LIST( APPEND FILES_TO_DEPLOY "${ITEM}" )
-			message(file ${ITEM})
+            message(FILE ${ITEM})
 		ENDIF()
 	endforeach()
 	INSTALL( FILES ${FILES_TO_DEPLOY} DESTINATION ${THIS_DESTINATION} )
