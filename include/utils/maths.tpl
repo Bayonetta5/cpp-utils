@@ -147,6 +147,7 @@ namespace maths
                 double c = 1-ab*ab*ab;
                 return 70.0/81.0*utils::maths::power<3>::of(c);
             }
+            return 0;
         };
 
         inline double gaussian(double _1,double _2,double _3)

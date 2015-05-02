@@ -4,11 +4,10 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${PROJECT_NAME})
 set(FILES_SRC "")
 set(FILES_HEADER "")
 
+add_subdirectory(event)
+
 add_subdirectory(functional)
 
-if(UTILS_BUILD_JSON)
-    add_subdirectory(json)
-endif()
 
 add_subdirectory(log)
 
@@ -21,6 +20,7 @@ list(APPEND FILES_SRC
 )
 
 list(APPEND FILES_HEADER
+    ${INCROOT}/event.hpp
     ${INCROOT}/functional.hpp
     ${INCROOT}/log.hpp
     ${INCROOT}/json.hpp
@@ -43,10 +43,15 @@ list(APPEND FILES_HEADER
 
 build_library(${PROJECT_NAME}
     SOURCES ${FILES_SRC}
-    TYPE STATIC
+    TYPE SHARED
+    EXTERNAL_LIBS ${LIBS}
 )
 
 deploy(
     FILES ${FILES_HEADER}
     DESTINATION include
 )
+
+if(UTILS_BUILD_JSON)
+    add_subdirectory(json)
+endif()

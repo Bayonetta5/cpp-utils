@@ -1,8 +1,8 @@
 add_executable(utils-test utils-test.cpp)
-target_link_libraries(utils-test ${PROJECT_NAME})
+target_link_libraries(utils-test ${PROJECT_NAME}-shared)
 
-add_executable(utils-test-tr utils-test-tr.cpp)
-target_link_libraries(utils-test-tr ${PROJECT_NAME})
+add_executable(event-test event-test.cpp)
+target_link_libraries(event-test ${PROJECT_NAME}-shared)
 
 if(UTILS_BUILD_JSON)
     add_executable(json-test json-test.cpp)
