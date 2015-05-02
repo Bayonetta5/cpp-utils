@@ -76,11 +76,3 @@ build_library("${PROJECT_NAME}-json"
     DEPENDS ${PROJECT_NAME}-shared
 )
 
-deploy(
-    FILES ${FILES_HEADER}
-    DESTINATION include
-)
-
-
-
-
