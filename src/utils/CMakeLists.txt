@@ -1,13 +1,18 @@
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/${PROJECT_NAME})
 
+set(FILES_SRC "")
+set(FILES_HEADER "")
+
+add_subdirectory(functional)
+
 if(UTILS_BUILD_JSON)
     add_subdirectory(json)
 endif()
 
-set(ROOT_SRC
-    ${SRCROOT}/functional.cpp
-    ${SRCROOT}/log.cpp
+add_subdirectory(log)
+
+list(APPEND FILES_SRC
     ${SRCROOT}/plot.cpp
     ${SRCROOT}/string.cpp
     ${SRCROOT}/sys.cpp
@@ -15,12 +20,11 @@ set(ROOT_SRC
     ${SRCROOT}/memory.cpp
 )
 
-set(ROOT_HEADER
+list(APPEND FILES_HEADER
     ${INCROOT}/functional.hpp
-    ${INCROOT}/functional.tpl
-    ${INCROOT}/json.hpp
     ${INCROOT}/log.hpp
-    ${INCROOT}/log.tpl
+    ${INCROOT}/json.hpp
+
     ${INCROOT}/maths.hpp
     ${INCROOT}/maths.tpl
     ${INCROOT}/plot.hpp
@@ -37,29 +41,12 @@ set(ROOT_HEADER
 )
 
 
-set(ROOT_FILES
-    ${ROOT_HEADER}
-    ${ROOT_SRC}
+build_library(${PROJECT_NAME}
+    SOURCES ${FILES_SRC}
+    TYPE STATIC
 )
 
-#FILES
-set(FILES_HEADER
-    ${ROOT_HEADER}
+deploy(
+    FILES ${FILES_HEADER}
+    DESTINATION include
 )
-set(FILES_SRC
-    ${ROOT_SRC}
-)
-
-Compile("${PROJECT_NAME}" "" "" )
-
-file(GLOB DEPLOY_FILES_AND_DIRS "${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/*")
-foreach(ITEM ${DEPLOY_FILES_AND_DIRS})
-   IF( IS_DIRECTORY "${ITEM}" )
-      LIST( APPEND DIRS_TO_DEPLOY "${ITEM}" )
-   ELSE()
-      LIST( APPEND FILES_TO_DEPLOY "${ITEM}" )
-   ENDIF()
-endforeach()
-INSTALL( FILES ${FILES_TO_DEPLOY} ${BisonOutputInc} DESTINATION include/${PROJECT_NAME} )
-INSTALL( DIRECTORY ${DIRS_TO_DEPLOY} DESTINATION include/${PROJECT_NAME} )
-

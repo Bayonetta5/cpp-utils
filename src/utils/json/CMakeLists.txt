@@ -70,7 +70,16 @@ set(FILES_SRC
     ${ROOT_SRC}
 )
 
-Compile("${PROJECT_NAME}-json" ${PROJECT_NAME} "${PROJECT_NAME}-static")
+build_library("${PROJECT_NAME}-json"
+    SOURCES ${FILES_SRC}
+    TYPE STATIC
+    DEPENDS ${PROJECT_NAME}
+)
+
+deploy(
+    FILES ${FILES_HEADER}
+    DESTINATION include
+)
 
 
 

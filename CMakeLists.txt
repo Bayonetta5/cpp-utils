@@ -1,40 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
 
-# define a macro that helps defining an option
-macro(set_option var default type docstring)
-    if(NOT DEFINED ${var})
-        set(${var} ${default})
-    endif()
-    set(${var} ${${var}} CACHE ${type} ${docstring} FORCE)
-endmacro()
-
-function(Compile arg shared_libs static_libs)
-    add_library(${arg} SHARED ${FILES_SRC} ${FILES_HEADER})
-    SET_TARGET_PROPERTIES(${arg}
-        PROPERTIES
-        OUTPUT_NAME ${arg}
-        CLEAN_DIRECT_OUTPUT 1
-        VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
-        SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
-        )
-    target_link_libraries(${arg} ${LIBS} ${shared_libs})
-    INSTALL(TARGETS ${arg}
-        DESTINATION lib
-    )
-
-    add_library(${arg}-static STATIC ${FILES_HEADER} ${FILES_SRC})
-    SET_TARGET_PROPERTIES(${arg}-static
-        PROPERTIES
-        OUTPUT_NAME ${arg}
-        CLEAN_DIRECT_OUTPUT 1
-        VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
-        SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}
-        )
-    target_link_libraries(${arg}-static ${LIBS} ${static_libs})
-    INSTALL(TARGETS ${arg}-static
-    DESTINATION lib
-    )
-endfunction()
+include(cmake/macro.cmake)
 
 # project name
 set(PROJECT_NAME utils)
@@ -42,8 +8,8 @@ project (${PROJECT_NAME})
 
 # setup version numbers
 set(VERSION_MAJOR 0)
-set(VERSION_MINOR 1)
-set(VERSION_PATCH 8)
+set(VERSION_MINOR 2)
+set(VERSION_PATCH 0)
 
 
 # add the  header path
@@ -83,8 +49,8 @@ set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(LIB_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples)
 
 # add the subdirectories
 add_subdirectory(src/${PROJECT_NAME})
