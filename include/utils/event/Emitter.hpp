@@ -8,6 +8,9 @@
 namespace utils
 {
 
+    /**
+     * \brief The namespace that contain all the event functionalities
+     */
 namespace event
 {
     template<typename> class EventHandler;

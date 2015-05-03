@@ -21,7 +21,7 @@ namespace event
     {
         public:
 
-            using FuncType = std::function<void(T&)>;
+            using FuncType = std::function<void(T&)>;//< callback type
 
             /**
              * \brief construct a EventHandler with no default behaviour
