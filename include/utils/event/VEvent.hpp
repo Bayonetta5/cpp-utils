@@ -6,6 +6,10 @@ namespace event
 {
     namespace priv
     {
+        /**
+         * \brief A common virtual class forr all Event.
+         * Use only for the id.
+         */
         class VEvent
         {
             public:

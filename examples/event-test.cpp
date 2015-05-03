@@ -102,7 +102,7 @@ int main(int argc,char* argv[])
 
         {
             std::cout<<"------------- Test with lambda instdead of handler-------"<<std::endl;
-            auto handler2 = emitter1.connect([](TestEvent& event){
+            emitter1.connect([](TestEvent& event){
                 std::cout<<"handler is a lambda"<<std::endl;
             });
             emitter1.emit(event);
@@ -114,7 +114,7 @@ int main(int argc,char* argv[])
     }
 
     //event throught bus
-    /*std::cout<<"++++++++++++ Use bus as link +++++++++++"<<std::endl;
+    std::cout<<"++++++++++++ Use bus as link +++++++++++"<<std::endl;
     {
         event::EventBus bus;
 
@@ -131,7 +131,7 @@ int main(int argc,char* argv[])
         std::cout<<std::endl<<"------ handler  (default) class should receive event ------"<<std::endl;
 
         bus.emit(event);
-    }*/
+    }
 
 
 

@@ -27,8 +27,8 @@ namespace utils
             for(auto&& handler : _handlers)
                 handler->exec(this,event);
 
-            for(auto&& handler : _myHandlers)
-                handler->exec(event);
+            for(auto&& handler : _lambdas)
+                handler(event);
         }
 
         template<typename T>
@@ -61,26 +61,15 @@ namespace utils
         }
 
         template<typename T>
-        template<typename ... Args>
-        std::shared_ptr<EventHandler<T>> Emitter<T>::connect(Args&& ... args)
+        void Emitter<T>::connect(const std::function<void(T&)>& callback)
         {
-            std::shared_ptr<EventHandler<T>> h(new EventHandler<T>(std::forward<Args&&>(args)...));
-            _myHandlers.emplace_back(h);
-            return h;
-        }
-
-        template<typename T>
-        void Emitter<T>::disconnect(const std::shared_ptr<EventHandler<T>>& handler)
-        {
-            _myHandlers.remove(handler);
+            _lambdas.emplace_back(callback);
         }
 
         template<typename T>
         void Emitter<T>::clearLambdas()
         {
-            for(auto&& handler : _myHandlers)
-                handler->_unregister(this);
-            _myHandlers.clear();
+            _lambdas.clear();
         }
 
 

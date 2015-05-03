@@ -11,6 +11,10 @@ namespace event
 
     namespace priv
     {
+        /**
+         * \brief A virtual class for all EventHandler.
+         * Use by EventBus.
+         */
         class VEventHandler
         {
             public:

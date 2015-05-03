@@ -16,21 +16,32 @@ namespace event
 
     template<typename> class EventHandler;
 
+    /**
+     * \brief A class that can link multiple Emitters and multiple EventHandlers
+     */
     class EventBus
     {
         public:
             ~EventBus();
 
+            /**
+             * \brief add an EventHandler to manage.
+             */
             template<typename T>
             void connect(EventHandler<T>& handler);
 
             /*template<typename T>
             void connect(EventHandler<T>& handler,const std::function<void(T& event)>& callback);*/
 
-
+            /**
+             * \brief remove an EventHandler from the managed handlers
+             */
             template<typename T>
             void disconnect(EventHandler<T>& handler);
 
+            /**
+             * \brief send an event througth the bus to all the manager EventHandler
+             */
             template<typename T>
             void emit(T& event);
         private:
