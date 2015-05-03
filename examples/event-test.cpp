@@ -38,7 +38,8 @@ class HandlerClass : public event::EventHandler<TestEvent>
 int main(int argc,char* argv[])
 {
     //object to object link
-    /*{
+    std::cout<<"++++++++++++ Use direct link +++++++++++"<<std::endl;
+    {
         TestEvent event(42,"TestEvent");
         std::cout<<event<<std::endl;
 
@@ -96,9 +97,10 @@ int main(int argc,char* argv[])
 
             emitter1.emit(event);
         }
-    }*/
+    }
 
     //event throught bus
+    std::cout<<"++++++++++++ Use bus as link +++++++++++"<<std::endl;
     {
         event::EventBus bus;
 
@@ -111,6 +113,8 @@ int main(int argc,char* argv[])
         /*bus.connect<TestEvent>(handler,[](TestEvent& event){
             std::cout<<"bus connect function: "<<event<<std::endl;
        });*/
+
+        std::cout<<std::endl<<"------ handler  (default) class should receive event ------"<<std::endl;
 
         bus.emit(event);
     }
