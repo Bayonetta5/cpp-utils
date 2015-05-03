@@ -72,7 +72,7 @@ int main(int argc,char* argv[])
         }
 
         {
-            std::cout<<std::endl<<"------ handlers 1,2 should receive events ------"<<std::endl;
+            std::cout<<std::endl<<"------ handlers 1,2 should receive events from 1, and handlers2 from emitter2 ------"<<std::endl;
             event::EventHandler<TestEvent> handler2;
 
             event::Emitter<TestEvent> emitter2;
@@ -87,6 +87,8 @@ int main(int argc,char* argv[])
             });
             emitter1.emit(event);
             emitter2.emit(event);
+
+            handler.disconnect(emitter1);
         }
 
         {
@@ -97,10 +99,22 @@ int main(int argc,char* argv[])
 
             emitter1.emit(event);
         }
+
+        {
+            std::cout<<"------------- Test with lambda instdead of handler-------"<<std::endl;
+            auto handler2 = emitter1.connect([](TestEvent& event){
+                std::cout<<"handler is a lambda"<<std::endl;
+            });
+            emitter1.emit(event);
+            emitter1.clearLambdas();
+
+        }
+        std::cout<<"------------- Nothing should handle this event -------"<<std::endl;
+        emitter1.emit(event);
     }
 
     //event throught bus
-    std::cout<<"++++++++++++ Use bus as link +++++++++++"<<std::endl;
+    /*std::cout<<"++++++++++++ Use bus as link +++++++++++"<<std::endl;
     {
         event::EventBus bus;
 
@@ -110,14 +124,14 @@ int main(int argc,char* argv[])
         });
 
         bus.connect<TestEvent>(handler);
-        /*bus.connect<TestEvent>(handler,[](TestEvent& event){
-            std::cout<<"bus connect function: "<<event<<std::endl;
-       });*/
+        //bus.connect<TestEvent>(handler,[](TestEvent& event){
+        //    std::cout<<"bus connect function: "<<event<<std::endl;
+        //});
 
         std::cout<<std::endl<<"------ handler  (default) class should receive event ------"<<std::endl;
 
         bus.emit(event);
-    }
+    }*/
 
 
 

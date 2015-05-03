@@ -1,4 +1,5 @@
 #include <type_traits>
+#include <utils/event/EventHandler.hpp>
 
 namespace utils
 {
@@ -16,6 +17,8 @@ namespace utils
             for(auto&& handler : _handlers)
                 handler->_unregister(this);
             _handlers.clear();
+
+            clearLambdas();
         }
 
         template<typename T>
@@ -23,6 +26,9 @@ namespace utils
         {
             for(auto&& handler : _handlers)
                 handler->exec(this,event);
+
+            for(auto&& handler : _myHandlers)
+                handler->exec(event);
         }
 
         template<typename T>
@@ -53,6 +59,30 @@ namespace utils
             handler._unregister(this);
             _unregister(&handler);
         }
+
+        template<typename T>
+        template<typename ... Args>
+        std::shared_ptr<EventHandler<T>> Emitter<T>::connect(Args&& ... args)
+        {
+            std::shared_ptr<EventHandler<T>> h(new EventHandler<T>(std::forward<Args&&>(args)...));
+            _myHandlers.emplace_back(h);
+            return h;
+        }
+
+        template<typename T>
+        void Emitter<T>::disconnect(const std::shared_ptr<EventHandler<T>>& handler)
+        {
+            _myHandlers.remove(handler);
+        }
+
+        template<typename T>
+        void Emitter<T>::clearLambdas()
+        {
+            for(auto&& handler : _myHandlers)
+                handler->_unregister(this);
+            _myHandlers.clear();
+        }
+
 
         template<typename T>
         void Emitter<T>::_register(EventHandler<T>* handler)

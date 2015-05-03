@@ -9,7 +9,7 @@ project (${PROJECT_NAME})
 # setup version numbers
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 2)
-set(VERSION_PATCH 0)
+set(VERSION_PATCH 1)
 
 
 # add the  header path
@@ -44,7 +44,7 @@ endif()
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(DEFINES "")
 set(WARNING "-Wall")
-set(FLAGS "-g -std=c++0x")
+set(FLAGS "-o3 -std=c++0x")
 set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)

@@ -2,6 +2,7 @@
 #define EVENT_EMITTER_HPP
 
 #include <list>
+#include <memory>
 
 namespace utils
 {
@@ -30,6 +31,11 @@ namespace event
             void connect(EventHandler<T>& handler);
             void disconnect(EventHandler<T>& handler);
 
+            template<typename ... Args>
+            std::shared_ptr<EventHandler<T>> connect(Args&& ... args);
+            void disconnect(const std::shared_ptr<EventHandler<T>>& handler);
+            void clearLambdas();
+
         private:
             friend class EventHandler<T>;
 
@@ -37,6 +43,7 @@ namespace event
             void _unregister(EventHandler<T>* handler);
 
             std::list<EventHandler<T>*> _handlers;
+            std::list<std::shared_ptr<EventHandler<T>>> _myHandlers;
     };
 }
 }
