@@ -1,3 +1,15 @@
+0.2.1
+=====
+* Add event namespace
+* Change a bit the architecture and cmake macro
+
+event
+-----
+
+* Add Event\<T\>, EventHandler\<T\>, Emitter\<T\>, EventBus
+* see Example/event-test for usage informations
+* add doc
+
 0.1.8
 =====
 

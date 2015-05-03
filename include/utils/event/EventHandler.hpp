@@ -21,25 +21,28 @@ namespace event
     {
         public:
 
+            EventHandler(const EventHandler<T>&) = delete;
+            EventHandler& operator=(const EventHandler<T>&) = delete;
+
             using FuncType = std::function<void(T&)>;//< callback type
 
             /**
              * \brief construct a EventHandler with no default behaviour
              */
-            EventHandler();
+            explicit EventHandler();
 
             /**
              * \brief construct a EventHandler with callback as default behaviour
              * \param callback the default behaviour of the handler
              */
-            EventHandler(const FuncType& callback);
+            explicit EventHandler(const FuncType& callback);
 
             /**
              * \brief construct an EventHandler with method as default behaviour
              * \param method is a method of the henerited class called to this.
              */
             template<typename U>
-            EventHandler(void (U::*method)(T&) );
+            explicit EventHandler(void (U::*method)(T&) );
 
             virtual ~EventHandler();
 

@@ -24,6 +24,7 @@ namespace event
     class Emitter
     {
         public:
+            using FuncType = std::function<void(T&)>;//< callback type
 
             Emitter();
 
@@ -66,7 +67,7 @@ namespace event
              * \brief Add a function as an handler.
              * \param callback The function to execute when the event is trigger
              */
-            void connect(const std::function<void(T&)>& callback);
+            void connect(const FuncType& callback);
 
             /**
              * \brief Remove all the lambdas functions
