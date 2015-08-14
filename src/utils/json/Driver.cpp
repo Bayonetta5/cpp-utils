@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <utils/log.hpp>
+extern int json_line_no;
 
 namespace utils
 {
@@ -20,6 +21,7 @@ namespace utils
         
         Value* Driver::parse()
         {
+            json_line_no = 1;
             validity=true;
             if(parser.parse() != 0)
             {
