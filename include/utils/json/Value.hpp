@@ -37,32 +37,6 @@ namespace utils
 
                 ~Value();
 
-                /** Cast operator for float */
-                operator long double() const;
-                /** Cast operator for int */
-                operator long long int() const;
-                /** Cast operator for bool */
-                operator bool() const;
-                /** Cast operator for string */
-                operator const std::string&() const;
-                /** Cast operator for Object */
-                operator const Object&() const;
-                /** Cast operator for Object */
-                operator const Array&() const;
-                
-                /** Cast operator for float */
-                operator long double&();
-                /** Cast operator for int */
-                operator long long int&();
-                /** Cast operator for bool */
-                operator bool&();
-                /** Cast operator for string */
-                operator std::string&();
-                /** Cast operator for Object */
-                operator Object&();
-                /** Cast operator for Object */
-                operator Array&();
-
                 enum Type {
                     STRING,
                     INT,

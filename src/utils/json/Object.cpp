@@ -51,7 +51,7 @@ namespace utils
 
         Value& Object::operator[] (const std::string& key)
         {
-            return values[key];
+            return values.at(key);
         }
 
         const Value& Object::operator[] (const std::string& key) const

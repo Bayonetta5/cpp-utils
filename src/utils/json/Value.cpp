@@ -2,6 +2,8 @@
 #include <utils/json/Array.hpp>
 #include <utils/json/Object.hpp>
 
+#include <cassert>
+
 namespace utils
 {
     namespace json
@@ -139,72 +141,6 @@ namespace utils
             }
         }
 
-        /** Cast operator for float */
-        Value::operator long double() const
-        {
-            return v_float;
-        }
-    
-        /** Cast operator for int */
-        Value::operator long long int() const
-        {
-            return v_int;
-        }
-    
-        /** Cast operator for bool */
-        Value::operator bool() const
-        {
-            return v_bool;
-        }
-    
-        /** Cast operator for string */
-        Value::operator const std::string&() const
-        {
-            return *v_string;
-        }
-    
-        /** Cast operator for Object */
-        Value::operator const Object&() const
-        {
-            return *v_object;
-        }
-    
-        /** Cast operator for Object */
-        Value::operator const Array&() const
-        {
-            return *v_array;
-        }
-        
-        Value::operator long double&()
-        {
-            return v_float;
-        }
-
-        Value::operator long long int&()
-        {
-            return v_int;
-        }
-
-        Value::operator bool&()
-        {
-            return v_bool;
-        }
-
-        Value::operator std::string&()
-        {
-            return *v_string;
-        }
-
-        Value::operator Object&()
-        {
-            return *v_object;
-        }
-
-        Value::operator Array&()
-        {
-            return *v_array;
-        }
-
         Value::Type Value::getType()const
         {
             return type;
@@ -287,61 +223,73 @@ namespace utils
 
         long double& Value::as_float()
         {
+            assert(isFloat());
             return v_float;
         }
 
         const long double& Value::as_float()const 
         {
+            assert(isFloat());
             return v_float;
         }
         
         long long int& Value::as_int()
         {
+            assert(isInt());
             return v_int;
         }
 
         const long long int& Value::as_int()const 
         {
+            assert(isInt());
             return v_int;
         }
 
         bool& Value::as_bool()
         {
+            assert(isBool());
             return v_bool;
         }
 
         const bool& Value::as_bool()const 
         {
+            assert(isBool());
             return v_bool;
         }
 
         std::string& Value::as_string()
         {
+            assert(isString());
             return *v_string;
         }
 
         const std::string& Value::as_string()const
         {
+            assert(isString());
             return *v_string;
         }
 
         Object& Value::as_object()
         {
+            assert(isObject());
             return *v_object;
         }
 
         const Object& Value::as_object()const
         {
+            assert(isObject());
             return *v_object;
         }
 
         Array& Value::as_array()
         {
+            assert(isArray());
             return *v_array;
         }
 
         const Array& Value::as_array()const
         {
+            assert(isArray());
             return *v_array;
         }
         
