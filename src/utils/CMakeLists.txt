@@ -19,6 +19,7 @@ list(APPEND FILES_SRC
 list(APPEND FILES_HEADER
     ${INCROOT}/event.hpp
     ${INCROOT}/functional.hpp
+    ${INCROOT}/hash.hpp
     ${INCROOT}/log.hpp
     ${INCROOT}/json.hpp
 

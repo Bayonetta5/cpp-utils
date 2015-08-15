@@ -2,6 +2,7 @@
 =====
 * Add event namespace
 * Change a bit the architecture and cmake macro
+* add hash.hpp
 
 event
 -----
