@@ -46,7 +46,7 @@ build_library(${PROJECT_NAME}
 )
 
 deploy(
-    ROOT ${INCROOT}
+    FILES ${INCROOT}
     DESTINATION include
 
 )
