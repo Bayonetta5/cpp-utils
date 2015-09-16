@@ -77,9 +77,55 @@ null {
     return token::T_NULL;
 }
 
-\"[^\"]*\" { 
-    yylval->v_string = new std::string(yytext);
-    return token::T_DOUBLE_QUOTED_STRING;
+\" {
+	json_buffer.clear();
+	BEGIN STRING_BEGIN;
+}
+
+<STRING_BEGIN>\" {
+	yylval->v_string = new std::string(json_buffer);
+	BEGIN 0;
+	return token::T_DOUBLE_QUOTED_STRING;
+}
+
+<STRING_BEGIN>\\\" {
+	json_buffer.push_back('"');
+}
+
+<STRING_BEGIN>\\\\ {
+	json_buffer.push_back('\\');
+}
+
+<STRING_BEGIN>\\\/ {
+	json_buffer.push_back('/');
+}
+
+<STRING_BEGIN>\\b {
+	buffer.push_back('\b');
+}
+
+<STRING_BEGIN>\\f {
+	json_buffer.push_back('\f');
+}
+
+<STRING_BEGIN>\\n {
+	json_buffer.push_back('\n');
+}
+
+<STRING_BEGIN>\\r {
+	json_buffer.push_back('\r');
+}
+
+<STRING_BEGIN>\\t {
+	json_buffer.push_back('\t');
+}
+
+<STRING_BEGIN>\\u[a-fA-F0-9][a-fA-F0-9][a-fA-F0-9][a-fA-F0-9] {
+	//TODO NOT SUPPORTED
+}
+
+<STRING_BEGIN>[^\"] { 
+	buffer.push_back(yytext[0]);
 }
 
 . {
