@@ -306,10 +306,14 @@ namespace sys
 
                 current += sp[i] + "/";
 
-                #if __WIN32
+                #ifdef _WIN32
+                res = ::_mkdir(current.c_str());
+                #else
+                #if _POSIX_C_SOURCE
                 res = ::mkdir(current.c_str());
                 #else
-                res = ::mkdir(current.c_str(), permissions);
+                res = ::mkdir(current.c_str(), permissions); // not sure if this works on mac
+                #endif
                 #endif
 
                 if(res == 0)
