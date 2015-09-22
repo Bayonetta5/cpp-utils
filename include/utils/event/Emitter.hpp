@@ -13,7 +13,7 @@ namespace utils
      */
 namespace event
 {
-    template<typename> class EventHandler;
+    template<typename> class VEventHandler;
 
     template<typename> class Event;
 
@@ -21,11 +21,35 @@ namespace event
      * \brief This class is used to send an event of type T
      */
     template<typename T>
-    class Emitter
+    class VEmitter
     {
         public:
-            using FuncType = std::function<void(T&)>;//< callback type
+            VEmitter();
 
+            /**
+             * \brief automaticly unregister all the handlers
+             */
+            virtual ~VEmitter();
+
+            /**
+             * \brief Send an event
+             * \param event the event to send
+             */
+            void emit(const T& event);
+
+        private:
+            friend class VEventHandler<T>;
+
+            void _register(VEventHandler<T>* handler);
+            void _unregister(VEventHandler<T>* handler);
+
+            std::list<VEventHandler<T>*> _handlers;
+    };
+
+    template<typename ... Args>
+    class Emitter : public VEmitter<Args>...
+    {
+        public:
             Emitter();
 
             /**
@@ -37,51 +61,8 @@ namespace event
              * \brief Send an event
              * \param event the event to send
              */
-            void emit(T& event);
-
-            /**
-             * \brief Send an event
-             * \param event the event to send
-             */
-            void emit(T&& event);
-
-            /**
-             * \brief Construct and send an event
-             * \param args the envent constructor parameters
-             */
-            template<typename ... Args>
-            void emit(Args&& ... args);
-
-            /**
-             * \brief connect an handler to the class. Eache time a call to
-             * emit() is done, the handler will be executed
-             */
-            void connect(EventHandler<T>& handler);
-
-            /**
-             * \brief remove an handler
-             */
-            void disconnect(EventHandler<T>& handler);
-
-            /**
-             * \brief Add a function as an handler.
-             * \param callback The function to execute when the event is trigger
-             */
-            void connect(const FuncType& callback);
-
-            /**
-             * \brief Remove all the lambdas functions
-             */
-            void clearLambdas();
-
-        private:
-            friend class EventHandler<T>;
-
-            void _register(EventHandler<T>* handler);
-            void _unregister(EventHandler<T>* handler);
-
-            std::list<EventHandler<T>*> _handlers;
-            std::list<std::function<void(T&)>> _lambdas;
+            template <typename T>
+            void emit(const T& event);
     };
 }
 }

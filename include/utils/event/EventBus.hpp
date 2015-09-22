@@ -14,7 +14,7 @@ namespace event
         class VEventHandler;
     }
 
-    template<typename> class EventHandler;
+    template<typename> class VEventHandler;
 
     /**
      * \brief A class that can link multiple Emitters and multiple EventHandlers
@@ -28,16 +28,13 @@ namespace event
              * \brief add an EventHandler to manage.
              */
             template<typename T>
-            void connect(EventHandler<T>& handler);
-
-            /*template<typename T>
-            void connect(EventHandler<T>& handler,const std::function<void(T& event)>& callback);*/
+            void connect(VEventHandler<T>& handler);
 
             /**
              * \brief remove an EventHandler from the managed handlers
              */
             template<typename T>
-            void disconnect(EventHandler<T>& handler);
+            void disconnect(VEventHandler<T>& handler);
 
             /**
              * \brief send an event througth the bus to all the manager EventHandler

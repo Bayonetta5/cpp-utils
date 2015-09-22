@@ -9,25 +9,19 @@ namespace utils
 namespace event
 {
     template<typename T>
-    void EventBus::connect(EventHandler<T>& handler)
+    void EventBus::connect(VEventHandler<T>& handler)
     {
-        static_assert(std::is_base_of<Event<T>,T>::value, "EventBus::connect<T>(EventHandler<T>&): T must be a class derived from Event<T>");
+        static_assert(std::is_base_of<Event<T>,T>::value, "EventBus::connect<T>(VEventHandler<T>&): T must be a class derived from Event<T>");
 
         static_cast<priv::VEventHandler&>(handler)._register(this);
         _handlers[T::family()].emplace_back(&handler);
 
     }
 
-    /*template<typename T>
-    void EventBus::connect(EventHandler<T>& handler,const std::function<void(T& event)>& callback)
-    {
-        static_assert(std::is_base_of<Event<T>,T>::value, "EventBus::connect<T>(EventHandler<T>&): T must be a class derived from Event<T>");
-    }*/
-
     template<typename T>
-    void EventBus::disconnect(EventHandler<T>& handler)
+    void EventBus::disconnect(VEventHandler<T>& handler)
     {
-        static_assert(std::is_base_of<Event<T>,T>::value, "EventBus::disconnect<T>(EventHandler<T>&): T must be a class derived from Event<T>");
+        static_assert(std::is_base_of<Event<T>,T>::value, "EventBus::disconnect<T>(VEventHandler<T>&): T must be a class derived from Event<T>");
 
 
         handler._unregister(this);
@@ -40,7 +34,7 @@ namespace event
         static_assert(std::is_base_of<Event<T>,T>::value, "EventBus::emit(T&): T must be a class derived from Event<T>");
 
         for(auto&& handler : _handlers[T::family()])
-            static_cast<EventHandler<T>*>(handler)->exec(event);
+            static_cast<VEventHandler<T>*>(handler)->exec(event);
 
     }
 }

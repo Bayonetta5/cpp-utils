@@ -21,18 +21,36 @@ class TestEvent : public event::Event<TestEvent>
         std::string _str;
 };
 
+class TestEvent2 : public event::Event<TestEvent2>
+{
+    public:
+        TestEvent2(std::string str) : _str(str){};
+
+        friend std::ostream& operator<<(std::ostream& stream,const TestEvent2& self)
+        {
+            stream<<"family= "<<self.family()<<", _str= "<<self._str;
+            return stream;
+        }
+
+    private:
+        std::string _str;
+};
+
 class HandlerClass : public event::EventHandler<TestEvent>
 {
     public:
-        void onEvent(TestEvent& event)
+        static void onEvent(const TestEvent& event)
         {
             std::cout<<"HandlerClass::onEvent("<<event<<")"<<std::endl;
         }
 
-         HandlerClass() : EventHandler(&HandlerClass::onEvent)
+         HandlerClass() : event::EventHandler<TestEvent>(&HandlerClass::onEvent)
         {
         };
 };
+
+
+void guiTest();
 
 
 int main(int argc,char* argv[])
@@ -43,7 +61,7 @@ int main(int argc,char* argv[])
         TestEvent event(42,"TestEvent");
         std::cout<<event<<std::endl;
 
-        event::EventHandler<TestEvent> handler([](TestEvent& event){
+        event::EventHandler<TestEvent> handler([](const TestEvent& event){
             std::cout<<"handler default function: "<<event<<std::endl;
         });
         event::Emitter<TestEvent> emitter1;
@@ -53,8 +71,6 @@ int main(int argc,char* argv[])
 
             std::cout<<"-- emit by &ref "<<std::endl;
             emitter1.emit(event);
-            std::cout<<"-- emit by construction "<<std::endl;
-            emitter1.emit(72,"pwet");
             std::cout<<"-- emit by &&ref "<<std::endl;
             emitter1.emit(TestEvent(48,"pwet 2"));
         }
@@ -79,10 +95,10 @@ int main(int argc,char* argv[])
 
             handler.connect(emitter1);
 
-            handler2.connect(emitter1,[](TestEvent& event){
+            handler2.connect(emitter1,[](const TestEvent& event){
                 std::cout<<"handler2 from emitter1: "<<event<<std::endl;
             });
-            handler2.connect(emitter2,[](TestEvent& event){
+            handler2.connect(emitter2,[](const TestEvent& event){
                 std::cout<<"handler2 from emitter2: "<<event<<std::endl;
             });
             emitter1.emit(event);
@@ -100,40 +116,180 @@ int main(int argc,char* argv[])
             emitter1.emit(event);
         }
 
-        {
-            std::cout<<"------------- Test with lambda instdead of handler-------"<<std::endl;
-            emitter1.connect([](TestEvent& event){
-                std::cout<<"handler is a lambda"<<std::endl;
-            });
-            emitter1.emit(event);
-            emitter1.clearLambdas();
 
-        }
         std::cout<<"------------- Nothing should handle this event -------"<<std::endl;
         emitter1.emit(event);
     }
 
     //event throught bus
-    std::cout<<"++++++++++++ Use bus as link +++++++++++"<<std::endl;
+    std::cout<<"\n++++++++++++ Use bus as link +++++++++++"<<std::endl;
     {
         event::EventBus bus;
 
         TestEvent event(67,"Event 2");
-        event::EventHandler<TestEvent> handler([](TestEvent& event){
+        event::EventHandler<TestEvent> handler([](const TestEvent& event){
             std::cout<<"handler default function: "<<event<<std::endl;
         });
 
         bus.connect<TestEvent>(handler);
-        //bus.connect<TestEvent>(handler,[](TestEvent& event){
-        //    std::cout<<"bus connect function: "<<event<<std::endl;
-        //});
 
-        std::cout<<std::endl<<"------ handler  (default) class should receive event ------"<<std::endl;
+        std::cout<<"------ handler  (default) class should receive event ------"<<std::endl;
 
         bus.emit(event);
     }
 
-
+    guiTest();
 
     return 0;
+}
+
+
+class Button;
+
+class ButtonClickedEvent : public event::Event<ButtonClickedEvent>
+{
+    public :
+        ButtonClickedEvent(Button& owner) : _owner(owner)
+        {
+        }
+        
+        Button& _owner;
+};
+
+class ButtonReleaseEvent : public event::Event<ButtonReleaseEvent>
+{
+    public :
+        ButtonReleaseEvent(Button& owner) : _owner(owner)
+        {
+        }
+        
+        Button& _owner;
+};
+
+
+class Button : public event::Emitter<ButtonClickedEvent,ButtonReleaseEvent>
+{
+    public:
+
+        void click()
+        {
+            std::cout<<"emit ButtonClickedEvent"<<std::endl;
+            event::VEmitter<ButtonClickedEvent>::emit(ButtonClickedEvent(*this));
+            std::cout<<"end ButtonClickedEvent propagation"<<std::endl;
+        }
+
+        void release()
+        {
+            std::cout<<"emit ButtonReleaseEvent"<<std::endl;
+            event::VEmitter<ButtonReleaseEvent>::emit(ButtonReleaseEvent(*this));
+            std::cout<<"end ButtonReleaseEvent propagation"<<std::endl;
+        }
+};
+
+
+class ButtonHandler : public event::EventHandler<ButtonClickedEvent,ButtonReleaseEvent>
+{
+    public:
+        ButtonHandler() /*: event::EventHandler<ButtonClickedEvent>(&ButtonHandler::onEventClicked&ButtonHandler::onEventReleased)*/
+
+        {
+        }
+    
+        void onEventClicked(const ButtonClickedEvent& event)
+        {
+            std::cout<<" * EVENT : Button clicked received"<<std::endl;
+        }
+
+        void onEventReleased(const ButtonReleaseEvent& event)
+        {
+            std::cout<<"* EVENT : Button released received"<<std::endl;
+        }
+};
+
+
+void guiTest()
+{
+    std::cout<<"+++++++++++++ GUI test +++++++++++++++"<<std::endl;
+
+    {
+        std::cout<<"\n--- No receiver ---"<<std::endl;
+
+        Button btn;
+        btn.click();
+        btn.release();
+    }
+
+    {
+        std::cout<<"\n---  Receiver  Clicked only---"<<std::endl;
+
+        Button btn;
+        event::EventHandler<ButtonClickedEvent> handlerClicked([](const ButtonClickedEvent& event){
+                std::cout<<" * EVENT : Button clicked received"<<std::endl;
+        });
+        handlerClicked.connect(btn);
+
+        btn.click();
+        btn.release();
+    }
+
+    {
+        std::cout<<"\n---  Receiver  Released only---"<<std::endl;
+
+        Button btn;
+        event::EventHandler<ButtonReleaseEvent> handlerReleased([](const ButtonReleaseEvent event){
+                std::cout<<"* EVENT : Button released received"<<std::endl;
+        });
+        handlerReleased.connect(btn);
+
+        btn.click();
+        btn.release();
+    }
+
+    {
+        std::cout<<"\n---  Receiver Clicked and Released ---"<<std::endl;
+
+        Button btn;
+        event::EventHandler<ButtonClickedEvent> handlerClicked([](const ButtonClickedEvent& event){
+                std::cout<<"* EVENT : Button clicked received"<<std::endl;
+        });
+        handlerClicked.connect(btn);
+
+        event::EventHandler<ButtonReleaseEvent> handlerReleased([](const ButtonReleaseEvent& event){
+                std::cout<<"* EVENT : Button released received"<<std::endl;
+        });
+        handlerReleased.connect(btn);
+
+        btn.click();
+        btn.release();
+    }
+
+    {
+        std::cout<<"\n---  Receiver Clicked and Released without member functions---"<<std::endl;
+
+        Button btn;
+        event::EventHandler<ButtonClickedEvent> handlerClicked([](const ButtonClickedEvent& event){
+                std::cout<<"* EVENT : Button clicked received"<<std::endl;
+        });
+        handlerClicked.connect(btn);
+
+        event::EventHandler<ButtonReleaseEvent> handlerReleased([](const ButtonReleaseEvent& event){
+                std::cout<<"* EVENT : Button released received"<<std::endl;
+        });
+        handlerReleased.connect(btn);
+
+        btn.emit(ButtonClickedEvent(btn));
+        btn.emit(ButtonReleaseEvent(btn));
+    }
+
+    {
+        std::cout<<"\n---  Receiver Clicked and Released with handler class---"<<std::endl;
+
+        Button btn;
+        ButtonHandler handler;
+        handler.connect(btn);
+
+        btn.click();
+        btn.release();
+    }
+
 }

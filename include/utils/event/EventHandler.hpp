@@ -10,74 +10,100 @@ namespace utils
 {
 namespace event
 {
-    template<typename T> class Emitter;
+    template<typename ... Args> class Emitter;
     class EventBus;
 
     /**
      * \brief A class that can handel an event of type T.
      */
     template<typename T>
-    class EventHandler : public ::utils::event::priv::VEventHandler
+    class VEventHandler : public ::utils::event::priv::VEventHandler
     {
         public:
 
-            EventHandler(const EventHandler<T>&) = delete;
-            EventHandler& operator=(const EventHandler<T>&) = delete;
+            VEventHandler(const VEventHandler<T>&) = delete;
+            VEventHandler& operator=(const VEventHandler<T>&) = delete;
 
-            using FuncType = std::function<void(T&)>;//< callback type
+            using FuncType = std::function<void(const T&)>;//< callback type
 
             /**
-             * \brief construct a EventHandler with no default behaviour
+             * \brief construct a VEventHandler with no default behaviour
              */
-            explicit EventHandler();
+            explicit VEventHandler();
 
             /**
-             * \brief construct a EventHandler with callback as default behaviour
+             * \brief construct a VEventHandler with callback as default behaviour
              * \param callback the default behaviour of the handler
              */
-            explicit EventHandler(const FuncType& callback);
+            explicit VEventHandler(const FuncType& callback);
 
-            /**
-             * \brief construct an EventHandler with method as default behaviour
-             * \param method is a method of the henerited class called to this.
-             */
-            template<typename U>
-            explicit EventHandler(void (U::*method)(T&) );
-
-            virtual ~EventHandler();
+            virtual ~VEventHandler();
 
             /**
              * \brief connect emitter with the default callback from the constructor
              * \param emitter the emitter to connect with
              */
-            void connect(Emitter<T>& emitter);
+            void connect(VEmitter<T>& emitter);
 
             /**
              * \brief connect emitter with the callback as parameter
              * \param emitter the emitter to connect with
              * \param callback the specific callback to use
              */
-            void connect(Emitter<T>& emitter,const FuncType& callback);
+            void connect(VEmitter<T>& emitter,const FuncType& callback);
 
             /**
              * \brief remove the emitter from the manager list
              * \param emitter Emitter to remove
              */
-            void disconnect(Emitter<T>& emitter);
+            void disconnect(VEmitter<T>& emitter);
 
         private:
-            friend class Emitter<T>;
+            friend class VEmitter<T>;
             friend class EventBus;
 
-            void _register(Emitter<T>* emitter);
-            void _register(Emitter<T>* emitter,const FuncType& callback);
-            void _unregister(Emitter<T>* emitter);
+            void _register(VEmitter<T>* emitter);
+            void _register(VEmitter<T>* emitter,const FuncType& callback);
+            void _unregister(VEmitter<T>* emitter);
 
-            void exec(Emitter<T>*emitter,T& event);
+            void exec(VEmitter<T>*emitter,const T& event);
             void exec(T& event);
 
-            std::unordered_map<Emitter<T>*,const FuncType> _emitters;
+            std::unordered_map<VEmitter<T>*,const FuncType> _emitters;
             const FuncType _callback;
+    };
+
+
+    template <typename ... Args>
+    class EventHandler
+    {
+        public:
+            EventHandler();
+
+            EventHandler(typename VEventHandler<Args>::FuncType& ... callbacks);
+
+            /**
+             * \brief connect emitter with the default callback from the constructor
+             * \param emitter the emitter to connect with
+             */
+            template<typename T>
+            void connect(VEmitter<T>& emitter);
+
+            /**
+             * \brief connect emitter with the callback as parameter
+             * \param emitter the emitter to connect with
+             * \param callback the specific callback to use
+             */
+            template<typename T>
+            void connect(VEmitter<T>& emitter,const typename VEventHandler<T>::FuncType& callback);
+
+            /**
+             * \brief remove the emitter from the manager list
+             * \param emitter Emitter to remove
+             */
+            template<typename T>
+            void disconnect(VEmitter<T>& emitter);
+
     };
 }
 }

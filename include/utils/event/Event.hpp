@@ -17,8 +17,9 @@ namespace event
             Event(const Event<T>&) = default;
             Event& operator=(const Event<T>&) = default;
 
-            Event() = default;
-            ~Event() = default;
+            Event();
+            virtual ~Event();
+
 
             /**
              * \brief internal class unique id

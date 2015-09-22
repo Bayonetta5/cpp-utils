@@ -5,84 +5,63 @@ namespace utils
 {
     namespace event
     {
+
+        ////////////////// VEvent ///////////////////
         template<typename T>
-        Emitter<T>::Emitter()
+        VEmitter<T>::VEmitter()
         {
-            static_assert(std::is_base_of<Event<T>,T>::value, "Emitter<T>: T must be a class derived from Event<T>");
+            static_assert(std::is_base_of<Event<T>,T>::value, "VEmitter<T>: T must be a class derived from Event<T>");
         }
 
         template<typename T>
-        Emitter<T>::~Emitter()
+        VEmitter<T>::~VEmitter()
         {
             for(auto&& handler : _handlers)
                 handler->_unregister(this);
             _handlers.clear();
-
-            clearLambdas();
         }
 
         template<typename T>
-        void Emitter<T>::emit(T& event)
+        void VEmitter<T>::emit(const T& event)
         {
             for(auto&& handler : _handlers)
                 handler->exec(this,event);
-
-            for(auto&& handler : _lambdas)
-                handler(event);
         }
 
         template<typename T>
-        void Emitter<T>::emit(T&& event)
-        {
-            emit(event);
-        }
-
-        template<typename T>
-        template<typename ... Args>
-        void Emitter<T>::emit(Args&& ... args)
-        {
-            T e(std::forward<Args>(args)...);
-            emit(e);
-        }
-
-
-        template<typename T>
-        void Emitter<T>::connect(EventHandler<T>& handler)
-        {
-             handler._register(this);
-            _register(&handler);
-        }
-
-        template<typename T>
-        void Emitter<T>::disconnect(EventHandler<T>& handler)
-        {
-            handler._unregister(this);
-            _unregister(&handler);
-        }
-
-        template<typename T>
-        void Emitter<T>::connect(const std::function<void(T&)>& callback)
-        {
-            _lambdas.emplace_back(callback);
-        }
-
-        template<typename T>
-        void Emitter<T>::clearLambdas()
-        {
-            _lambdas.clear();
-        }
-
-
-        template<typename T>
-        void Emitter<T>::_register(EventHandler<T>* handler)
+        void VEmitter<T>::_register(VEventHandler<T>* handler)
         {
             _handlers.emplace_back(handler);
         }
 
         template<typename T>
-        void Emitter<T>::_unregister(EventHandler<T>* handler)
+        void VEmitter<T>::_unregister(VEventHandler<T>* handler)
         {
             _handlers.remove(handler);
         }
+
+        ////////////////// Event /////////////////////
+        template <typename ... Args>
+        Emitter<Args ...>::Emitter()
+        {
+        }
+
+        template <typename ... Args>
+        Emitter<Args ...>::~Emitter()
+        {
+        }
+
+        template <typename ... Args>
+        template <typename T>
+        void Emitter<Args ...>::emit(const T& event)
+        {
+            static_assert(std::is_base_of<Event<T>,T>::value, "T must be a class derived from Event<T>");
+            static_assert(std::is_base_of<VEmitter<T>,Emitter<Args ...>>::value, "T must be an Event<T> calss based managed by the Emitter");
+
+            VEmitter<T>::emit(event);
+
+        }
+
     }
+
 }
