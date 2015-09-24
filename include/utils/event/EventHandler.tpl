@@ -82,32 +82,56 @@ namespace event
     ///////////////////// EventHandler ////////////////////
 
     template<typename ... Args>
-    EventHandler<Args ...>::EventHandler()
+    EventHandler<Args ...>::EventHandler() : VEventHandler<Args>()...
     {
     }
     
     template<typename ... Args>
-    EventHandler<Args ...>::EventHandler(typename VEventHandler<Args>::FuncType& ... callbacks) :
+    EventHandler<Args ...>::EventHandler(const typename VEventHandler<Args>::FuncType& ... callbacks) :
         VEventHandler<Args>(callbacks) ...
     {
     }
 
     template<typename ... Args>
-    template<typename T>
-    void EventHandler<Args ...>::connect(VEmitter<T>& emmiter)
+    template<typename ... Args2>
+    void EventHandler<Args ...>::connect(Emitter<Args2 ...>& emitter)
     {
+        {
+            auto n = {typeid(Args).name() ...};
+            std::cout<<"Args : ";
+            for(auto& i : n)
+                std::cout<<i<<" ";
+            std::cout<<std::endl;
+        }
+        {
+            auto n = {typeid(Args2).name() ...};
+            std::cout<<"Args2 : ";
+            for(auto& i : n)
+                std::cout<<i<<" ";
+            std::cout<<std::endl;
+        }
+        
+        //static_assert(std::is_base_of<VEventHandler<T>,EventHandler<Args ...>>::value, "T must be an Event<T> calss based managed by the EventHandler");
+
+        //VEventHandler<T>::connect(emitter);
     }
 
     template<typename ... Args>
     template<typename T>
     void EventHandler<Args ...>::connect(VEmitter<T>& emitter,const typename VEventHandler<T>::FuncType& callback)
     {
+        //static_assert(std::is_base_of<VEventHandler<T>,EventHandler<Args ...>>::value, "T must be an Event<T> calss based managed by the EventHandler");
+
+        //VEventHandler<T>::connect(emitter,callback);
     }
 
     template<typename ... Args>
     template<typename T>
     void EventHandler<Args ...>::disconnect(VEmitter<T>& emitter)
     {
+        //static_assert(std::is_base_of<VEventHandler<T>,EventHandler<Args ...>>::value, "T must be an Event<T> calss based managed by the EventHandler");
+
+        //VEventHandler<T>::disconnect(emitter);
     }
 
 

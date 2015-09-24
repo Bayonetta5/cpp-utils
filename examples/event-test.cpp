@@ -44,7 +44,7 @@ class HandlerClass : public event::EventHandler<TestEvent>
             std::cout<<"HandlerClass::onEvent("<<event<<")"<<std::endl;
         }
 
-         HandlerClass() : event::EventHandler<TestEvent>(&HandlerClass::onEvent)
+        HandlerClass() : event::EventHandler<TestEvent>(&HandlerClass::onEvent)
         {
         };
 };
@@ -131,7 +131,7 @@ int main(int argc,char* argv[])
             std::cout<<"handler default function: "<<event<<std::endl;
         });
 
-        bus.connect<TestEvent>(handler);
+        //bus.connect<TestEvent>(handler);
 
         std::cout<<"------ handler  (default) class should receive event ------"<<std::endl;
 
@@ -190,17 +190,17 @@ class Button : public event::Emitter<ButtonClickedEvent,ButtonReleaseEvent>
 class ButtonHandler : public event::EventHandler<ButtonClickedEvent,ButtonReleaseEvent>
 {
     public:
-        ButtonHandler() /*: event::EventHandler<ButtonClickedEvent>(&ButtonHandler::onEventClicked&ButtonHandler::onEventReleased)*/
+        ButtonHandler() : event::EventHandler<ButtonClickedEvent,ButtonReleaseEvent>(&ButtonHandler::onEventClicked,&ButtonHandler::onEventReleased)
 
         {
         }
     
-        void onEventClicked(const ButtonClickedEvent& event)
+        static void onEventClicked(const ButtonClickedEvent& event)
         {
             std::cout<<" * EVENT : Button clicked received"<<std::endl;
         }
 
-        void onEventReleased(const ButtonReleaseEvent& event)
+        static void onEventReleased(const ButtonReleaseEvent& event)
         {
             std::cout<<"* EVENT : Button released received"<<std::endl;
         }

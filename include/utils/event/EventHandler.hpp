@@ -75,19 +75,19 @@ namespace event
 
 
     template <typename ... Args>
-    class EventHandler
+    class EventHandler : public VEventHandler<Args>...
     {
         public:
             EventHandler();
 
-            EventHandler(typename VEventHandler<Args>::FuncType& ... callbacks);
+            EventHandler(const typename VEventHandler<Args>::FuncType& ... callbacks);
 
             /**
              * \brief connect emitter with the default callback from the constructor
              * \param emitter the emitter to connect with
              */
-            template<typename T>
-            void connect(VEmitter<T>& emitter);
+            template<typename ... Args2>
+            void connect(Emitter<Args2...>& emitter);
 
             /**
              * \brief connect emitter with the callback as parameter
