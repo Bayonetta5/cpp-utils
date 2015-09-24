@@ -8,25 +8,6 @@ namespace utils
 
 namespace event
 {
-    template<typename T>
-    void EventBus::connect(VEventHandler<T>& handler)
-    {
-        static_assert(std::is_base_of<Event<T>,T>::value, "EventBus::connect<T>(VEventHandler<T>&): T must be a class derived from Event<T>");
-
-        static_cast<priv::VEventHandler&>(handler)._register(this);
-        _handlers[T::family()].emplace_back(&handler);
-
-    }
-
-    template<typename T>
-    void EventBus::disconnect(VEventHandler<T>& handler)
-    {
-        static_assert(std::is_base_of<Event<T>,T>::value, "EventBus::disconnect<T>(VEventHandler<T>&): T must be a class derived from Event<T>");
-
-
-        handler._unregister(this);
-        _unregister(T::family,&handler);
-    }
 
     template<typename T>
     void EventBus::emit(T& event)

@@ -27,14 +27,12 @@ namespace event
             /**
              * \brief add an EventHandler to manage.
              */
-            template<typename T>
-            void connect(VEventHandler<T>& handler);
+            void connect(priv::VEventHandler& handler);
 
             /**
              * \brief remove an EventHandler from the managed handlers
              */
-            template<typename T>
-            void disconnect(VEventHandler<T>& handler);
+            void disconnect(priv::VEventHandler& handler);
 
             /**
              * \brief send an event througth the bus to all the manager EventHandler
