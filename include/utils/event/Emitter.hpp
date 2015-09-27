@@ -40,7 +40,7 @@ namespace event
             /**
              * \brief automaticly unregister all the handlers
              */
-            virtual ~Emitter();
+            virtual ~Bus();
 
         private:
             virtual bool _checkFamily(unsigned int family)const override;
