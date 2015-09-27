@@ -1,8 +1,7 @@
 #ifndef UTILS_EVENT_VEMITTER_HPP
 #define UTILS_EVENT_VEMITTER_HPP
 
-#include <unordered_map>
-#include <set>
+#include <list>
 #include <cassert>
 
 #include <utils/event/Handler.hpp>
@@ -13,6 +12,9 @@ namespace utils
     {
         class VEvent;
 
+        /**
+         * \brief This is the common class for all the Emitter
+         */
         class VEmitter
         {
             public:
@@ -35,12 +37,12 @@ namespace utils
                 template <typename T>
                 bool _dispatch(const T& event) const; //< used by VEvent
 
-                void _register(const Handler* handler,unsigned int family);
-                void _unregister(const Handler* handler,unsigned int family);
+                void _register(const Handler* handler); //< used by Handler
+                void _unregister(const Handler* handler); //< used by Handler
 
-                virtual bool _checkFamily(unsigned int family)const = 0;
+                virtual bool _checkFamily(unsigned int family)const = 0; //< check if this class can deal with a type of event
 
-                std::unordered_map<unsigned int,std::set<Handler*>> _handlers;
+                std::list<Handler*> _handlers;
         };
     }
 }

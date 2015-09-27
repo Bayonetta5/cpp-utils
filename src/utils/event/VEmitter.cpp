@@ -12,13 +12,7 @@ namespace utils
 
         VEmitter::~VEmitter()
         {
-            std::set<Handler*> handlers;
-            for(auto& p : _handlers)
-            {
-                handlers.insert(p.second.begin(),p.second.end());
-            }
-
-            for(Handler* h: handlers)
+            for(Handler* h: _handlers)
             {
                 h->_unregister(this);
             }
@@ -32,17 +26,14 @@ namespace utils
 
         ////////////////// PRIVATE //////////////
 
-        void VEmitter::_register(const Handler* handler, unsigned int family)
+        void VEmitter::_register(const Handler* handler)
         {
-            _handlers[family].insert(const_cast<Handler*>(handler));
+            _handlers.emplace_back(const_cast<Handler*>(handler));
         }
 
-        void VEmitter::_unregister(const Handler* handler, unsigned int family)
+        void VEmitter::_unregister(const Handler* handler)
         {
-            std::set<Handler*>& l = _handlers[family];
-            auto it = l.find(const_cast<Handler*>(handler));
-            if(it != l.end())
-                l.erase(it);
+            _handlers.remove(const_cast<Handler*>(handler));
         }
 
     }

@@ -1,49 +1,39 @@
-#include <type_traits>
-#include <utils/event/EventHandler.hpp>
-
 namespace utils
 {
     namespace event
     {
+        /////////////////////// Helper /////////////////////
 
-        ////////////////// VEvent ///////////////////
         template<typename T>
-        VEmitter<T>::VEmitter()
+        inline void _helper_isEvent()
         {
-            static_assert(std::is_base_of<Event<T>,T>::value, "VEmitter<T>: T must be a class derived from Event<T>");
+            static_assert(std::is_base_of<Event<T>,T>::value, "Emmiter<Args ...> : Each Arg must be a class derived from Event<Arg>");
+        }
+
+        template<typename T, typename U, typename ... Args>
+        inline void _helper_isEvent()
+        {
+            _helper_isEvent<T>();
+            _helper_isEvent<U,Args ...>();
         }
 
         template<typename T>
-        VEmitter<T>::~VEmitter()
+        inline bool _helper_checkFamily(unsigned int family)
         {
-            for(auto&& handler : _handlers)
-                handler->_unregister(this);
-            _handlers.clear();
+            return T::family() == family;
         }
 
-        template<typename T>
-        void VEmitter<T>::emit(const T& event)
+        template<typename T, typename U, typename ... Args>
+        inline bool _helper_checkFamily(unsigned int family)
         {
-            for(auto&& handler : _handlers)
-                handler->exec(this,event);
+            return _helper_checkFamily<T>(family) or _helper_checkFamily<U,Args ...>(family);
         }
 
-        template<typename T>
-        void VEmitter<T>::_register(VEventHandler<T>* handler)
-        {
-            _handlers.emplace_back(handler);
-        }
-
-        template<typename T>
-        void VEmitter<T>::_unregister(VEventHandler<T>* handler)
-        {
-            _handlers.remove(handler);
-        }
-
-        ////////////////// Event /////////////////////
+        ///////////// Emmiter ///////////////
         template <typename ... Args>
         Emitter<Args ...>::Emitter()
         {
+            _helper_isEvent<Args ...>();
         }
 
         template <typename ... Args>
@@ -51,15 +41,12 @@ namespace utils
         {
         }
 
+        ///////////////// PRIVATE ///////////////////
+        
         template <typename ... Args>
-        template <typename T>
-        void Emitter<Args ...>::emit(const T& event)
+        bool Emitter<Args ...>::_checkFamily(unsigned int family)const
         {
-            static_assert(std::is_base_of<Event<T>,T>::value, "T must be a class derived from Event<T>");
-            static_assert(std::is_base_of<VEmitter<T>,Emitter<Args ...>>::value, "T must be an Event<T> calss based managed by the Emitter");
-
-            VEmitter<T>::emit(event);
-
+            return _helper_checkFamily<Args ...> (family);
         }
 
     }

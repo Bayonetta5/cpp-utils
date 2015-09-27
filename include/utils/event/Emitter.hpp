@@ -1,53 +1,20 @@
 #ifndef EVENT_EMITTER_HPP
 #define EVENT_EMITTER_HPP
 
-#include <list>
-#include <functional>
-#include <memory>
+#include <utils/event/VEmitter.hpp>
+#include <utils/event/Event.hpp>
+
 
 namespace utils
 {
 
-    /**
-     * \brief The namespace that contain all the event functionalities
-     */
 namespace event
 {
-    template<typename> class VEventHandler;
-
-    template<typename> class Event;
-
     /**
-     * \brief This class is used to send an event of type T
-     */
-    template<typename T>
-    class VEmitter
-    {
-        public:
-            VEmitter();
-
-            /**
-             * \brief automaticly unregister all the handlers
-             */
-            virtual ~VEmitter();
-
-            /**
-             * \brief Send an event
-             * \param event the event to send
-             */
-            void emit(const T& event);
-
-        private:
-            friend class VEventHandler<T>;
-
-            void _register(VEventHandler<T>* handler);
-            void _unregister(VEventHandler<T>* handler);
-
-            std::list<VEventHandler<T>*> _handlers;
-    };
-
+     * \brief This class will be able to deal with all Args events
+     **/
     template<typename ... Args>
-    class Emitter : public VEmitter<Args>...
+    class Emitter : public VEmitter
     {
         public:
             Emitter();
@@ -57,12 +24,27 @@ namespace event
              */
             virtual ~Emitter();
 
+        private:
+            virtual bool _checkFamily(unsigned int family)const override;
+
+    };
+
+    /**
+     * \brief This class is able to send any kind of event
+     */
+    class Bus : public VEmitter
+    {
+        public:
+            Bus();
+
             /**
-             * \brief Send an event
-             * \param event the event to send
+             * \brief automaticly unregister all the handlers
              */
-            template <typename T>
-            void emit(const T& event);
+            virtual ~Emitter();
+
+        private:
+            virtual bool _checkFamily(unsigned int family)const override;
+
     };
 }
 }

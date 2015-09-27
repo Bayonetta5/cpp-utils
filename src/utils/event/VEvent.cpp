@@ -4,9 +4,6 @@ namespace utils
 {
 namespace event
 {
-    namespace priv
-    {
-        unsigned int VEvent::_familyCounter = 0;
-    }
+    unsigned int VEvent::_familyCounter = 0;
 }
 }
