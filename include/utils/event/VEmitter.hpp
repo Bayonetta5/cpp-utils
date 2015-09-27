@@ -2,6 +2,7 @@
 #define UTILS_EVENT_VEMITTER_HPP
 
 #include <list>
+#include <functional>
 #include <cassert>
 
 #include <utils/event/Handler.hpp>
@@ -29,6 +30,20 @@ namespace utils
                  * \param event the event to send
                  */
                 bool emit(const VEvent& event) const;
+
+
+                /**
+                 * \brief exacte same as Handler::connect<T>(*this,callback)
+                 * \see Handler::connect
+                 * */
+                template <typename T>
+                bool connect(Handler& handler,const std::function<void(const T&)>& callback);
+
+                /**
+                 * \brief exacte same as Handler::disconnect(*this)
+                 * \see Handler::disconnect
+                 * */
+                void disconnect(Handler& handler); 
 
             private:
                 template <typename> friend class Event;

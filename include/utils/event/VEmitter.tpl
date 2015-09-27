@@ -8,11 +8,31 @@ namespace utils
             bool res = _checkFamily(T::family());
             assert(res);
 
-            for(Handler* handler: _handlers)
+            if(res)
             {
-                handler->_receive(*this,event);
+                for(Handler* handler: _handlers)
+                {
+                    handler->_receive(*this,event);
+                }
             }
             return res;
         }
+
+        template <typename T>
+        bool VEmitter::connect(Handler& handler,const std::function<void(const T&)>& callback)
+        {
+            bool res = _checkFamily(T::family());
+            assert(res);
+            
+            if(res)
+            {
+                handler.connect<T>(*this,callback);
+            }
+
+            return res;
+
+        }
+
+
     }
 }

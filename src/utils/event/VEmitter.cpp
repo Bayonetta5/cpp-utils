@@ -23,6 +23,11 @@ namespace utils
             return event._dispatch(*this);
         }
 
+        void VEmitter::disconnect(Handler& handler)
+        {
+            handler.disconnect(*this);
+        }
+
 
         ////////////////// PRIVATE //////////////
 
