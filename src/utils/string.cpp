@@ -27,10 +27,11 @@ namespace string
 
     void replace(std::string& source,const std::string& find,const std::string& rep)
     {
-        for(std::string::size_type i = 0; (i = source.find(find, i)) != std::string::npos;)
+        size_t pos = 0;
+        while ((pos = source.find(find, pos)) != std::string::npos)
         {
-            source.replace(i, find.length(), rep);
-            i += rep.length() - find.length() + 1;
+            source.replace(pos, find.length(), rep);
+            pos += rep.length();
         }
     }
 
