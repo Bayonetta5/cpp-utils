@@ -89,7 +89,7 @@
 
 // Entry point (every JSON file represents a value)
 start: value {
-     driver.value = $1;
+     driver._value.reset($1);
      };
 
 object: T_CURLY_BRACKET_L assignment_list T_CURLY_BRACKET_R {

@@ -5,6 +5,7 @@
 
 #include <utils/json/Scanner.hpp>
 #include <utils/json/Value.hpp>
+#include <memory>
 
 namespace utils
 {
@@ -28,49 +29,44 @@ namespace utils
                 Driver& operator=(const Driver&) = delete;
 
                 /**
-                 * \brief Destructor
-                 */
-                ~Driver();
-
-                /**
                  * \brief Parse all the input (until \0)
                  */
-                Value* parse();
+                std::shared_ptr<Value> parse();
 
                 /**
                  * \return true if the stream is a valid format, else, false.
                  */
-                inline bool isValid()const{return validity;}
+                inline bool isValid()const{return _validity;}
 
                 /**
                  * \brief Parse a input
                  * \param in The input stream to parse
                  */
-                static Value* parse(std::istream& in);
+                static std::shared_ptr<Value> parse(std::istream& in);
 
                 /**
                  * \brief Parse a input
                  * \param in The input stream to parse
                  */
-                static Value* parse(const std::string& in);
+                static std::shared_ptr<Value> parse(const std::string& in);
 
                 /**
                  * \brief Parse a file and return a Analyse
                  * \param filename the file name
                  * \return A Analyse tha contain all the datas parsed
                  */
-                static Value* parse_file(const std::string& filename);
+                static std::shared_ptr<Value> parse_file(const std::string& filename);
 
 
                  
             private:
                 friend class Parser;
                     
-                Scanner scanner; ///< The lexer
-                Parser parser; ///< The parser
+                Scanner _scanner; ///< The lexer
+                Parser _parser; ///< The parser
 
-                bool validity;//< is valid
-                utils::json::Value* value;///< the root node
+                bool _validity;//< is valid
+                std::shared_ptr<utils::json::Value> _value;///< the root node
 
         };
     }

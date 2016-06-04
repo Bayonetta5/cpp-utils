@@ -522,7 +522,7 @@ namespace utils { namespace json {
   case 2:
 #line 91 "/media/HDD1/DEV/Projet/C-cpp/git/SFML-utils/extlibs/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:847
     {
-     driver.value = (yystack_[0].value.v_value);
+     driver._value.reset(yystack_[0].value.v_value);
      }
 #line 528 "/media/HDD1/DEV/Projet/C-cpp/git/SFML-utils/extlibs/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:847
     break;

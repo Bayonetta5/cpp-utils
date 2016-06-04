@@ -8,7 +8,7 @@ int main(int argc,char* argv[])
         return 0;
     }
         
-    utils::json::Value* v = utils::json::Driver::parse_file(argv[1]);
+    std::shared_ptr<utils::json::Value> v = utils::json::Driver::parse_file(argv[1]);
     std::cout<<*v<<std::endl;
 
     return 0;

@@ -9,47 +9,40 @@ namespace utils
 {
     namespace json
     {
-        Driver::Driver(std::istream& in) : scanner(in), parser(scanner,*this), validity(true), value(nullptr)
+        Driver::Driver(std::istream& in) : _scanner(in), _parser(_scanner,*this), _validity(true)
         {
-        }
-
-        Driver::~Driver()
-        {
-            delete value;
         }
 
         
-        Value* Driver::parse()
+        std::shared_ptr<Value> Driver::parse()
         {
             json_line_no = 1;
-            validity=true;
-            if(parser.parse() != 0)
+            _validity=true;
+            if(_parser.parse() != 0)
             {
                 utils::log::error("utils::json","Parse failed");
-                validity=false;
+                _validity=false;
             }
-            auto tmp = value;
-            value = nullptr;
-            return tmp;
+            return _value;
         }
 
-        Value* Driver::parse(std::istream& in)
+        std::shared_ptr<Value> Driver::parse(std::istream& in)
         {
             Driver driver(in);
             return driver.parse();
         }
 
-        Value* Driver::parse(const std::string& in)
+        std::shared_ptr<Value> Driver::parse(const std::string& in)
         {
             std::istringstream ss(in);
             Driver driver(ss);
             return driver.parse();
         }
 
-        Value* Driver::parse_file(const std::string& filename)
+        std::shared_ptr<Value> Driver::parse_file(const std::string& filename)
         {
             std::ifstream file(filename, std::ifstream::in);
-            Value* res =nullptr;
+            std::shared_ptr<Value> res;
             if (file.good())
             {
                 Driver driver(file);
