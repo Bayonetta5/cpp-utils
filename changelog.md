@@ -1,3 +1,8 @@
+0.2.2
+=====
+
+Change Value* to std::shared<Value> in return of driver json parsing
+
 0.2.1
 =====
 * Add event namespace
