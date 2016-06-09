@@ -11,51 +11,51 @@ namespace utils
  */
 namespace log
 {
-    
+
     extern bool show_time;
     /**
      * \brief print a message
      */
     template <typename T,typename ... Args>
-    void todo(const T& type,const Args& ... args);
+    void todo(const T& _type,const Args& ... args);
 
     /**
      * \brief print a message
      */
     template <typename T,typename ... Args>
-    void info(const T& type,const Args& ... args);
+    void info(const T& _type,const Args& ... args);
 
     /**
      * \brief print a message
      */
     template <typename T,typename ... Args>
-    void ok(const T& type,const Args& ... args);
+    void ok(const T& _type,const Args& ... args);
 
     /**
      * \brief print a message
      */
     template <typename T,typename ... Args>
-    void warning(const T& type,const Args& ... args);
+    void warning(const T& _type,const Args& ... args);
 
 
     /**
      * \brief print a message
      */
     template <typename T,typename ... Args>
-    void error(const T& type,const Args& ... args);
+    void error(const T& _type,const Args& ... args);
 
     /**
      * \brief print a message
      */
     template <typename T,typename ... Args>
-    void critical(const T& type,const Args& ... args);
+    void critical(const T& _type,const Args& ... args);
 
     /**
      * \brief print a message
      * if the code value is not 0, exit with that code
      */
     template <typename T,typename ... Args>
-    void critical(int code,const T& type,const Args& ... args);
+    void critical(int code,const T& _type,const Args& ... args);
 
     enum LOG_LVL{
         TODO = 1,
@@ -118,7 +118,7 @@ namespace log
 
     /**
      * \brief change the text color
-     */ 
+     */
     namespace colors
     {
         std::ostream& black(std::ostream& output);
@@ -159,7 +159,7 @@ namespace log
 
     /**
      * \brief change the background color
-     */ 
+     */
     namespace bg
     {
         std::ostream& black(std::ostream& output);

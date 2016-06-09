@@ -1,22 +1,24 @@
 #include <utils/json/Object.hpp>
 //#include <utils/json/Value.hpp>
+#include <stdexcept>
+
 
 namespace utils
 {
     namespace json
     {
-        
+
         Object::Object()
         {
         }
 
         std::ostream& operator<<(std::ostream& stream, const Object& self)
         {
-            self.print_ident(stream,0);
+            self._printIdent(stream,0);
             return stream;
         }
 
-        void Object::print_ident(std::ostream& stream, int i)const
+        void Object::_printIdent(std::ostream& stream, int i)const
         {
             /*if(i >0)
                 stream<<"\n";
@@ -24,73 +26,106 @@ namespace utils
             stream<<"{\n";
             ++i;
 
-            if(values.size()>0)
+            if(_values.size()>0)
             {
-                auto begin = values.begin();
-                auto end = values.end();
+                auto begin = _values.begin();
+                auto end = _values.end();
 
-                ident(stream,i);
+                _ident(stream,i);
                 stream<<"\""<<begin->first<<"\" : ";
-                begin->second.print_ident(stream,i);
+                begin->second._printIdent(stream,i);
 
                 ++begin;
                 while(begin!=end)
                 {
                     stream<<",\n";
-                    ident(stream,i);
+                    _ident(stream,i);
                     stream<<"\""<<begin->first<<"\" : ";
-                    begin->second.print_ident(stream,i);
+                    begin->second._printIdent(stream,i);
                     ++begin;
                 }
             }
             --i;
             stream<<"\n";
-            ident(stream,i);
+            _ident(stream,i);
             stream<<"}";
         }
 
         Value& Object::operator[] (const std::string& key)
         {
-            return values.at(key);
+            return _values[key];
         }
 
         const Value& Object::operator[] (const std::string& key) const
         {
-            return values.at(key);
+           auto it = _values.find(key);
+			if(it != _values.end())
+			{
+				return it->second;
+            }
+
+			throw std::out_of_range(std::string("Index '")+key+"' is out of range");
         }
 
-        /*std::pair<std::unordered_map<std::string, Value>::iterator, bool> Object::insert(const std::pair<std::string, Value>& v)
+        int Object::count(const std::string& key) const
         {
-            return values.insert(v);
-        }*/
+            return _values.count(key);
+        }
 
         std::unordered_map<std::string, Value>::const_iterator Object::begin() const
         {
-            return values.begin();
+            return _values.begin();
         }
 
         std::unordered_map<std::string, Value>::const_iterator Object::end() const
         {
-            return values.end();
+            return _values.end();
         }
 
         std::unordered_map<std::string, Value>::iterator Object::begin()
         {
-            return values.begin();
+            return _values.begin();
         }
 
         std::unordered_map<std::string, Value>::iterator Object::end()
         {
-            return values.end();
+            return _values.end();
         }
 
         size_t Object::size() const
         {
-            return values.size();
+            return _values.size();
+        }
+
+        void Object::merge(const Object& other, bool recursive, bool replace_old)
+        {
+            auto end = other._values.end();
+            for (const auto& val : other._values)
+            {
+                auto it = this->_values.find(val.first);
+                if (it != this->_values.end()) //has key
+                {
+                    if (replace_old) //replace existing value
+                    {
+                        if (recursive && it->second.isObject() && val.second.isObject()) //merge if both are object
+                        {
+                            it->second.asObject().merge(val.second.asObject(), recursive, replace_old);
+                        }
+                        else //else change value
+                        {
+                            it->second = val.second;
+                        }
+                    }
+                }
+                else //add value
+                {
+                    this->_values.insert(val);
+                }
+            }
         }
 
 
-        void Object::ident(std::ostream& out,int max)
+        void Object::_ident(std::ostream& out,int max)
         {
             for(int i=0;i<max;++i)
                 out<<"    ";

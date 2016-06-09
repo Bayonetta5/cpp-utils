@@ -31,18 +31,18 @@
 // version 2.2 of Bison.
 
 /**
- ** \file /media/HDD1/DEV/Projet/C-cpp/git/SFML-utils/extlibs/cpp-utils/src/utils/json/stack.hh
+ ** \file stack.hh
  ** Define the utils::json::stack class.
  */
 
-#ifndef YY_YY_MEDIA_HDD1_DEV_PROJET_C_CPP_GIT_SFML_UTILS_EXTLIBS_CPP_UTILS_SRC_UTILS_JSON_STACK_HH_INCLUDED
-# define YY_YY_MEDIA_HDD1_DEV_PROJET_C_CPP_GIT_SFML_UTILS_EXTLIBS_CPP_UTILS_SRC_UTILS_JSON_STACK_HH_INCLUDED
+#ifndef YY_YY_STACK_HH_INCLUDED
+# define YY_YY_STACK_HH_INCLUDED
 
 # include <vector>
 
-#line 8 "/media/HDD1/DEV/Projet/C-cpp/git/SFML-utils/extlibs/cpp-utils/src/utils/json/Parser.yy" // stack.hh:133
+#line 8 "Parser.yy" // stack.hh:133
 namespace utils { namespace json {
-#line 46 "/media/HDD1/DEV/Projet/C-cpp/git/SFML-utils/extlibs/cpp-utils/src/utils/json/stack.hh" // stack.hh:133
+#line 46 "stack.hh" // stack.hh:133
   template <class T, class S = std::vector<T> >
   class stack
   {
@@ -151,8 +151,8 @@ namespace utils { namespace json {
     unsigned int range_;
   };
 
-#line 8 "/media/HDD1/DEV/Projet/C-cpp/git/SFML-utils/extlibs/cpp-utils/src/utils/json/Parser.yy" // stack.hh:133
+#line 8 "Parser.yy" // stack.hh:133
 } } // utils::json
-#line 157 "/media/HDD1/DEV/Projet/C-cpp/git/SFML-utils/extlibs/cpp-utils/src/utils/json/stack.hh" // stack.hh:133
+#line 157 "stack.hh" // stack.hh:133
 
-#endif // !YY_YY_MEDIA_HDD1_DEV_PROJET_C_CPP_GIT_SFML_UTILS_EXTLIBS_CPP_UTILS_SRC_UTILS_JSON_STACK_HH_INCLUDED
+#endif // !YY_YY_STACK_HH_INCLUDED

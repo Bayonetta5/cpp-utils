@@ -10,23 +10,23 @@ namespace utils
 
         std::ostream& operator<<(std::ostream& stream, const Array& self)
         {
-            self.print_ident(stream,0);
+            self._printIdent(stream,0);
             return stream;
         }
 
-        void Array::print_ident(std::ostream& stream, int i)const
+        void Array::_printIdent(std::ostream& stream, int i)const
         {
             stream<<"[";
-            if(values.size()>0)
+            if(_values.size()>0)
             {
-                auto begin = values.begin();
-                auto end = values.end();
-                begin->print_ident(stream,i);
+                std::list<Value>::const_iterator begin = _values.begin();
+                std::list<Value>::const_iterator end = _values.end();
+                begin->_printIdent(stream,i);
                 ++begin;
                 while(begin!=end)
                 {
                     stream<<",";
-                    begin->print_ident(stream,i);
+                    begin->_printIdent(stream,i);
                     ++begin;
                 }
             }
@@ -35,27 +35,38 @@ namespace utils
 
         std::list<Value>::const_iterator Array::begin() const
         {
-            return values.begin();
+            return _values.begin();
         }
 
         std::list<Value>::const_iterator Array::end() const
         {
-            return values.end();
+            return _values.end();
         }
 
         std::list<Value>::iterator Array::begin()
         {
-            return values.begin();
+            return _values.begin();
         }
 
         std::list<Value>::iterator Array::end()
         {
-            return values.end();
+            return _values.end();
         }
 
         size_t Array::size()const
         {
-            return values.size();
+            return _values.size();
         }
+
+        std::list<Value>& Array::data()
+        {
+            return _values;
+        }
+
+        const std::list<Value>& Array::data() const
+        {
+            return _values;
+        }
+
     }
 }

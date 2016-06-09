@@ -2,6 +2,7 @@
 =====
 
 Change Value* to std::shared<Value> in return of driver json parsing
+Fix naming convention in json classes
 
 0.2.1
 =====

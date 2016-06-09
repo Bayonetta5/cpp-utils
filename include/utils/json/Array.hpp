@@ -7,43 +7,67 @@
 
 namespace utils
 {
-    namespace json
+    class Parser;
+
+    namespace json ///< namespace for json objects
     {
         /**
          * \brief class to manage the special Array value
-         * Internaly stored as a list. Operator [] is not allowed
+         * Internally stored as a list. Operator [] is not allowed
          */
         class Array
         {
-            public:
+		    public:
+                /**
+                \brief iterator type
+                */
+		        typedef std::list<Value>::iterator iterator;
+
+                /**
+                \brief const iterator type
+                */
+		        typedef std::list<Value>::const_iterator const_iterator;
+
+                /**
+                \brief constructor
+                */
                 explicit Array();
 
-                Array(const Array&) = delete;
-                Array& operator=(const Array&) = delete;
-
-                Array(Array&&) = default;
-                Array& operator=(Array&&) = default;
-                
                 friend std::ostream& operator<<(std::ostream& stream, const Array& self); //< output as json
 
+                /**
+                \brief begin iterator
+                */
                 std::list<Value>::const_iterator begin() const;
 
+                /**
+                \brief end iterator
+                */
                 std::list<Value>::const_iterator end() const;
 
+                /**
+                \brief begin iterator
+                */
                 std::list<Value>::iterator begin();
 
+                /**
+                \brief end iterator
+                */
                 std::list<Value>::iterator end();
 
-                size_t size() const; //< return the size
 
+                size_t size() const; //< return the size (number of elements)
+
+                std::list<Value>& data(); //return the internal container
+                const std::list<Value>& data() const;//return the internal container
 
             private:
                 friend class Value;
-                friend class Parser;
+                friend class ::utils::json::Parser;
 
-                void print_ident(std::ostream& out,int i)const;
+                void _printIdent(std::ostream& out,int i)const;
 
-                std::list<Value> values;
+                std::list<Value> _values;
 
         };
     }

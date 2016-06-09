@@ -6,6 +6,7 @@
     /* typedef to make the returns for the tokens shorter */
     typedef utils::json::Parser::token token;
     int json_line_no = 1;
+    std::string json_buffer;
 
     /* define yyterminate as this instead of NULL */
     //#define yyterminate() return token::T_END;
@@ -19,6 +20,7 @@
 %option nodefault
 %option noyywrap
 %option prefix="UtilsJson"
+%x STRING_BEGIN
 
 %%
 
@@ -101,7 +103,7 @@ null {
 }
 
 <STRING_BEGIN>\\b {
-	buffer.push_back('\b');
+	json_buffer.push_back('\b');
 }
 
 <STRING_BEGIN>\\f {
@@ -125,7 +127,7 @@ null {
 }
 
 <STRING_BEGIN>[^\"] { 
-	buffer.push_back(yytext[0]);
+	json_buffer.push_back(yytext[0]);
 }
 
 . {

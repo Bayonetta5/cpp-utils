@@ -141,13 +141,13 @@ list : /* empty */ {
      }
      | value {
         $$=new utils::json::Array();
-        $$->values.push_back(std::move(*$1));
+        $$->_values.push_back(std::move(*$1));
         DEL($1);
     }/*new*/
     | list T_COMMA value {
         $$=$1;
         $1=nullptr;
-        $$->values.push_back(std::move(*$3));
+        $$->_values.push_back(std::move(*$3));
         DEL($3);
     }
     ;
@@ -157,14 +157,14 @@ assignment_list : /* empty */ {
                 }
                 | str T_COLON value {
                     $$=new utils::json::Object();
-                    $$->values.emplace(std::move(*$1),std::move(*$3));
+                    $$->_values.emplace(std::move(*$1),std::move(*$3));
                     DEL($1);
                     DEL($3);
                 }/*new*/
                 | assignment_list T_COMMA str T_COLON value {
                     $$=$1;
                     $1=nullptr;
-                    $$->values.emplace(std::move(*$3),std::move(*$5));
+                    $$->_values.emplace(std::move(*$3),std::move(*$5));
                     DEL($3);
                     DEL($5);
                }

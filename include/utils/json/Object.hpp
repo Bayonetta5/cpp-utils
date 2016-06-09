@@ -7,22 +7,17 @@
 
 namespace utils
 {
+    class Parser;
     namespace json
     {
         /**
          * \brief a class to manage JSon objects
-         * Stored as std::unordered_map
+         * Stored as std::map
          */
         class Object
         {
             public:
                 explicit Object();
-
-                Object(const Object&) = delete;
-                Object& operator=(const Object&) = delete;
-
-                Object(Object&&) = default;
-                Object& operator=(Object&&) = default;
 
                 friend std::ostream& operator<<(std::ostream& stream, const Object& self); //< output as json
 
@@ -38,28 +33,51 @@ namespace utils
                  */
                 const Value& operator[] (const std::string& key) const;
 
+                /**
+                 * \return the count of items with key name
+                 */
+                int count(const std::string& key) const;
+
+                /**
+                \brief begin iterator
+                */
                 std::unordered_map<std::string, Value>::const_iterator begin() const;
 
+                /**
+                \brief end iterator
+                */
                 std::unordered_map<std::string, Value>::const_iterator end() const;
 
+                /**
+                \brief begin iterator
+                */
                 std::unordered_map<std::string, Value>::iterator begin();
 
+                /**
+                \brief end iterator
+                */
                 std::unordered_map<std::string, Value>::iterator end();
 
-                //std::pair<std::unordered_map<std::string, Value>::iterator, bool> insert(const std::pair<std::string, Value>& v);
-                
+
                 size_t size() const; //< return the object size
 
+                /**
+                \brief merge other object into this
+                \param other object to merge
+                \param recursive recursivly merge
+                \param replace_old replace original value by other value
+                */
+                void merge(const Object& other, bool recursive = true, bool replace_old = false);
 
             private:
-                friend class Parser;
+                friend class ::utils::json::Parser;
                 friend class Value;
 
-                std::unordered_map<std::string,Value> values;
+                std::unordered_map<std::string,Value> _values;
 
-                static void ident(std::ostream& out,int);
+                static void _ident(std::ostream& out,int);
 
-                void print_ident(std::ostream& out,int i)const;
+                void _printIdent(std::ostream& out,int i)const;
 
         };
     }
