@@ -99,7 +99,6 @@ namespace utils
 
         void Object::merge(const Object& other, bool recursive, bool replace_old)
         {
-            auto end = other._values.end();
             for (const auto& val : other._values)
             {
                 auto it = this->_values.find(val.first);
