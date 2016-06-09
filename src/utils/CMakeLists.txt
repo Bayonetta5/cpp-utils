@@ -35,12 +35,11 @@ list(APPEND FILES_HEADER
     ${INCROOT}/thread.tpl
     ${INCROOT}/memory.hpp
     ${INCROOT}/memory.tpl
-    ${INCROOT}/tr.hpp
 )
 
 
 build_library(${PROJECT_NAME}
-    SOURCES ${FILES_SRC}
+    SOURCES ${FILES_SRC} ${FILES_HEADER}
     TYPE SHARED
     EXTERNAL_LIBS ${LIBS}
 )

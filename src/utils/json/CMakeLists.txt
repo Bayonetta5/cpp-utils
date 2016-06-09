@@ -71,7 +71,7 @@ set(FILES_SRC
 )
 
 build_library("${PROJECT_NAME}-json"
-    SOURCES ${FILES_SRC}
+    SOURCES ${FILES_SRC} ${FILES_HEADER}
     TYPE SHARED
     DEPENDS ${PROJECT_NAME}
 )
