@@ -6,6 +6,16 @@
 
 namespace utils
 {
+    void findAndReplace(std::string& str, const std::string& oldStr, const std::string& newStr)
+    {
+        size_t pos = 0;
+        while ((pos = str.find(oldStr, pos)) != std::string::npos)
+        {
+            str.replace(pos, oldStr.length(), newStr);
+            pos += newStr.length();
+        }
+    }
+        
     namespace json
     {
         Value::Value(std::string* v) : v_string(v),type(STRING)
@@ -268,6 +278,23 @@ namespace utils
             assert(isString());
             return *v_string;
         }
+        
+        /*
+        std::string Value::asString()const
+        {
+            if (isString() == false)
+            {
+                throw std::logic_error("Value is not a String");
+            }
+
+            std::string result = *v_string;
+
+            findAndReplace(result, "\\\"", "\"");
+            findAndReplace(result, "\\\\","\\");
+
+            return result;
+        }
+        */
 
         Object& Value::as_object()
         {
