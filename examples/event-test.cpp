@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 
-#include <utils/events.hpp>
+#include <utils/event.hpp>
 
 using namespace utils;
 

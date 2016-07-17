@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.0.2.
+// A Bison parser, made by GNU Bison 3.0.4.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2013 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 
 // First part of user declarations.
 
-#line 37 "Parser.cpp" // lalr1.cc:399
+#line 37 "Parser.cpp" // lalr1.cc:404
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -47,9 +47,9 @@
 
 // User implementation prologue.
 
-#line 51 "Parser.cpp" // lalr1.cc:407
+#line 51 "Parser.cpp" // lalr1.cc:412
 // Unqualified %code blocks.
-#line 37 "Parser.yy" // lalr1.cc:408
+#line 37 "Parser.yy" // lalr1.cc:413
 
     #include <utils/json/Driver.hpp>
     #include <string>
@@ -58,7 +58,7 @@
 
     #define DEL(x) delete x; x=nullptr;
 
-#line 62 "Parser.cpp" // lalr1.cc:408
+#line 62 "Parser.cpp" // lalr1.cc:413
 
 
 #ifndef YY_
@@ -116,16 +116,16 @@
 #endif // !YYDEBUG
 
 #define yyerrok         (yyerrstatus_ = 0)
-#define yyclearin       (yyempty = true)
+#define yyclearin       (yyla.clear ())
 
 #define YYACCEPT        goto yyacceptlab
 #define YYABORT         goto yyabortlab
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-#line 8 "Parser.yy" // lalr1.cc:474
+#line 8 "Parser.yy" // lalr1.cc:479
 namespace utils { namespace json {
-#line 129 "Parser.cpp" // lalr1.cc:474
+#line 129 "Parser.cpp" // lalr1.cc:479
 
   /// Build a parser object.
   Parser::Parser (utils::json::Scanner& scanner_yyarg, utils::json::Driver& driver_yyarg)
@@ -188,6 +188,23 @@ namespace utils { namespace json {
   inline
   Parser::basic_symbol<Base>::~basic_symbol ()
   {
+    clear ();
+  }
+
+  template <typename Base>
+  inline
+  void
+  Parser::basic_symbol<Base>::clear ()
+  {
+    Base::clear ();
+  }
+
+  template <typename Base>
+  inline
+  bool
+  Parser::basic_symbol<Base>::empty () const
+  {
+    return Base::type_get () == empty_symbol;
   }
 
   template <typename Base>
@@ -202,7 +219,7 @@ namespace utils { namespace json {
   // by_type.
   inline
   Parser::by_type::by_type ()
-     : type (empty)
+    : type (empty_symbol)
   {}
 
   inline
@@ -217,10 +234,17 @@ namespace utils { namespace json {
 
   inline
   void
+  Parser::by_type::clear ()
+  {
+    type = empty_symbol;
+  }
+
+  inline
+  void
   Parser::by_type::move (by_type& that)
   {
     type = that.type;
-    that.type = empty;
+    that.clear ();
   }
 
   inline
@@ -234,7 +258,7 @@ namespace utils { namespace json {
   // by_state.
   inline
   Parser::by_state::by_state ()
-    : state (empty)
+    : state (empty_state)
   {}
 
   inline
@@ -244,10 +268,17 @@ namespace utils { namespace json {
 
   inline
   void
+  Parser::by_state::clear ()
+  {
+    state = empty_state;
+  }
+
+  inline
+  void
   Parser::by_state::move (by_state& that)
   {
     state = that.state;
-    that.state = empty;
+    that.clear ();
   }
 
   inline
@@ -259,7 +290,10 @@ namespace utils { namespace json {
   Parser::symbol_number_type
   Parser::by_state::type_get () const
   {
-    return state == empty ? 0 : yystos_[state];
+    if (state == empty_state)
+      return empty_symbol;
+    else
+      return yystos_[state];
   }
 
   inline
@@ -273,7 +307,7 @@ namespace utils { namespace json {
   {
     value = that.value;
     // that is emptied.
-    that.type = empty;
+    that.type = empty_symbol;
   }
 
   inline
@@ -307,6 +341,10 @@ namespace utils { namespace json {
     std::ostream& yyoutput = yyo;
     YYUSE (yyoutput);
     symbol_number_type yytype = yysym.type_get ();
+    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
+    // below array bounds".
+    if (yysym.empty ())
+      std::abort ();
     yyo << (yytype < yyntokens_ ? "token" : "nterm")
         << ' ' << yytname_[yytype] << " (";
     YYUSE (yytype);
@@ -390,9 +428,6 @@ namespace utils { namespace json {
   int
   Parser::parse ()
   {
-    /// Whether yyla contains a lookahead.
-    bool yyempty = true;
-
     // State.
     int yyn;
     /// Length of the RHS of the rule being reduced.
@@ -441,7 +476,7 @@ namespace utils { namespace json {
       goto yydefault;
 
     // Read a lookahead token.
-    if (yyempty)
+    if (yyla.empty ())
       {
         YYCDEBUG << "Reading a token: ";
         try
@@ -453,7 +488,6 @@ namespace utils { namespace json {
             error (yyexc);
             goto yyerrlab1;
           }
-        yyempty = false;
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
@@ -472,9 +506,6 @@ namespace utils { namespace json {
         yyn = -yyn;
         goto yyreduce;
       }
-
-    // Discard the token being shifted.
-    yyempty = true;
 
     // Count tokens shifted since error; after three, turn off error status.
     if (yyerrstatus_)
@@ -520,149 +551,149 @@ namespace utils { namespace json {
           switch (yyn)
             {
   case 2:
-#line 91 "Parser.yy" // lalr1.cc:847
+#line 91 "Parser.yy" // lalr1.cc:859
     {
      driver._value.reset((yystack_[0].value.v_value));
      }
-#line 528 "Parser.cpp" // lalr1.cc:847
+#line 559 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 3:
-#line 95 "Parser.yy" // lalr1.cc:847
+#line 95 "Parser.yy" // lalr1.cc:859
     {
       (yylhs.value.v_object)=(yystack_[1].value.v_object);
       (yystack_[1].value.v_object)=nullptr;
 }
-#line 537 "Parser.cpp" // lalr1.cc:847
+#line 568 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 4:
-#line 101 "Parser.yy" // lalr1.cc:847
+#line 101 "Parser.yy" // lalr1.cc:859
     {
       (yylhs.value.v_array)=(yystack_[1].value.v_array);
       (yystack_[1].value.v_array)=nullptr;
       }
-#line 546 "Parser.cpp" // lalr1.cc:847
+#line 577 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 5:
-#line 107 "Parser.yy" // lalr1.cc:847
+#line 107 "Parser.yy" // lalr1.cc:859
     {
     (yylhs.value.v_string)=new std::string((yystack_[0].value.v_string)->substr(1,(yystack_[0].value.v_string)->length()-2));
     DEL((yystack_[0].value.v_string));
     }
-#line 555 "Parser.cpp" // lalr1.cc:847
+#line 586 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 6:
-#line 113 "Parser.yy" // lalr1.cc:847
+#line 113 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_string));
         (yystack_[0].value.v_string)=nullptr;
       }
-#line 564 "Parser.cpp" // lalr1.cc:847
+#line 595 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 7:
-#line 117 "Parser.yy" // lalr1.cc:847
+#line 117 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_int));
       }
-#line 572 "Parser.cpp" // lalr1.cc:847
+#line 603 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 8:
-#line 120 "Parser.yy" // lalr1.cc:847
+#line 120 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_float));
       }
-#line 580 "Parser.cpp" // lalr1.cc:847
+#line 611 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 9:
-#line 123 "Parser.yy" // lalr1.cc:847
+#line 123 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_object));
         (yystack_[0].value.v_object)=nullptr;
       }
-#line 589 "Parser.cpp" // lalr1.cc:847
+#line 620 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 10:
-#line 127 "Parser.yy" // lalr1.cc:847
+#line 127 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_array));
         (yystack_[0].value.v_array)=nullptr;
       }
-#line 598 "Parser.cpp" // lalr1.cc:847
+#line 629 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 11:
-#line 131 "Parser.yy" // lalr1.cc:847
+#line 131 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_bool));
       }
-#line 606 "Parser.cpp" // lalr1.cc:847
+#line 637 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 12:
-#line 134 "Parser.yy" // lalr1.cc:847
+#line 134 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value();
       }
-#line 614 "Parser.cpp" // lalr1.cc:847
+#line 645 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 13:
-#line 139 "Parser.yy" // lalr1.cc:847
+#line 139 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_array)=new utils::json::Array();
      }
-#line 622 "Parser.cpp" // lalr1.cc:847
+#line 653 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 14:
-#line 142 "Parser.yy" // lalr1.cc:847
+#line 142 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_array)=new utils::json::Array();
         (yylhs.value.v_array)->_values.push_back(std::move(*(yystack_[0].value.v_value)));
         DEL((yystack_[0].value.v_value));
     }
-#line 632 "Parser.cpp" // lalr1.cc:847
+#line 663 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 15:
-#line 147 "Parser.yy" // lalr1.cc:847
+#line 147 "Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_array)=(yystack_[2].value.v_array);
         (yystack_[2].value.v_array)=nullptr;
         (yylhs.value.v_array)->_values.push_back(std::move(*(yystack_[0].value.v_value)));
         DEL((yystack_[0].value.v_value));
     }
-#line 643 "Parser.cpp" // lalr1.cc:847
+#line 674 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 16:
-#line 155 "Parser.yy" // lalr1.cc:847
+#line 155 "Parser.yy" // lalr1.cc:859
     {
                     (yylhs.value.v_object)=new utils::json::Object();
                 }
-#line 651 "Parser.cpp" // lalr1.cc:847
+#line 682 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 17:
-#line 158 "Parser.yy" // lalr1.cc:847
+#line 158 "Parser.yy" // lalr1.cc:859
     {
                     (yylhs.value.v_object)=new utils::json::Object();
                     (yylhs.value.v_object)->_values.emplace(std::move(*(yystack_[2].value.v_string)),std::move(*(yystack_[0].value.v_value)));
                     DEL((yystack_[2].value.v_string));
                     DEL((yystack_[0].value.v_value));
                 }
-#line 662 "Parser.cpp" // lalr1.cc:847
+#line 693 "Parser.cpp" // lalr1.cc:859
     break;
 
   case 18:
-#line 164 "Parser.yy" // lalr1.cc:847
+#line 164 "Parser.yy" // lalr1.cc:859
     {
                     (yylhs.value.v_object)=(yystack_[4].value.v_object);
                     (yystack_[4].value.v_object)=nullptr;
@@ -670,11 +701,11 @@ namespace utils { namespace json {
                     DEL((yystack_[2].value.v_string));
                     DEL((yystack_[0].value.v_value));
                }
-#line 674 "Parser.cpp" // lalr1.cc:847
+#line 705 "Parser.cpp" // lalr1.cc:859
     break;
 
 
-#line 678 "Parser.cpp" // lalr1.cc:847
+#line 709 "Parser.cpp" // lalr1.cc:859
             default:
               break;
             }
@@ -702,8 +733,7 @@ namespace utils { namespace json {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yysyntax_error_ (yystack_[0].state,
-                                           yyempty ? yyempty_ : yyla.type_get ()));
+        error (yysyntax_error_ (yystack_[0].state, yyla));
       }
 
 
@@ -715,10 +745,10 @@ namespace utils { namespace json {
         // Return failure if at end of input.
         if (yyla.type_get () == yyeof_)
           YYABORT;
-        else if (!yyempty)
+        else if (!yyla.empty ())
           {
             yy_destroy_ ("Error: discarding", yyla);
-            yyempty = true;
+            yyla.clear ();
           }
       }
 
@@ -790,7 +820,7 @@ namespace utils { namespace json {
     goto yyreturn;
 
   yyreturn:
-    if (!yyempty)
+    if (!yyla.empty ())
       yy_destroy_ ("Cleanup: discarding lookahead", yyla);
 
     /* Do not reclaim the symbols of the rule whose action triggered
@@ -810,7 +840,7 @@ namespace utils { namespace json {
                  << std::endl;
         // Do not try to display the values of the reclaimed symbols,
         // as their printer might throw an exception.
-        if (!yyempty)
+        if (!yyla.empty ())
           yy_destroy_ (YY_NULLPTR, yyla);
 
         while (1 < yystack_.size ())
@@ -830,7 +860,7 @@ namespace utils { namespace json {
 
   // Generate an error message.
   std::string
-  Parser::yysyntax_error_ (state_type, symbol_number_type) const
+  Parser::yysyntax_error_ (state_type, const symbol_type&) const
   {
     return YY_("syntax error");
   }
@@ -1006,10 +1036,10 @@ namespace utils { namespace json {
       return undef_token_;
   }
 
-#line 8 "Parser.yy" // lalr1.cc:1155
+#line 8 "Parser.yy" // lalr1.cc:1167
 } } // utils::json
-#line 1012 "Parser.cpp" // lalr1.cc:1155
-#line 173 "Parser.yy" // lalr1.cc:1156
+#line 1042 "Parser.cpp" // lalr1.cc:1167
+#line 173 "Parser.yy" // lalr1.cc:1168
 
 
 void utils::json::Parser::error(const std::string &message)
