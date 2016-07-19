@@ -2,23 +2,30 @@ set(INCROOT ${INCROOT}/json)
 set(SRCROOT ${SRCROOT}/json)
 
 
-SET(BisonOutputSrc ${SRCROOT}/Parser.cpp)
-set(BisonOutputInc ${SRCROOT}/Parser.hpp)
-set(BisonOutputExtra ${SRCROOT}/stack.hh)
-SET(FlexOutputSrc ${SRCROOT}/Lexer.cpp)
+set(BisonOutputSrc ${SRCROOT}/Parser.cpp)
+set(BisonOutputInc ${INCROOT}/Parser.hpp)
+set(BisonOutputExtra ${INCROOT}/stack.hh)
+set(FlexOutputSrc ${SRCROOT}/Lexer.cpp)
 
 if(UTILS_BUILD_PARSER)
     FIND_PACKAGE(BISON REQUIRED)
     IF(BISON_FOUND)
         ADD_CUSTOM_COMMAND(
             OUTPUT ${BisonOutputSrc} ${BisonOutputInc} ${BisonOutputExtra}
-          COMMAND ${BISON_EXECUTABLE}
-          --output=${BisonOutputSrc}
-          --defines=${BisonOutputInc}
-                  ${SRCROOT}/Parser.yy
-          COMMENT "Generating Parser.cpp"
+            COMMAND ${BISON_EXECUTABLE} --output=${BisonOutputSrc} --defines=${BisonOutputInc} ${SRCROOT}/Parser.yy
+            COMMAND sed -i "s/\"Parser.hpp\"/<utils\\/json\\/Parser.hpp>/g" ${BisonOutputSrc}
+            COMMAND mv ${SRCROOT}/stack.hh ${INCROOT}/stack.hh
+
+            COMMENT "Generating Parser file from with bison"
+            VERBATIM
         )
-        INSTALL( FILES ${BisonOutputExtra} ${BisonOutputInc} DESTINATION include/${PROJECT_NAME}/json )
+
+        ADD_CUSTOM_COMMAND(
+            OUTPUT ${INCROOT}/stack.hh
+            COMMENT "Move Generated files"
+       )
+        
+
     else()
         message( SEND_ERROR "Bison is required" )
     ENDIF()
@@ -27,14 +34,14 @@ if(UTILS_BUILD_PARSER)
     IF(FLEX_FOUND)
         ADD_CUSTOM_COMMAND(
             OUTPUT ${FlexOutputSrc}
-          COMMAND ${FLEX_EXECUTABLE}
-          --outfile=${FlexOutputSrc}
-                  ${SRCROOT}/Lexer.lex
-                  COMMENT "Generating Lexer.cpp"
+            COMMAND ${FLEX_EXECUTABLE} --outfile=${FlexOutputSrc} ${SRCROOT}/Lexer.lex
+            COMMENT "Generating lexer file with flex"
+            VERBATIM
         )
     else()
         message( SEND_ERROR "Flex is required" )
     ENDIF()
+
 endif()
 
 #ROOT files
@@ -54,8 +61,8 @@ set(ROOT_HEADER
     ${INCROOT}/Object.hpp
     ${INCROOT}/Scanner.hpp
     ${INCROOT}/Value.hpp
-    ${INCROOT}/Parser.hpp
-    ${INCROOT}/stack.hh
+    ${BisonOutputInc}
+    ${BisonOutputExtra}
 )
 set(ROOT_FILES
     ${ROOT_HEADER}

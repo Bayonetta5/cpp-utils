@@ -27,7 +27,12 @@ set_option(UTILS_BUILD_DOC TRUE BOOL "TRUE to generate the API documentation, FA
 # add an option for building the API documentation
 set_option(UTILS_BUILD_JSON TRUE BOOL "TRUE to generate json parser, FALSE to ignore it")
 
-set_option(UTILS_BUILD_PARSER FALSE BOOL "TRUE to use flex/bison to generate the parsers, FALSE to ignore it")
+set(UTILS_BUILD_PARSER_DEFAULT TRUE)
+if(WIN32)
+    set(UTILS_BUILD_PARSER_DEFAULT FALSE)
+endif()
+
+set_option(UTILS_BUILD_PARSER ${UTILS_BUILD_PARSER_DEFAULT} BOOL "TRUE to use flex/bison to generate the parsers, FALSE to ignore it (not supported on windows without sed and cp in path)")
 
 set(LIBS "")
 

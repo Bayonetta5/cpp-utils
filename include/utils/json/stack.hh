@@ -31,18 +31,18 @@
 // version 2.2 of Bison.
 
 /**
- ** \file stack.hh
+ ** \file /media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/stack.hh
  ** Define the utils::json::stack class.
  */
 
-#ifndef YY_YY_STACK_HH_INCLUDED
-# define YY_YY_STACK_HH_INCLUDED
+#ifndef YY_YY_MEDIA_HDD1_DEV_PROJET_C_CPP_GIT_CPP_UTILS_SRC_UTILS_JSON_STACK_HH_INCLUDED
+# define YY_YY_MEDIA_HDD1_DEV_PROJET_C_CPP_GIT_CPP_UTILS_SRC_UTILS_JSON_STACK_HH_INCLUDED
 
 # include <vector>
 
-#line 8 "Parser.yy" // stack.hh:132
+#line 8 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // stack.hh:132
 namespace utils { namespace json {
-#line 46 "stack.hh" // stack.hh:132
+#line 46 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/stack.hh" // stack.hh:132
   template <class T, class S = std::vector<T> >
   class stack
   {
@@ -150,8 +150,8 @@ namespace utils { namespace json {
     unsigned int range_;
   };
 
-#line 8 "Parser.yy" // stack.hh:132
+#line 8 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // stack.hh:132
 } } // utils::json
-#line 156 "stack.hh" // stack.hh:132
+#line 156 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/stack.hh" // stack.hh:132
 
-#endif // !YY_YY_STACK_HH_INCLUDED
+#endif // !YY_YY_MEDIA_HDD1_DEV_PROJET_C_CPP_GIT_CPP_UTILS_SRC_UTILS_JSON_STACK_HH_INCLUDED
