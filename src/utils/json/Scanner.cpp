@@ -1,4 +1,5 @@
 #include <utils/json/Scanner.hpp>
+#include <utils/log.hpp>
 
 namespace utils
 {
@@ -11,7 +12,11 @@ namespace utils
         int Scanner::yylex(utils::json::Parser::semantic_type *lval)
         {
             yylval = lval;
-            return this->yylex();
+            utils::log::error("scanner::yylex(yylval)");
+            int result = this->yylex2();
+            utils::log::error("end scanner::yylex(yylval)");
+            return result;
         }
+
     }
 }

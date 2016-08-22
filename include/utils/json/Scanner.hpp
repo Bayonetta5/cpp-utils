@@ -51,7 +51,7 @@ namespace utils
                  * \breif Scanning function created by Flex; make this private to force usage
                  * of the overloaded method so we can get a pointer to Bison's yylval
                  */
-                int yylex();
+                int yylex2();
                 /* yyval ptr */
                 utils::json::Parser::semantic_type *yylval; ///< For Lex/bison
         };

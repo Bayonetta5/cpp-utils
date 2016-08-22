@@ -1,10 +1,11 @@
  /* use newer C++ skeleton file */
 %skeleton "lalr1.cc"
 /* Require bison version or later */
-%require "3.0"
+%require "2.7"
 /* verbose error messages */
 /*%error-verbose*/
 /* namespace to enclose parser in */
+
 %define api.namespace {utils::json}
 /* set the parser's class identifier */
 %define parser_class_name {Parser}
@@ -36,6 +37,7 @@
 
 %code{
     #include <utils/json/Driver.hpp>
+    #include <utils/log.hpp>
     #include <string>
 	/*Prototype for the yylex function*/
 	static int yylex(utils::json::Parser::semantic_type* yylval, utils::json::Scanner& scanner);
@@ -174,7 +176,7 @@ assignment_list : /* empty */ {
 
 void utils::json::Parser::error(const std::string &message)
 {
-   std::cerr<<"Error line "<<json_line_no<<" : "<<message<<std::endl;; 
+    utils::log::error("Error line",json_line_no,":",message);
 }
  
 /*Now that we have the Parser declared, we can declare the Scanner and implement the yylex function*/
@@ -182,5 +184,6 @@ void utils::json::Parser::error(const std::string &message)
 #include <utils/json/Driver.hpp>
 static int yylex(utils::json::Parser::semantic_type *yylval,utils::json::Scanner& scanner)
 {
+    utils::log::info("yylex");
     return scanner.yylex(yylval);
 }

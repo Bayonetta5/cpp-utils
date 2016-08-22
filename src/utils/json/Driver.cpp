@@ -11,6 +11,8 @@ namespace utils
     {
         Driver::Driver(std::istream& in) : _scanner(in), _parser(_scanner,*this), _validity(true)
         {
+            _parser.set_debug_level(true);
+            _scanner.set_debug(true);
         }
 
         
@@ -35,8 +37,7 @@ namespace utils
         std::shared_ptr<Value> Driver::parse(const std::string& in)
         {
             std::istringstream ss(in);
-            Driver driver(ss);
-            return driver.parse();
+            return parse(ss);
         }
 
         std::shared_ptr<Value> Driver::parse_file(const std::string& filename)
@@ -45,8 +46,7 @@ namespace utils
             std::shared_ptr<Value> res;
             if (file.good())
             {
-                Driver driver(file);
-                res= driver.parse();
+                res = parse(file);
                 file.close();
             }
             return res;

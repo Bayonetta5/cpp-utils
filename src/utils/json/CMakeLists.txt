@@ -45,7 +45,7 @@ if(UTILS_BUILD_PARSER)
 endif()
 
 #ROOT files
-set(ROOT_SRC
+set(FILES_SRC
     ${SRCROOT}/Array.cpp
     ${SRCROOT}/Driver.cpp
     ${SRCROOT}/Object.cpp
@@ -54,7 +54,7 @@ set(ROOT_SRC
     ${BisonOutputSrc}
     ${FlexOutputSrc}
 )
-set(ROOT_HEADER
+set(FILES_HEADER
     ${INCROOT}/Array.hpp
     ${INCROOT}/Driver.hpp
     ${INCROOT}/FlexLexer.hpp
@@ -63,18 +63,6 @@ set(ROOT_HEADER
     ${INCROOT}/Value.hpp
     ${BisonOutputInc}
     ${BisonOutputExtra}
-)
-set(ROOT_FILES
-    ${ROOT_HEADER}
-    ${ROOT_SRC}
-)
-
-#FILES
-set(FILES_HEADER
-    ${ROOT_HEADER}
-)
-set(FILES_SRC
-    ${ROOT_SRC}
 )
 
 build_library("${PROJECT_NAME}-json"

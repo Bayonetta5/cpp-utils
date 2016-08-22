@@ -49,16 +49,17 @@
 
 #line 51 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:412
 // Unqualified %code blocks.
-#line 37 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:413
+#line 38 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:413
 
     #include <utils/json/Driver.hpp>
+    #include <utils/log.hpp>
     #include <string>
 	/*Prototype for the yylex function*/
 	static int yylex(utils::json::Parser::semantic_type* yylval, utils::json::Scanner& scanner);
 
     #define DEL(x) delete x; x=nullptr;
 
-#line 62 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:413
+#line 63 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:413
 
 
 #ifndef YY_
@@ -123,9 +124,9 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-#line 8 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:479
+#line 9 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:479
 namespace utils { namespace json {
-#line 129 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:479
+#line 130 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:479
 
   /// Build a parser object.
   Parser::Parser (utils::json::Scanner& scanner_yyarg, utils::json::Driver& driver_yyarg)
@@ -551,149 +552,149 @@ namespace utils { namespace json {
           switch (yyn)
             {
   case 2:
-#line 91 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 93 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
      driver._value.reset((yystack_[0].value.v_value));
      }
-#line 559 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 560 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 3:
-#line 95 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 97 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
       (yylhs.value.v_object)=(yystack_[1].value.v_object);
       (yystack_[1].value.v_object)=nullptr;
 }
-#line 568 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 569 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 4:
-#line 101 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 103 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
       (yylhs.value.v_array)=(yystack_[1].value.v_array);
       (yystack_[1].value.v_array)=nullptr;
       }
-#line 577 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 578 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 5:
-#line 107 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 109 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
     (yylhs.value.v_string)=new std::string((yystack_[0].value.v_string)->substr(1,(yystack_[0].value.v_string)->length()-2));
     DEL((yystack_[0].value.v_string));
     }
-#line 586 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 587 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 6:
-#line 113 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 115 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_string));
         (yystack_[0].value.v_string)=nullptr;
       }
-#line 595 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 596 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 7:
-#line 117 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 119 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_int));
       }
-#line 603 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 604 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 8:
-#line 120 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 122 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_float));
       }
-#line 611 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 612 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 9:
-#line 123 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 125 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_object));
         (yystack_[0].value.v_object)=nullptr;
       }
-#line 620 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 621 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 10:
-#line 127 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 129 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_array));
         (yystack_[0].value.v_array)=nullptr;
       }
-#line 629 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 630 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 11:
-#line 131 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 133 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value((yystack_[0].value.v_bool));
       }
-#line 637 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 638 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 12:
-#line 134 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 136 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_value)=new utils::json::Value();
       }
-#line 645 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 646 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 13:
-#line 139 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 141 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_array)=new utils::json::Array();
      }
-#line 653 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 654 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 14:
-#line 142 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 144 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_array)=new utils::json::Array();
         (yylhs.value.v_array)->_values.push_back(std::move(*(yystack_[0].value.v_value)));
         DEL((yystack_[0].value.v_value));
     }
-#line 663 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 664 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 15:
-#line 147 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 149 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
         (yylhs.value.v_array)=(yystack_[2].value.v_array);
         (yystack_[2].value.v_array)=nullptr;
         (yylhs.value.v_array)->_values.push_back(std::move(*(yystack_[0].value.v_value)));
         DEL((yystack_[0].value.v_value));
     }
-#line 674 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 675 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 16:
-#line 155 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 157 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
                     (yylhs.value.v_object)=new utils::json::Object();
                 }
-#line 682 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 683 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 17:
-#line 158 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 160 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
                     (yylhs.value.v_object)=new utils::json::Object();
                     (yylhs.value.v_object)->_values.emplace(std::move(*(yystack_[2].value.v_string)),std::move(*(yystack_[0].value.v_value)));
                     DEL((yystack_[2].value.v_string));
                     DEL((yystack_[0].value.v_value));
                 }
-#line 693 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 694 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
   case 18:
-#line 164 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
+#line 166 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
                     (yylhs.value.v_object)=(yystack_[4].value.v_object);
                     (yystack_[4].value.v_object)=nullptr;
@@ -701,11 +702,11 @@ namespace utils { namespace json {
                     DEL((yystack_[2].value.v_string));
                     DEL((yystack_[0].value.v_value));
                }
-#line 705 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 706 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
 
 
-#line 709 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
+#line 710 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
             default:
               break;
             }
@@ -955,8 +956,8 @@ namespace utils { namespace json {
   const unsigned char
   Parser::yyrline_[] =
   {
-       0,    91,    91,    95,   101,   107,   113,   117,   120,   123,
-     127,   131,   134,   139,   142,   147,   155,   158,   164
+       0,    93,    93,    97,   103,   109,   115,   119,   122,   125,
+     129,   133,   136,   141,   144,   149,   157,   160,   166
   };
 
   // Print the state stack on the debug stream.
@@ -1036,15 +1037,15 @@ namespace utils { namespace json {
       return undef_token_;
   }
 
-#line 8 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:1167
+#line 9 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:1167
 } } // utils::json
-#line 1042 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:1167
-#line 173 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:1168
+#line 1043 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:1167
+#line 175 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:1168
 
 
 void utils::json::Parser::error(const std::string &message)
 {
-   std::cerr<<"Error line "<<json_line_no<<" : "<<message<<std::endl;; 
+    utils::log::error("Error line",json_line_no,":",message);
 }
  
 /*Now that we have the Parser declared, we can declare the Scanner and implement the yylex function*/
@@ -1052,5 +1053,6 @@ void utils::json::Parser::error(const std::string &message)
 #include <utils/json/Driver.hpp>
 static int yylex(utils::json::Parser::semantic_type *yylval,utils::json::Scanner& scanner)
 {
+    utils::log::info("yylex");
     return scanner.yylex(yylval);
 }
