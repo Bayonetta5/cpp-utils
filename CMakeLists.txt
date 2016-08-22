@@ -47,9 +47,9 @@ else()
 endif()
 
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
-set(DEFINES "-g -DYYDEBUG")
+set(DEFINES "")
 set(WARNING "-Wall")
-set(FLAGS "-std=c++0x")
+set(FLAGS "-g -std=c++0x")
 set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)

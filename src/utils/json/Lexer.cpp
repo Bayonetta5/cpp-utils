@@ -533,9 +533,9 @@ static yyconst flex_int16_t yy_chk[113] =
 
 static yyconst flex_int16_t yy_rule_linenum[27] =
     {   0,
-       30,   36,   41,   46,   51,   56,   61,   66,   70,   76,
-       82,   87,   93,   98,  104,  111,  116,  121,  126,  131,
-      136,  141,  146,  151,  156,  161
+       28,   33,   37,   41,   45,   49,   53,   57,   60,   65,
+       70,   74,   79,   83,   88,   94,   98,  102,  106,  110,
+      114,  118,  122,  126,  130,  134
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -550,8 +550,6 @@ static yyconst flex_int16_t yy_rule_linenum[27] =
     /* Implementation of yyFlexScanner */
     #include <utils/json/Scanner.hpp>
     #include <utils/log.hpp>
-    #undef YY_DECL
-    #define YY_DECL int utils::json::Scanner::yylex2()
 
     /* typedef to make the returns for the tokens shorter */
     typedef utils::json::Parser::token token;
@@ -564,7 +562,7 @@ static yyconst flex_int16_t yy_rule_linenum[27] =
     /* msvc2010 requires that we exclude this header file. */
     #define YY_NO_UNISTD_H
 
-#line 568 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.cpp"
+#line 566 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.cpp"
 
 #define INITIAL 0
 #define STRING_BEGIN 1
@@ -762,10 +760,10 @@ YY_DECL
 
 	{
 /* %% [7.0] user's declarations go here */
-#line 28 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 26 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 
 
-#line 769 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.cpp"
+#line 767 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -847,126 +845,111 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 30 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 28 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("\\n");
     ++json_line_no;
     //return token::T_EOL;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 36 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 33 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("[");
     return token::T_SQUARE_BRACKET_L;
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 41 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 37 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("]");
     return token::T_SQUARE_BRACKET_R;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 46 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 41 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("{");
     return token::T_CURLY_BRACKET_L;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 51 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 45 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("}");
     return token::T_CURLY_BRACKET_R;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 56 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 49 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info(",");
     return token::T_COMMA;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 61 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 53 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info(":");
     return token::T_COLON;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 66 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 57 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("\\t");
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 70 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 60 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("number");
     yylval->v_int = ::atoi(yytext);
     return token::T_NUMBER_I;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 76 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 65 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("float");
     yylval->v_float = atof(yytext);
     return token::T_NUMBER_F;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 82 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 70 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("true");
     yylval->v_bool = true;
     return token::T_BOOLEAN;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 87 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 74 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("false");
     yylval->v_bool = false;
     return token::T_BOOLEAN;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 93 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 79 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("null");
     return token::T_NULL;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 98 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 83 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("\\");
 	json_buffer.clear();
 	BEGIN STRING_BEGIN;
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 104 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 88 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string begin");
 	yylval->v_string = new std::string(json_buffer);
 	BEGIN 0;
 	return token::T_DOUBLE_QUOTED_STRING;
@@ -974,98 +957,88 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 111 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 94 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string \"");
 	json_buffer.push_back('"');
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 116 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 98 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string \\");
 	json_buffer.push_back('\\');
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 121 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 102 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string /");
 	json_buffer.push_back('/');
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 126 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 106 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("\\b");
 	json_buffer.push_back('\b');
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 131 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 110 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string \\f");
 	json_buffer.push_back('\f');
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 136 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 114 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string \\n");
 	json_buffer.push_back('\n');
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 141 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 118 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string \\r");
 	json_buffer.push_back('\r');
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 146 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 122 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string \\t");
 	json_buffer.push_back('\t');
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 151 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 126 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
-    utils::log::info("string utf8");
 	//TODO NOT SUPPORTED
 }
 	YY_BREAK
 case 25:
 /* rule 25 can match eol */
 YY_RULE_SETUP
-#line 156 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 130 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 { 
-    utils::log::info("string text");
 	json_buffer.push_back(yytext[0]);
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 161 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 134 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 {
     utils::log::error("JSON Parser","line",json_line_no,": what is that <",yytext,"> ?");
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 165 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 138 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 1069 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.cpp"
+#line 1042 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(STRING_BEGIN):
 	yyterminate();
@@ -2178,4 +2151,4 @@ void UtilsJsonfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 165 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"
+#line 138 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Lexer.lex"

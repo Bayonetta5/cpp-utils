@@ -107,8 +107,8 @@ array : T_SQUARE_BRACKET_L list T_SQUARE_BRACKET_R {
       ;
 
 str : T_DOUBLE_QUOTED_STRING {
-    $$=new std::string($1->substr(1,$1->length()-2));
-    DEL($1);
+    $$=$1;
+    $1=nullptr;
     }
     ;
 
@@ -184,6 +184,5 @@ void utils::json::Parser::error(const std::string &message)
 #include <utils/json/Driver.hpp>
 static int yylex(utils::json::Parser::semantic_type *yylval,utils::json::Scanner& scanner)
 {
-    utils::log::info("yylex");
     return scanner.yylex(yylval);
 }

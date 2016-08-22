@@ -12,9 +12,7 @@ namespace utils
         int Scanner::yylex(utils::json::Parser::semantic_type *lval)
         {
             yylval = lval;
-            utils::log::error("scanner::yylex(yylval)");
-            int result = this->yylex2();
-            utils::log::error("end scanner::yylex(yylval)");
+            int result = this->yylex();
             return result;
         }
 

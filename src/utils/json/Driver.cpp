@@ -11,8 +11,8 @@ namespace utils
     {
         Driver::Driver(std::istream& in) : _scanner(in), _parser(_scanner,*this), _validity(true)
         {
-            _parser.set_debug_level(true);
-            _scanner.set_debug(true);
+            //_parser.set_debug_level(true);
+            //_scanner.set_debug(true);
         }
 
         

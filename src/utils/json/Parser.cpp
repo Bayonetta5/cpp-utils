@@ -580,8 +580,8 @@ namespace utils { namespace json {
   case 5:
 #line 109 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.yy" // lalr1.cc:859
     {
-    (yylhs.value.v_string)=new std::string((yystack_[0].value.v_string)->substr(1,(yystack_[0].value.v_string)->length()-2));
-    DEL((yystack_[0].value.v_string));
+    (yylhs.value.v_string)=(yystack_[0].value.v_string);
+    (yystack_[0].value.v_string)=nullptr;
     }
 #line 587 "/media/HDD1/DEV/Projet/C-cpp/git/cpp-utils/src/utils/json/Parser.cpp" // lalr1.cc:859
     break;
@@ -1053,6 +1053,5 @@ void utils::json::Parser::error(const std::string &message)
 #include <utils/json/Driver.hpp>
 static int yylex(utils::json::Parser::semantic_type *yylval,utils::json::Scanner& scanner)
 {
-    utils::log::info("yylex");
     return scanner.yylex(yylval);
 }
